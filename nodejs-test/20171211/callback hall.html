@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>promise animation</title>
+  <style rel='stylesheet'>
+    .ball {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      /*margin-left: 0;*/
+    }
+    
+    .ball1 {
+      background-color: tomato;
+    }
+    
+    .ball2 {
+      background-color: yellowgreen;
+    }
+    
+    .ball3 {
+      background-color: violet;
+    }
+  </style>
+</head>
+<body>
+  <div class='ball ball1' style='margin-left: 0'></div>
+  <div class='ball ball2' style='margin-left: 0'></div>
+  <div class='ball ball3' style='margin-left: 0'></div>
+  
+  <script type='text/javascript'>
+    const ball1 = document.querySelector('.ball1')
+    const ball2 = document.querySelector('.ball2')
+    const ball3 = document.querySelector('.ball3')
+    
+    function animate(ball, distance, cb) {
+      setTimeout(function() {
+        let marginLeft = parseInt(ball.style.marginLeft, 10)
+        if (marginLeft === distance) {
+          cb && cb()
+          return     // 加上就一样了，不清setTimeout球球神经错乱
+        } else {
+          if (marginLeft < distance) {
+            marginLeft++
+          } else marginLeft--
+        }
+        
+        ball.style.marginLeft = marginLeft + 'px'
+        animate(ball, distance, cb)
+      }, 3)
+    }
+    
+    
+    animate(ball1, 100, function() {
+      animate(ball2, 200, function() {
+        animate(ball3, 300, function() {
+          animate(ball3, 150, function() {
+            animate(ball2, 150, function() {
+              animate(ball1, 150, function() {
+                //
+              })
+            })
+          })
+        })
+      })
+    })
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

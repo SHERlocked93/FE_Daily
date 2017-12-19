@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>promise animation</title>
+  <style rel='stylesheet'>
+    .ball {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      /*margin-left: 0;*/
+    }
+    
+    .ball1 {
+      background-color: tomato;
+    }
+    
+    .ball2 {
+      background-color: yellowgreen;
+    }
+    
+    .ball3 {
+      background-color: violet;
+    }
+  </style>
+</head>
+<body>
+  <div class='ball ball1' style='margin-left: 0'></div>
+  <div class='ball ball2' style='margin-left: 0'></div>
+  <div class='ball ball3' style='margin-left: 0'></div>
+  
+  <script type='text/javascript'>
+    const ball1 = document.querySelector('.ball1')
+    const ball2 = document.querySelector('.ball2')
+    const ball3 = document.querySelector('.ball3')
+    
+    
+    function promiseAnimate(ball, distance) {
+      return new Promise((resolve, reject) => {
+        function _animate() {
+          setTimeout(function() {
+            let marginLeft = parseInt(ball.style.marginLeft, 10)
+            if (marginLeft === distance) {
+              resolve()
+              return    // 同理，也需要加return，否则setTimeout没清空
+            } else {
+              if (marginLeft < distance) {
+                marginLeft++
+              } else marginLeft--
+            }
+            
+            ball.style.marginLeft = marginLeft + 'px'
+            _animate()
+          }, 3)
+        }
+        
+        _animate()
+      })
+    }
+    
+    promiseAnimate(ball1, 100)
+        .then(() => promiseAnimate(ball2, 200))
+        .then(() => promiseAnimate(ball3, 300))
+        .then(() => promiseAnimate(ball3, 150))
+        .then(() => promiseAnimate(ball2, 150))
+        .then(() => promiseAnimate(ball1, 150))
+  
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
