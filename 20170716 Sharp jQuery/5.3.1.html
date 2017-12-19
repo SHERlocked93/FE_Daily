@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5.3.1</title>
+	
+</head>
+<body>
+	<div class="msg">
+		<div class="mgsCaption">
+			<button type="button" class="bigger">bigger</button>
+			<button type="button" class="smaller">smaller</button>
+		</div>
+		<div>
+			<p id="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores eum explicabo iusto, nemo nisi qui ratione veniam? Consequuntur cum dignissimos esse illo ipsam
+			             itaque maxime numquam placeat repellendus voluptatem, voluptates!</p>
+		</div>
+	</div>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(function () {
+			$("button").click(function () {
+				var $para        = $("#" + "para");
+				var thisEle      = $para.css("fontSize");
+				var textFontSize = parseInt(thisEle, 10);
+				var unit         = thisEle.slice(-2);
+				var cName        = $(this).attr("class");
+				
+				textFontSize += cName === "bigger" ? 2 : -2;
+				$para.css("fontSize", textFontSize + unit);
+			});
+		});
+	</script>
+</body>
+</html>

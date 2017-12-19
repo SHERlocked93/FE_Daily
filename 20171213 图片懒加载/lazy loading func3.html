@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lazyload 1</title>
+  <style>
+    img {
+      display: block;
+      margin-bottom: 80px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <img src="../imgs/hello.png" data-src="../imgs/1.png">
+  <img src="../imgs/hello.png" data-src="../imgs/2.png">
+  <img src="../imgs/hello.png" data-src="../imgs/3.png">
+  <img src="../imgs/hello.png" data-src="../imgs/4.png">
+  <img src="../imgs/hello.png" data-src="../imgs/5.png">
+  <img src="../imgs/hello.png" data-src="../imgs/6.png">
+  <img src="../imgs/hello.png" data-src="../imgs/7.png">
+  <img src="../imgs/hello.png" data-src="../imgs/8.png">
+  <img src="../imgs/hello.png" data-src="../imgs/9.png">
+  <img src="../imgs/hello.png" data-src="../imgs/10.png">
+  <img src="../imgs/hello.png" data-src="../imgs/11.png">
+  <img src="../imgs/hello.png" data-src="../imgs/12.png">
+  <script>
+    let n = 0
+    
+    function query(selector) {
+      return Array.from(document.querySelectorAll(selector))
+    }
+    
+    const io = new IntersectionObserver(function(items) {
+      items.forEach(function(item) {
+        const target = item.target
+        if (target.getAttribute('src') === 'hello.png') {
+          target.src = target.getAttribute('data-src')
+          console.log(++n)
+        }
+      })
+    })
+    
+    
+    query('img').forEach(function(item) {
+      io.observe(item)
+    })
+  </script>
+</body>
+</html>

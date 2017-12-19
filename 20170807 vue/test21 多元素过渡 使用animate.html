@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test22 多元素过渡</title>
+	<link href="../res/animate.css" rel="stylesheet"/>
+	
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+	<style>
+		p {
+			width            : 100px;
+			height           : 100px;
+			background-color : #ff558a;
+			opacity          : 0.5;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<input type="text" placeholder="enter" v-model="ser"/>
+		<transition-group enter-active-class="animated tada"
+		                  leave-active-class="animated bounceOutRight">
+			<p v-for="(val,idx) in clist" :key="idx">{{val}}</p>
+		</transition-group>
+	</div>
+	
+	
+	<script>
+		new Vue({
+			el      : '#box',
+			data    : {
+				ser : '',
+				list: ['apple', 'banana', 'pear', 'bear']
+			},
+			computed: {
+				clist() {
+					let arr = [];
+					this.list.forEach(function (value, index, array) {
+						if (value.indexOf(this.ser) !== -1) {
+							arr.push(value);
+						}
+					}.bind(this));
+					return arr
+				}
+			}
+		});
+	</script>
+</body>
+</html>

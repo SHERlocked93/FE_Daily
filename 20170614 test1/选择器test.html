@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选择器</title>
+	<style>
+		body {
+			/*background-image: url("imgs/aaa.jpeg");*/
+			/*background-repeat: no-repeat;*/
+			/*background-size: 700px 100px;*/
+			/*background-attachment: scroll;*/
+
+			background-color : rgb(0, 0, 0);
+			font-style       : normal;
+			color            : white;
+		}
+
+		/*ul:first-child{*/
+		/*color : blue;*/
+		/*}*/
+
+		ul:first-child {
+			color : orange;
+		}
+
+		p {
+			text-align : left;
+		}
+
+		p[class~="JD"] {
+			color : green;
+		}
+
+		a:link {
+			color : red;
+		}
+
+		p:hover {
+			color            : green;
+			background-color : gray;
+		}
+
+		p:active {
+			color : orange;
+		}
+
+		a:visited {
+			color : purple;
+		}
+
+		p::before {
+			content       : "我";
+			float         : left;
+			font-size     : 2em;
+			font-weight   : bold;
+			font-family   : cursive;
+			padding-right : 2px;
+		}
+
+		input:checked + span {
+			color : red;
+		}
+
+		input:checked + span::after {
+			content : 'xx';
+			color   : green;
+		}
+
+		li:nth-child(2) {
+			color : gold;
+		}
+
+		ul {
+			width        : 200px;
+			background   : #292929;
+			color        : white;
+			list-style   : none;
+			padding-left : 0;
+		}
+
+		li {
+			padding       : 10px;
+			border-bottom : 1px solid black;
+			border-top    : 1px solid #3c3c3c;
+		}
+
+		ul > li:only-of-type {
+			font-weight : bold;
+		}
+
+		/*获取只有一个子标签li的ul*/
+
+		ul:first-of-type > li:first-of-type {
+			font-weight : bold;
+			color       : #ff558a;
+		}
+
+		p + ul > li:last-child {
+			color       : cornflowerblue;
+			font-weight : bold;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Hello World!</h1>
+	</header>
+
+
+	<p>My Dog</p>
+	<p class="val myclass"> First P </p>
+	<p class="myJDclass"> Second P </p>
+	<p class="JD"> Third P </p>
+	<a href="https://www.baidu.com/">baidudadada</a>
+
+	<p></p>
+	<ul>
+		<li>SHATA1</li>
+		<li>SHATA2</li>
+		<li>SHATA3</li>
+		<li>SHATA4</li>
+	</ul>
+
+	<ul>
+		<li>SHATA7</li>
+		<li>SHATA8</li>
+		<li>SHATA9</li>
+		<li>SHATA10</li>
+	</ul>
+
+
+
+
+	<input type="text" list="carList" placeholder="CARS">
+
+	<datalist id="carList">
+		<option value="BMW">bmw</option>
+		<option value="VOLVO">volvo</option>
+		<option value="DAZONG">dazong</option>
+	</datalist>
+
+	<ul>
+		<li>Data1</li>
+		<li>Data2</li>
+		<li>Data3</li>
+		<li>Data4</li>
+	</ul>
+
+	<ul>
+		<li>suaige</li>
+	</ul>
+
+	<ol>
+		<li>data1</li>
+		<li>data2</li>
+		<li>data3</li>
+		<li>data4</li>
+	</ol>
+
+
+	<ul>
+		<li><label><input type="radio" name="car"><span>data1</span></label></li>
+		<li><label><input type="radio" name="car"><span>data2</span></label></li>
+		<li><label><input type="radio" name="car"><span>data3</span></label></li>
+		<li><label><input type="radio" name="car"><span>data4</span></label></li>
+	</ul>
+
+</body>
+</html>

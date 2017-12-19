@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5.2.2</title>
+	<style>
+		.parent {
+			background-color : grey;
+		}
+		
+		.selected {
+			background-color : #1b6d85;
+		}
+	</style>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>name</th>
+				<th>gender</th>
+				<th>place</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr class="parent" id="row01">
+				<td colspan="3">设计组1</td>
+			</tr>
+			<tr class="childrow01">
+				<td>name1</td>
+				<td>Male</td>
+				<td>jiangsu</td>
+			</tr>
+			<tr class="childrow01">
+				<td>name2</td>
+				<td>Male</td>
+				<td>jiangsu</td>
+			</tr>
+			
+			<tr class="parent" id="row02">
+				<td colspan="3">设计组2</td>
+			</tr>
+			<tr class="childrow02">
+				<td>name1</td>
+				<td>Male</td>
+				<td>jiangsu</td>
+			</tr>
+			<tr class="childrow02">
+				<td>name2</td>
+				<td>Male</td>
+				<td>jiangsu</td>
+			</tr>
+			
+			<tr class="parent" id="row03">
+				<td colspan="3">设计组3</td>
+			</tr>
+			<tr class="childrow03">
+				<td>name1</td>
+				<td>Male</td>
+				<td>jiangsu</td>
+			</tr>
+			<tr class="childrow03">
+				<td>name2</td>
+				<td>Male</td>
+				<td>jiangsu</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(function () {
+			$("tr.parent").click(function () {
+				$(this)
+					.toggleClass("selected")
+					.siblings(".child" + this.id).toggle();
+				
+			}).click();
+		});
+	</script>
+</body>
+</html>

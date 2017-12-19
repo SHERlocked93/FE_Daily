@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>childNodes</title>
+</head>
+<body>
+	<h1 title="444" class="nd">hello world!</h1>
+	<ul>
+		<li><a href="#" onclick="showa(this);return false;">xixi1</a></li>
+		<li><a href="#" onclick="showa(this);return false;">xixi2</a></li>
+		<li><a href="#" onclick="showa(this);return false;">xixi3</a></li>
+	</ul>
+
+	<p id="description">Hello</p>
+
+	<script>
+		//		function countBodyChildren() {
+		//			var a = document.getElementsByTagName("body")[0].childNodes;
+		//			for (var i = 0; i < a.length; i++) {
+		//				alert(a[i].nodeType);
+		//			}
+		//		}
+		//
+		//		window.onload = countBodyChildren();
+
+		function showa(whicha) {
+			document.getElementById("description").firstChild.nodeValue = whicha.firstChild.nodeValue;
+		}
+
+		//		alert(document.getElementById("description").firstChild.nodeValue);
+	</script>
+</body>
+</html>

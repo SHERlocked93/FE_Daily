@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>todolist</title>
+	<script src="../res/vue2.4.0/vue.js"></script>
+</head>
+<body>
+	<div id="example">
+		<input type="text" v-model="newText" placeholder="Please enter todo" v-on:keyup.enter="clickEnter">
+		<ul>
+			<li
+					is="child"
+					v-for="(todo,index) in todos"
+					v-bind:t-msg="todo.text"
+					v-on:remove="todos.splice(index,1)"
+			></li>
+		</ul>
+	</div>
+	
+	<script>
+		Vue.component("child", {
+			props   : ["tMsg"],
+			template: "<li>{{ tMsg }} <button v-on:click='$emit(\"remove\")'>X</button></li>"
+		});
+		new Vue({
+			el     : "#example",
+			data   : {
+				newText: "",
+				todos  : [
+					{id: 1, text: "alala"},
+					{id: 2, text: "heheh"},
+					{id: 3, text: "hahah"}],
+				nextId : 4
+			},
+			methods: {
+				clickEnter: function () {
+					this.todos.push({id: this.nextId++, text: this.newText});
+					this.newText = "";
+				}
+			}
+		});
+	</script>
+</body>
+</html>

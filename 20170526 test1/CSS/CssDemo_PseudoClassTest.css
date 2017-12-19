@@ -1,0 +1,24 @@
+/* 伪类，指向标签某个状态*/
+/* 顺序要满足 LoVeHAte 原则 */
+
+a:link { color:blue; }
+
+a:visited { color:purple; }
+
+a:hover { 
+	color:red; 
+	background-color: silver;
+}
+
+a:active {
+	color: yellow;
+	background-color: black;
+}
+
+a:focus {
+	font-size: 28px;
+}
+
+.txtName:focus {
+	background-color: green;
+}

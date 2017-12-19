@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test2</title>
+  <script src="../res/vue2.4.0/vue.js"></script>
+
+</head>
+<body>
+  <div id="box">
+    <div v-drag="memeda" :style="{width:'100px', height:'100px', background:'blue', position:'absolute', right:0, top:0}"></div>
+    <div v-drag :style="{width:'100px', height:'100px', background:'red', position:'absolute', left:0, top:0}"></div>
+  </div>
+  
+  
+  <script>
+    Vue.directive('drag', function(tar, v1, v2, v3, v4) {
+      console.log(tar)       // DOM元素
+      console.log(v1)        // Object
+      console.log(v2)        // VNode
+      console.log(v3)        // VNode
+      console.log(v4)        // undefined
+      
+      tar.onmousedown = function(ev) {
+        const disX = ev.clientX - tar.offsetLeft
+        const disY = ev.clientY - tar.offsetTop
+  
+        document.onmousemove = function(ev) {
+          const l = ev.clientX - disX
+          const t = ev.clientY - disY
+          tar.style.left = l + 'px'
+          tar.style.top = t + 'px'
+        }
+        document.onmouseup = function() {
+          document.onmousemove = null
+          document.onmouseup = null
+        }
+      }
+    })
+
+
+    const vm = new Vue({
+      el: '#box',
+      data: {
+        msg: 'welcome'
+      }
+    })
+
+
+  </script>
+</body>
+</html>

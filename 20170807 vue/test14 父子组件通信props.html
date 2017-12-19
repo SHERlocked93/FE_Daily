@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test14 动态组件 父子组件通信</title>
+  <script src="vue.js"></script>
+  <script src="vue-resource.js"></script>
+
+</head>
+<body>
+  <div id="box">
+    <aaa></aaa>
+  </div>
+  
+  
+  <script>
+    const vm = new Vue({
+      el: "#box",
+      data: {},
+      components: {
+        'aaa': {
+          data() { return { msg: "a-msg" } },
+          template: "<strong>I am father !{{msg}} <bbb :cmsg.sync='msg'></bbb></strong>",
+          components: {
+            'bbb': {
+              props: ["cmsg"],
+              template: "<p @click='change'> <button>Gai</button>I am child! -> {{cmsg}}</p>",
+              methods: {
+                change() {
+                  this.$emit('update:cmsg', "CHanged!")          // 可以使用.sync语法糖来进行父子组件数据同步
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

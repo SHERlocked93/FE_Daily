@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test10 watch 深度监视</title>
+	
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+</head>
+<body>
+	<div id="box">
+		{{a.st}}/{{a.age}}
+		<br>
+		{{b}}
+	</div>
+	
+	<script>
+		const vm = new Vue({
+			el  : "#box",
+			data: {
+				a: {st: "aa", age: 12},
+				b: 2
+			}
+		});
+		
+		vm.$watch("a", function () {
+			alert("this change !");
+		}, {deep: true});
+		
+		document.onclick = function () {
+			vm.a.st = "bb";
+		};
+	</script>
+</body>
+</html>

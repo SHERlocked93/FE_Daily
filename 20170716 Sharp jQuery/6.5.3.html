@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.5.3</title>
+</head>
+<body>
+	<button>hello</button>
+	<div class="content">12</div>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(function () {
+			$("button").click(function () {
+				$.getJSON("config.json", function (data) {
+					console.log(typeof data);
+					console.log(data.id);
+					var html = "";
+					
+					$.each(data, function (commentIndex, comment) {
+						html += "<div class='comment'><h6>"
+							+ commentIndex + ":</h6><p class='para'>"
+							+ comment + "</p></div>";
+					});
+					$(".content").html(html);
+				});
+			});
+		});
+	</script>
+</body>
+</html>

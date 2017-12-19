@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>animation</title>
+
+	<style>
+		div {
+			width           : 100px;
+			height          : 100px;
+			overflow        : hidden;
+			background      : url("../imgs/CD.jpg");
+			background-size : 100px;
+			border-radius   : 50%;
+		}
+
+		div:hover {
+			animation : myAni linear infinite 2s;
+		}
+
+		@keyframes myAni {
+			/*0% { width : 200px; }*/
+			/*25% { width : 300px; }*/
+			/*50% { width : 400px; }*/
+			/*100% { width : 500px; }*/
+
+			from { background-color : #ffa500;
+				transform           : rotate(0deg); }
+			to { background-color : #3c3c3c;
+				transform         : rotate(360deg); }
+		}
+
+	</style>
+</head>
+<body>
+	<div></div>
+</body>
+</html>

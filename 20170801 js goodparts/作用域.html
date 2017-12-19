@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作用域</title>
+</head>
+<body>
+	<script>
+		var foo = function () {
+			var a = 3, b = 5;
+			console.log(this);
+			var bar = function () {
+				var b = 7, c = 11;
+				a += b + c;
+				console.log(this);
+				console.log(this.a);
+			};
+			bar();
+		};
+		foo();
+	</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>vuex</title>
+  
+  <script src='../res/vue.js'></script>
+  <script src='../res/vuex.js'></script>
+</head>
+
+<body>
+  <div id='todo'>
+    <input type='text' title='todoinput' v-model="todoInput" @keyup.enter='todoEnter'>
+    <ul>
+      <li v-for='todo in todos'>
+        {{todo.name}}-{{todo.index}}
+        <button @click='todoDelete(todo.index)'>
+          X
+        </button>
+      </li>
+    </ul>
+  </div>
+  
+  <script type='text/javascript'>
+    new Vue({
+      el: '#todo',
+      data() {
+        return {
+          todos: [{ name: '呵呵呵', index: 1 }],
+          todoInput: ''
+        }
+      },
+      methods: {
+        todoEnter() {
+          if (this.todoInput) {
+            this.todos.push({
+              name: this.todoInput,
+              index: this.todos[this.todos.length - 1].index + 1
+            })
+            this.todoInput = ''
+          }
+        },
+        /**
+         * 删除一个元素
+         * @param idx 元素索引
+         */
+        todoDelete(idx) {
+          this.todos.splice(this.todos.findIndex(T => T.index === idx), 1)
+        }
+      }
+      
+    })
+  </script>
+</body>
+
+</html>

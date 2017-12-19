@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <h1>hello world</h1>
+  <button onclick='btnOnClick()'>点击</button>
+  <script type='text/javascript'>
+    let whileGo = true
+    
+    function btnOnClick() {
+      whileGo = !whileGo
+    }
+    
+    window.onload = function() {
+      while (whileGo) {
+        console.log(1)
+      }
+      console.log(2)
+    }
+  </script>
+</body>
+</html>

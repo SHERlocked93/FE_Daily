@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js图片库</title>
+</head>
+<body>
+	<h1>hello world!</h1>
+	<ul>
+		<li><a href="../imgs/aaa.jpeg" onclick="showpic(this); return false;">Data1</a></li>
+		<li><a href="../imgs/step.png" onclick="showpic(this); return false;">Data2</a></li>
+		<li><a href="../imgs/arrow-right-bold.png" onclick="showpic(this); return false;">Data3</a></li>
+		<li><a href="../imgs/dazongdianpin_logo.png" onclick="showpic(this); return false;">Data4</a></li>
+	</ul>
+
+	<img id="placeholder" src="../imgs/CD.jpg" alt="My image gallery">
+
+	<script>
+		function showpic(whichpic) {
+			document.getElementById("placeholder")
+				.setAttribute("src", whichpic.getAttribute("href"));
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test13 动态组件</title>
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+
+</head>
+<body>
+	<div id="box">
+		<button @click="a=aaa">aaa</button>
+		<button @click="a=bbb">bbb</button>
+		<component :is="a"></component>
+	</div>
+	
+	
+	<script>
+		const vm = new Vue({
+			el        : "#box",
+			data      : {
+				a  : "",
+				aaa: "aaa",
+				bbb: "bbb"
+			},
+			components: {
+				aaa: {
+					template: "<h1>I am aaa !</h1>"
+				},
+				bbb: {
+					template: "<h1>I AM BBB !</h1>"
+				}
+			}
+		});
+	</script>
+</body>
+</html>

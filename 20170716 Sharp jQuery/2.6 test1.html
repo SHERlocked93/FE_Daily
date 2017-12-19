@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.6</title>
+	<style>
+		.non {
+			display : none;
+		}
+		
+		.promo {
+			color : #ffd700;
+		}
+	</style>
+</head>
+<body>
+	<div class="SubCategoryBox">
+		<ul>
+			<li><a href="#">品牌1</a><i>120</i></li>
+			<li><a href="#">品牌2</a><i>220</i></li>
+			<li><a href="#">品牌3</a><i>320</i></li>
+			<li><a href="#">品牌4</a><i>420</i></li>
+			<li><a href="#">品牌5</a><i>520</i></li>
+			<li><a href="#">品牌5</a><i>520</i></li>
+			<li><a href="#">品牌5</a><i>620</i></li>
+			<li><a href="#">品牌5</a><i>620</i></li>
+			<li><a href="#">品牌5</a><i>620</i></li>
+			<li><a href="#">品牌5</a><i>620</i></li>
+			<li><a href="#">品牌5</a><i>620</i></li>
+			<li><a href="#">品牌5</a><i>6620</i></li>
+		</ul>
+	</div>
+	
+	<button>hello</button>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$("button").click(function () {
+			$("ul li:gt(3):not(:last) i").toggleClass("non");
+			$("ul li").filter(":contains('5')").toggleClass("promo");
+			$(this).text("xixi");
+			return false;
+		});
+	</script>
+</body>
+</html>

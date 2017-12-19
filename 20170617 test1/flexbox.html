@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>flexbox</title>
+
+	<style>
+		.box {
+			display : flex;
+			/*border :red solid 1px;*/
+		}
+
+		.item1 {
+			background-color : #ff558a;
+			flex-grow        : 1;
+			margin : 0 20px;
+		}
+
+		.item2 {
+			background-color : #ffd700;
+			flex-grow        : 2;
+			margin : 0 20px;
+		}
+
+		.item3 {
+			background-color : #3c3c3c;
+			flex-grow        : 3;
+			margin : 0 20px;
+			-webkit-border-radius: 2px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="item1">1</div>
+		<div class="item2">2</div>
+		<div class="item3">3</div>
+	</div>
+</body>
+</html>

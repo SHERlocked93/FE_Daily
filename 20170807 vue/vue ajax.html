@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>交互</title>
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+</head>
+<body>
+	<div id="box">
+		<input type="button" value="Ajax btn" @click="get">
+	</div>
+	<script>
+		new Vue({
+			el     : "#box",
+			data   : {},
+			methods: {
+				get: function () {
+					this.$http.jsonp("get.php",{
+						a:1,
+						b:2
+					}).then(data => {
+						console.log(data.data);
+					}, e => {
+						console.log(e);
+					});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

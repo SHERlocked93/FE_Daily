@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>xmlhttprequestTest</title>
+</head>
+<body>
+	<h1>hello world</h1>
+
+	<script>
+		var xmlhttprequest = window.XMLHttpRequest();
+		xmlhttprequest.open("POST", "url", true);
+		xmlhttprequest.setRequestHeader();
+		xmlhttprequest.send();
+		xmlhttprequest.onreadystatechange = function () {
+			if (xmlhttprequest.readyState === 4 && xmlhttprequest.status === 200) { }
+		};
+	</script>
+</body>
+</html>

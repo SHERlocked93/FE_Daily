@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test4</title>
+	<script src="../res/vue2.4.0/vue.js"></script>
+
+</head>
+<body>
+	<div id="exa">
+		<input type="text" v-model="msg" title="" placeholder="please enter">
+		<input type="text" v-model="msg2" title="" placeholder="please enter">
+		<br>
+		<span v-on:click="show">{{msg}}</span><br>
+		<span v-on:mouseover="over">{{msg2}}</span><br>
+		<span v-show="showthis">{{arr}}</span><br>
+		<span>{{json}}</span><br>
+		<ul>
+			<li v-for="value in arr">{{value}}</li>
+		</ul>
+		
+		<ul>
+			<li v-for="(value,key,index) in json">{{value}} {{key}} {{index}}</li>
+		</ul>
+	</div>
+	
+	
+	<script>
+		const vm = new Vue({
+			el     : "#exa",
+			data   : {
+				msg     : "hell",
+				msg2    : "hehehehe",
+				showthis: false,
+				arr     : ["apple", "banana", "orange", "bear"],
+				json    : {
+					a: "dfasdf",
+					b: "orange",
+					c: "canca"
+				}
+			},
+			methods: {
+				show: function () {
+					this.arr.push("tomato");
+				},
+				over: function () {
+					this.arr.push("potato");
+				}
+			}
+		});
+	</script>
+</body>
+</html>

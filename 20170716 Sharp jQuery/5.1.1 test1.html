@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5,1,1</title>
+	
+	<style>
+		.focus {
+			background-color : #999999;
+			border           : 1px solid #5bc0de;
+		}
+	</style>
+</head>
+<body>
+	<form action="#" method="POST" id="regForm">
+		<fieldset>
+			<legend>Fundation</legend>
+			<div>
+				<label for="username">UserName:</label>
+				<input type="text" id="username">
+			</div>
+			<div>
+				<label for="psw">Password:</label>
+				<input type="password" id="psw">
+			</div>
+			<button type="button" class="lt">&lt;</button>
+			<button type="button" class="gt">&gt;</button>
+			<div>
+				<label for="msg">Message:</label>
+				<textarea id="msg">xixixixixixi</textarea>
+			</div>
+			<button type="submit">Submit</button>
+		</fieldset>
+		
+	
+	</form>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(function () {
+			$(":input").focus(function () {
+				$(this).toggleClass("focus");
+			}).blur(function () {
+				$(this).toggleClass("focus");
+			});
+
+			var $tarea = $("textarea");
+			$(".lt").click(function () {
+				if (!$tarea.is(":animated")) {
+					if ($tarea.height() > 100) {
+						$tarea.animate({height: "-=50"}, 200);
+					}
+				}
+			});
+			$(".gt").click(function () {
+				if (!$tarea.is(":animated")) {
+					if ($tarea.height() < 500) {
+						$tarea.animate({height: "+=50"}, 200);
+					}
+				}
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas Test</title>
+</head>
+<body>
+	<h1>Canvas Test</h1>
+
+
+	<canvas id="myCanvas" height="200" width="400" style="border: 1px solid rgb(249,38,114);">
+		您的浏览器不支持HTml5 Canvas
+	</canvas>
+
+	<script type="text/javascript">
+		var ctx = document.getElementById("myCanvas").getContext("2d");
+		ctx.fillStyle = "#899123";
+		ctx.fillRect(0, 0, 150, 75);
+	</script>
+</body>
+</html>

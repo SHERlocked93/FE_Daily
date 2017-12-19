@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test12</title>
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+</head>
+<body>
+	<div id="box">
+		<aaa></aaa>
+	</div>
+	
+	<script>
+		Vue.component("aaa", {
+			template: "<h1>hehehe H1</h1>"
+		});
+		
+		new Vue({el: "#box"});
+	</script>
+</body>
+</html>

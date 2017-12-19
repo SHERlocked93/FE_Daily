@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test1</title>
+	
+	<style>
+		.current {
+			background-color : #999999;
+		}
+		
+		.hida {
+			width            : 100px;
+			height           : 100px;
+			background-color : #3c763d;
+		}
+		
+		.dis {
+			display : none;
+		}
+	
+	
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul class="menu">
+			<li class="level1">
+				<a href="#">衬衫</a>
+				
+				<ul class="level2">
+					<li><a href="#">衬衫1</a></li>
+					<li><a href="#">衬衫2</a></li>
+					<li><a href="#">衬衫3</a></li>
+					<li><a href="#">衬衫4</a></li>
+				</ul>
+			</li>
+			
+			<li class="level1">
+				<a href="#">裤子</a>
+				
+				<ul class="level2">
+					<li><a href="#">裤子1</a></li>
+					<li><a href="#">裤子2</a></li>
+					<li><a href="#">裤子3</a></li>
+					<li><a href="#">裤子4</a></li>
+				</ul>
+			</li>
+			
+			<li class="level1">
+				<a href="#">卫衣</a>
+				
+				<ul class="level2">
+					<li><a href="#">卫衣1</a></li>
+					<li><a href="#">卫衣2</a></li>
+					<li><a href="#">卫衣3</a></li>
+					<li><a href="#">卫衣4</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="hida">
+		rqrqgfds
+	</div>
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	
+	
+	<script>
+		$(".level1 .level2").hide();
+		$(
+			$(".level1 > a").click(function () {
+				$(this).addClass("current")
+					.next().show(100)
+					.parent().siblings().children("a")
+					.removeClass("current")
+					.next().hide(100);
+				$(".hida").toggleClass("dis");
+				return false;
+			})
+		);
+	
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jtest</title>
+</head>
+<body>
+	<form action="#">
+		<label for="user">姓名：</label>
+		<input type="text" name="user" id="user">
+
+		<label for="sex">性别：</label>
+		<input type="text" name="sex" id="sex">
+
+		<label for="grade">年级：</label>
+		<select name="grade" id="grade">
+			<option value="1">一</option>
+			<option value="2">二</option>
+			<option value="3">三</option>
+		</select>
+
+		<label for="kemu">科目：</label>
+		<select name="kemu" id="kemu">
+			<option value="yuwen">语文</option>
+			<option value="suxue">数学</option>
+			<option value="waiyu">外语</option>
+			<option value="wuli">物理</option>
+			<option value="jisuanji">计算机</option>
+			<option value="huaxue">化学</option>
+		</select>
+
+		<button id="submit">提交</button>
+	</form>
+
+	<input type="button" value="jQury异步请求">
+	<div></div>
+	<p style="background-color: #ff558a;"></p>
+
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		//		$(function () {
+		//			$("input").click(function () {
+		//				$("div").load("test.html");
+		//			});
+		//		});
+
+		$(function () {
+			$("input").click(function () {
+				var str = ($.ajax({
+					url  : "test.html",
+					async: false
+				})).responseText;
+				$("div").html(str);
+			});
+
+			$("#submit").click(function () {
+				var jsonObj = JSON.stringify($("form").serializeArray());
+//				var jStr = "{ ";
+//				for (var item in jsonObj) {
+//					jStr += "'" + item + "':'" + jsonObj[item] + "',";
+//				}
+//				jStr += " }";
+
+				$("p").html(jsonObj);
+			});
+
+
+		});
+
+
+	</script>
+</body>
+</html>

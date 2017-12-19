@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test19 vuerouter</title>
+	<link href="../res/animate.css" rel="stylesheet"/>
+	
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+	<script src="../bower_components/vue-router/dist/vue-router.js"></script>
+
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li>
+				<router-link to="/home/foo">GO TO Foo</router-link>
+			</li>
+			<li>
+				<router-link to="/home/bar">GO TO Bar</router-link>
+			</li>
+		</ul>
+		<router-view></router-view>
+	</div>
+	
+	
+	<template id="home">
+		<strong>
+			User name -> {{$route.params.name}} path -> {{$route.path}}
+		</strong>
+	</template>
+	
+	
+	<script>
+		const routes = [
+			{path: "/home/:name", component: {template: "#home"}}
+		];
+		
+		const router = new VueRouter({routes});
+		const app    = new Vue({router}).$mount("#box");
+	</script>
+</body>
+</html>

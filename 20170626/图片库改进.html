@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js图片库改进</title>
+</head>
+<body>
+	<h1>hello world!</h1>
+	<ul id="imagegallery">
+		<!--平稳退化-->
+		<li><a href="../imgs/aaa.jpeg">Data1</a></li>
+		<li><a href="../imgs/step.png">Data2</a></li>
+		<li><a href="../imgs/arrow-right-bold.png">Data3</a></li>
+		<li><a href="../imgs/dazongdianpin_logo.png">Data4</a></li>
+	</ul>
+
+	<img id="placeholder" src="../imgs/CD.jpg" alt="My image gallery">
+
+	<script>
+
+		addLoadEvent(prepareGallery);
+
+
+		function prepareGallery() {
+			if (!document.getElementById) alert("1");
+			if (!document.getElementsByTagName) alert("2");               //检查浏览器是否支持这个DOM方法
+			if (!document.getElementById("imagegallery")) alert("3");     //即使在网页上删除了这个img或者id，js也不会出错
+
+			var gallery = document.getElementById("imagegallery");
+			var links = gallery.getElementsByTagName("a");
+			for (var i = 0; i < links.length; i++) {
+				links[i].onclick = function () {
+					return !showpic(this);                               //由showpic返回值决定是否取消浏览器执行链接被点击时的默认操作
+				}
+			}
+		}
+
+		function showpic(whichpic) {
+			if (!document.getElementById("placeholder")) return false;
+			document.getElementById("placeholder").setAttribute("src", whichpic.getAttribute("href"));
+			return true;
+		}
+
+		function addLoadEvent(func) {                                     //将函数添加到页面加载时执行
+			var oldonload = window.onload;
+			if (typeof window.onload !== 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>取百度结果</title>
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+	
+	<style>
+		.grey {
+			background-color : lightgrey;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<input type="text" v-model="ser" @keyup="get" @keydown.down.prevent="seleDown" @keydown.up.prevent="seleUp">
+		<ul>
+			<li v-for="(v,idx) in items" :class="{grey:idx===idxNow}">{{v}}</li>
+		</ul>
+		<p v-show="items.length===0">No data...</p>
+	</div>
+	
+	
+	<script>
+		new Vue({
+			el     : "#box",
+			data   : {
+				ser   : "",
+				idxNow: -1,
+				items : []
+			},
+			methods: {
+				get     : function (ev) {
+					if (ev.keyCode === 38 || ev.keyCode === 40) return;
+					if (ev.keyCode === 13) {
+						window.open("https://www.baidu.com/s?wd=" + this.ser);
+						this.ser = "";
+					}
+					
+					this.$http.jsonp("https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su", {
+						params: {
+							wd: this.ser
+						},
+						jsonp : 'cb'
+					}).then(data => {
+						this.items = data.data.s;
+					}, err => {
+						console.error(err);
+					});
+				},
+				seleDown: function () {
+					this.idxNow++;
+					if (this.idxNow > this.items.length - 1) {this.idxNow = -1;}
+					this.ser = this.items[this.idxNow];
+				},
+				seleUp  : function () {
+					this.idxNow--;
+					if (this.idxNow < -1) {this.idxNow = this.items.length - 1;}
+					this.ser = this.items[this.idxNow];
+				}
+			}
+		});
+	</script>
+</body>
+</html>

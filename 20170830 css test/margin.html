@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>margin</title>
+	<style>
+		* { margin: 0; padding: 0; }
+		
+		#one {
+			width: 100px;
+			height: 100px;
+			background-color: #e38b37;
+			margin-bottom: 20px;
+		}
+		
+		#two {
+			width: 100px;
+			height: 100px;
+			background-color: #2e6da4;
+			margin-top: 50px;
+			/* 此时margin为50，外边距会合并 */
+		}
+	</style>
+</head>
+<body>
+	<div id='one'></div>
+	<div id='two'></div>
+</body>
+</html>

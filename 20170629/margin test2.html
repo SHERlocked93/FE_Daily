@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>水平方向的两个盒子</title>
+  <!-- 上下margin合并 -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    
+    .top {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 100px;
+      background: red;
+    }
+    
+    .bottom {
+      width: 100px;
+      height: 100px;
+      margin-top: 50px;
+      background: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="top">高为100px,下边距为100px</div>
+  <div class="bottom">高为100px,上边距为50px</div>
+</body>
+</html>

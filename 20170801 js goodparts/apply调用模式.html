@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>apply调用模式</title>
+</head>
+<body>
+	<h1>hello</h1>
+	
+	
+	<script>
+		var Quo       = function (str) {
+			this.status = str;
+		};
+		var statusObj = {status: "a-OK"};
+		
+		Quo.prototype.get_status = function () {
+			return this.status;
+		};
+		
+		var myQuo = new Quo("confu");
+		
+		document.writeln(myQuo.get_status.apply(statusObj));
+	
+	</script>
+</body>
+</html>

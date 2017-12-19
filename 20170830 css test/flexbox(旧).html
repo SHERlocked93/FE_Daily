@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>flexbox</title>
+	<style rel='stylesheet'>
+		* { padding: 0; margin: 0; }
+		
+		#container {
+			height: 600px;
+			width: 600px;
+			background-color: #e38b37;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-box-pack: center;
+			-webkit-box-align: center;
+		}
+		
+		#d1 { width: 100px; height: 100px; background-color: #2e6da4; -webkit-box-flex: 2; }
+		
+		#d2 { width: 100px; height: 100px; background-color: #5bc0de; }
+		
+		#d3 { width: 100px; height: 100px; background-color: #3c763d; }
+	</style>
+</head>
+<body>
+	<div id='container'>
+		<div id='d1'>1</div>
+		<div id='d2'>2</div>
+		<div id='d3'>3</div>
+	</div>
+</body>
+</html>

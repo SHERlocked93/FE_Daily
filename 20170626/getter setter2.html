@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test</title>
+</head>
+<body>
+  <h1>hello</h1>
+  
+  <script type='application/javascript'>
+    let person1 = { _name: "Nicholas" }
+    Object.defineProperty(person1, 'name', {
+        get: function() {
+          console.log("reading me")
+          return this._name
+        },
+        set: function(val) {
+          console.log(`setting name to ${val}`)
+          this._name = val
+        },
+        enumerable: true,
+        configurable: true
+      }
+    )
+    console.log(person1.name)
+    person1.name = 'greg'
+    console.log(person1.name)
+  </script>
+</body>
+</html>

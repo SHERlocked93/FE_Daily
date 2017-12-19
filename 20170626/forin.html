@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>forin</title>
+</head>
+<body>
+	<h1>What is the Document Object Model?</h1>
+	<p>
+		The
+		<abbr title="World Wide Web Consortium">W3C</abbr>
+		defines the
+		<abbr title="Document Object Model">DOM</abbr>
+		as:
+	</p>
+	<blockquote cite="http://www.w3.org/DOM/">
+		<p>
+			A platform- and language-neutral interface that will allow programs
+			and scripts to dynamically access and update the
+			content, structure and style of documents.
+		</p>
+	</blockquote>
+	<p>
+		It is an
+		<abbr title="Application Programming Interface">API</abbr>
+		that can be used to navigate
+		<abbr title="HyperText Markup Language">HTML</abbr>
+		and
+		<abbr title="eXtensible Markup Language">XML</abbr>
+		documents.
+	</p>
+
+	<script>
+		function displayAbbreviations() {
+			if (!document.getElementsByTagName ||
+				!document.createElement ||
+				!document.createTextNode) return false;
+
+			var abbreviations = document.getElementsByTagName("abbr");
+			if (abbreviations.length < 1) return false;
+			var defs = [];
+			for (var i = 0; i < abbreviations.length; i++) {
+				if (abbreviations[i].childNodes.length < 1) continue;
+				var def1 = abbreviations[i].getAttribute("title");
+				var key = abbreviations[i].lastChild.nodeValue;
+
+				defs[key] = def1;
+			}
+
+			var dlist = document.createElement("dl");
+			for (key in defs) {
+				var dtitle = document.createElement("dt");
+				var dtitle_text = document.createTextNode(key);
+				var ddesc = document.createElement("dd");
+				var ddesc_text = document.createTextNode(defs[key]);
+
+				dtitle.appendChild(dtitle_text);
+				ddesc.appendChild(ddesc_text);
+				dlist.appendChild(dtitle);
+				dlist.appendChild(ddesc);
+			}
+
+			if (dlist.childNodes.length < 1) return false;
+			var header = document.createElement("h2");
+			var header_text = document.createTextNode("Abbreviations");
+			header.appendChild(header_text);
+			document.body.appendChild(header);
+			document.body.appendChild(dlist);
+		}
+
+		addLoadEvent(displayAbbreviations);
+
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload !== 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				};
+			}
+		}
+
+		function getElementsByClassName(node, classname) {
+			if (node.getElementsByClassName) {
+				return node.getElementsByClassName(classname);
+			} else {
+				var results = [];
+				var elems = node.getElementsByTagName("*");
+				for (var i = 0; i < elems.length; i++) {
+					if (elems[i].className.indexOf(classname) !== -1) {
+						results[results.length] = elems[i];
+					}
+				}
+				return results;
+			}
+		}
+	</script>
+</body>
+</html>

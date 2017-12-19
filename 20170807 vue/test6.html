@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test6</title>
+	<script src="../res/vue2.4.0/vue.js"></script>
+	<style>
+		.red {
+			color : red;
+		}
+		
+		.grey {
+			background-color : grey;
+		}
+	</style>
+
+</head>
+<body>
+	<div id="box1">
+		<img :src="url" alt="u" height="100px">
+	</div>
+	
+	<div id="box">
+		<input type="text" placeholder="enter" @keydown.65="show($event)">
+	</div>
+	
+	<div id="box2" :class="{red:false,grey:true}">
+		Hello World !
+	</div>
+	
+	<script>
+		new Vue({
+			el     : "#box",
+			data   : {},
+			methods: {
+				show: function (ev) {
+					alert(ev.keyCode);
+				}
+			}
+		});
+		
+		new Vue({
+			el  : "#box1",
+			data: {
+				url: "https://www.tuchuang001.com/images/2017/04/21/51459095_p0.jpg"
+			}
+		});
+		
+		new Vue({
+			el  : "#box2",
+			data: {r: "red", g: "grey"}
+		});
+	</script>
+</body>
+</html>

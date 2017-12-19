@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js属性按序输出</title>
+</head>
+<body>
+	<h1>hello</h1>
+	
+	
+	<script>
+		var stooge = {
+			    last_name  : "Los",
+			    middle_name: "Howard",
+			    first_name : "Jerome",
+			    age        : 66,
+			    memeda     : function (a) {
+				    console.log(this);
+			    }
+		    },
+		    propt  = ["first_name", "middle_name", "last_name", "age"], i;
+		
+		for (i = 0; i < propt.length; i++) {
+			document.writeln(propt[i] + ":" + stooge[propt[i]]);
+		}
+		
+		console.log(stooge.memeda());
+	</script>
+</body>
+</html>

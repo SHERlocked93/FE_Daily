@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js</title>
+
+	<style>
+
+	</style>
+</head>
+<body>
+	<h1>hello world</h1>
+	<div id="conv"></div>
+
+
+
+	<script>
+		(function () {
+			var foo = "立即运行的方法";
+			console.log(foo); // undefined!
+		})();
+
+
+		var funcA = function (fn) {
+			var result = fn();
+			console.log(result);
+		};
+		var funcB = function () { return "把方法作为参数传递"; };
+		funcA(funcB);
+
+
+		function a() { console.log(this); }//输出函数a中的this对象
+		function b() {}
+		var c = {name: "call"}; //定义对象c
+		a.call(); //window
+		a.call(null); //window
+		a.call(undefined); //window
+		a.call(1); //Number
+		a.call(''); //String
+		a.call(true); //Boolean
+		a.call(b); //function b(){}
+		a.call(c); //Object
+
+
+		function funcC() {
+			this.name = function () {
+				console.log("我是class1内的方法");
+			};
+		}
+		function funcD() { funcC.call(this);}  //此行代码执行后，当前的this指向了class1（也可以说class2继承了class1）
+		var f = new funcD();
+		f.name();   //调用的是class1内的方法，将class1的name方法交给class2使用
+
+		// call()
+		function Animal() {
+			this.name = "animal";
+			this.showName = function () {
+				console.log(this.name);
+			};
+		}
+		function Dog() { this.name = "dog"; }
+		var animal = new Animal();
+		var dog = new Dog();
+		animal.showName.call(dog);        //输出 dog
+
+
+		// 闭包
+		var hijs = function (i) {
+			return function () { document.getElementById('conv').innerHTML += '<p>---第' + i + '次调用---</p>'; };
+		};
+		for (var i = 0; i < 5; i++) {
+			setTimeout(hijs(i), i * 200);
+		}
+
+		// 闭包
+		var outerObj = {
+			myName: "outer",
+			outerFunction: function () {
+				var self = this;
+				var innerObj = {
+					myName: "inner",
+					innerFunction: function () {
+						document.getElementById('conv').innerHTML += '<p>第' + i + '次调用 </p>';
+					}
+				};
+				innerObj.innerFunction();
+				document.getElementById('conv').innerHTML += this.myName;
+			}
+		};
+		outerObj.outerFunction();
+
+
+		//这里是一个非常简单的例子
+		var site = "gbin1.com";
+		var module = {
+			getSite: function () {
+				return this.site;
+			},
+			site: "gbtags.com"
+		};
+		console.log(module.getSite());// module.getSite() 被调用的时候module是this// 然后module.site返回，值为"gbtags.com"
+		var getSite = module.getSite;// 这里我们重新的保存一个方法参考到全局版本this中
+		console.log(getSite());	// 当getSite () 被调用那个，this这里是全局性的，然后site返回的是"gbin1.com"
+		var boundGetSite = getSite.bind(module);// 保存一个包含module边界为this的参考
+		console.log(boundGetSite());		// boundGetSite () 调用, "module" 又成为 "this" , "module.site" 返回"gbtags.com"
+
+
+	</script>
+</body>
+</html>

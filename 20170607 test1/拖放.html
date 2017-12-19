@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>拖放</title>
+	<script>
+		function allowDrop(ev) {
+			ev.preventDefault();
+		}
+
+		function drag(ev) {
+			ev.dataTransfer.setData("Text", ev.target.id);
+		}
+
+		function drop(ev) {
+			ev.preventDefault();
+			var data = ev.dataTransfer.getData("Text");
+			ev.target.appendChild(document.getElementById(data));
+		}
+	</script>
+</head>
+<body>
+<form action="">
+	<input type="email">
+	<input type="submit">
+</form>
+
+<header>我在
+	<time datetime="2017-6-8">劳动节</time>
+        出去<strong>旅游</strong>
+	daf
+</header>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+<img id="drag1" src="imgs/aaa.jpeg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<div id="box">box</div>
+	
+	<script>
+	  const fibonacci = function () {
+		  const memo = [0, 1]
+		  const fib  = function (n) {
+			  let result = memo[n]
+			  if (typeof result !== 'number') {         //不能用 !result :!0===true
+				  result  = fib(n - 1) + fib(n - 2)
+				  memo[n] = result
+				  console.log(memo)
+			  }
+			  return result
+		  }
+		  return fib
+	  }()
+	  
+	  for (let i = 0; i < 10; i++) {
+		  document.writeln(`${i}:${fibonacci(i)}<br/>`)
+	  }
+	
+	</script>
+</body>
+
+</html>

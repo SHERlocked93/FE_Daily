@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jquerycookie</title>
+
+	<script type="text/javascript" src="../res/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../res/jquery.cookie.js"></script>
+</head>
+<body>
+	<h1>hello</h1>
+
+
+	<script>
+		$(function () {
+			setCookie("o", "mmmda", 3);
+			var bb = getCookie("b");
+			var aa = getCookie("o");
+
+			alert(aa + "----" + bb);
+
+			var cc = delCookie("aa");
+			alert(aa + "----" + bb + "----" + cc);
+
+
+			if ($.cookie("o") === undefined) {
+				var o = {name: "张三", age: 24};
+				var str = JSON.stringify(o);
+
+				$.cookie("o", str);
+				alert("cookie为空");
+			} else {
+				var str1 = $.cookie("o");
+				var o1 = JSON.parse(str1);
+				alert(o1.name);
+			}
+
+
+		});
+
+		function setCookie(cookieName, cookieValue, expiresNum) {
+			var options = {
+				'path'   : '/',
+				'secure' : false,           //关闭https传输cookie
+				'raw'    : true,            //关闭cookie的自动编码功能
+				'expires': expiresNum || 30 //cookie的过期时间，如没有传值默认30天过期
+			};
+			$.cookie(cookieName, cookieValue, options);
+		}
+		function getCookie(cookieName) {
+			return $.cookie(cookieName);
+		}
+		function delCookie(cookieName) {
+			$.cookie(cookieName, '', {
+				'path'   : '/',
+				'expires': -1
+			});
+		}
+	</script>
+</body>
+</html>

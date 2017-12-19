@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style rel='stylesheet'>
+    ul, li {
+      list-style: none;
+    }
+    
+    li {
+      margin: 20px;
+      width: 500px;
+    }
+    
+    .video {
+      position: relative;
+    }
+    
+    .video:before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      height: 20px;
+      width: 20px;
+      background: url("../imgs/1.png") no-repeat;
+      background-size: cover;
+    }
+    
+    .live {
+      position: relative;
+    }
+    
+    .live:before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      height: 20px;
+      width: 20px;
+      background: url("../imgs/7.png") no-repeat;
+      background-size: cover;
+    }
+    
+    .text {margin: 0 10px;
+      display: inline-block;
+    }
+    
+    .image-news {
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>hello</h1>
+  
+  
+  <script src='./组合模式%20test1.js'></script>
+  <script type='text/javascript'>
+    const news1 = new Container('news', document.body)
+    news1
+        .add(
+            new Item('normal').add(new IconNews('梅西再次拿到CBA小金人了吗吗吗吗吗吗吗', '#', 'video'))
+        )
+        .add(
+            new Item('normal').add(new IconNews('硬派越野一定要全时四驱的么么么么么么么', '#', 'live'))
+        )
+        .add(
+            new Item('normal').add(
+                new NewsGroup('has-img').add(
+                    new ImageNews('../imgs/hello.png', '#', 'hello-img')
+                ).add(
+                    new EasyNews('Urus将于国内亮相', '#')
+                ).add(
+                    new EasyNews('场地越野锦标赛战报', '#')
+                ).add(
+                    new EasyNews('11月豪华品牌销量公布', '#')
+                ).add(
+                    new EasyNews('车主来点评大通D90', '#')
+                )
+            )
+        )
+        .add(
+            new Item('normal').add(
+                new TypeNews('RAV4荣放优惠高达1.8万', '#', '荣放', 'left')
+            )
+        )
+        .add(
+            new Item('normal').add(
+                new TypeNews('购桑塔纳现钜惠2.6万元', '#', '桑塔纳', 'right')
+            )
+        )
+        .show()
+  </script>
+</body>
+</html>

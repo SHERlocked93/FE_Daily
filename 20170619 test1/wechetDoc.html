@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微信订单页面</title>
+
+	<style>
+		header {
+			background-color : #fa486c;
+			height           : 45px;
+			color            : white;
+			text-align       : center;
+			position         : relative;
+		}
+
+		.header-a {
+			text-decoration : none;
+			line-height     : 45px;
+			position        : absolute;
+			left            : 10px;
+
+		}
+
+		.header-span {
+			font-size   : 20px;
+			line-height : 45px;
+		}
+
+		.wuliuxinxi {
+			display : flex;
+			height  : 100px;
+		}
+
+		.d1 {
+			flex-grow       : 2;
+			background      : url("../imgs/step.png") no-repeat center;
+			background-size : 60px;
+		}
+
+		.d2 {
+			flex-grow       : 1;
+			background      : url("../imgs/arrow-right-bold.png") no-repeat center;
+			background-size : 35px;
+		}
+
+		h2 {
+			font-weight  : normal;
+			border-left  : 2px solid #fa486c;
+			margin-left  : 15px;
+			padding-left : 15px;
+		}
+
+		.submit {
+			display         : block;
+			width           : 80%;
+			height          : 50px;
+			margin          : 0 auto;
+			border          : 1px solid grey;
+			text-decoration : none;
+			border-radius   : 10px;
+			text-align      : center;
+			line-height     : 50px;
+		}
+
+		.div-submit a:hover {
+			color            : white;
+			background-color : #3c3c3c;
+		}
+
+		footer {
+			height     : 50px;
+			width      : 100%;
+			border-top : 1px solid #dddddd;
+			position   : fixed;
+			display : flex;
+		}
+		footer div{
+			flex-grow: 1;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<a class="header-a" href="#">&lt;返回</a>
+		<span class="header-span">订单详情</span>
+	</header>
+
+	<div class="wuliuxinxi">
+		<div class="d1"></div>
+		<div class="d2"></div>
+		<div class="d1"></div>
+		<div class="d2"></div>
+		<div class="d1"></div>
+		<div class="d2"></div>
+		<div class="d1"></div>
+	</div>
+
+	<div>
+		<h2>货物信息</h2>
+		<p>
+			<span>商品名：</span>
+			<i>一台小轿车</i>
+		</p>
+		<p>
+			<span>商品名：</span>
+			<i>一台小皮卡</i>
+		</p>
+		<p>
+			<span>商品名：</span>
+			<i>一台小吉普</i>
+		</p>
+		<p>
+			<span>商品名：</span>
+			<i>一台小卡车a aa</i>
+		</p>
+
+	</div>
+	<div>
+		<p style="height: 50px;width: 50px; background-color: orange; border-radius: 50%;"></p>
+	</div>
+	<div class="div-submit">
+		<a class="submit" href="#">提交</a>
+	</div>
+
+
+	<footer class="footer-index">
+		<div class="footer-index1">首页</div>
+		<div class="footer-index2">订单</div>
+		<div class="footer-index3">我的</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript">
+		document.write(new Date());
+
+		//		for (s in window)            console.log(s);
+		//		function howManyArgs() { alert(arguments[1]); }
+		//		howManyArgs("string", 45);
+
+
+		//		var sMessage = "hello world";
+		//		function sayHelloWorld() { alert(sMessage); }
+		//		sMessage = "memeda";
+		//		sayHelloWorld();
+
+
+		//		//构造函数
+		//		function Car(scolor, sdoors) {
+		//			this.scolor = scolor;
+		//			this.sdoors = sdoors;
+		//			this.showColor = function () { return this.scolor; };
+		//		}
+		//		var acar = new Car("red", "two");
+		//		alert(acar.showColor());
+
+
+		//		//原型
+		//		function Car1() { }
+		//		Car1.prototype.scolor = "Red";
+		//		Car1.prototype.sdoors = "Two";
+		//		Car1.prototype.dd = ["7", "8"];
+		//		Car1.prototype.showColor = function () {
+		//			alert(this.scolor);
+		//		};
+		//		var ocar1 = new Car1();
+		//		var ocar2 = new Car1();
+		//		ocar2.dd.push("bbb");
+		//		alert(ocar1.dd + "--" + ocar2.dd);
+
+
+		//		//		混合方式
+		//		function Car(sColor, iDoors, iMpg) {
+		//			this.color = sColor;
+		//			this.doors = iDoors;
+		//			this.mpg = iMpg;
+		//			this.drivers = ["Mike", "John"];
+		//		}
+		//		Car.prototype.showColor = function () { alert(this.color); };
+		//		var oCar1 = new Car("red", 4, 23);
+		//		var oCar2 = new Car("blue", 3, 25);
+		//		oCar1.drivers.push("Bill");
+		//		alert(oCar1.drivers);	//输出 "Mike,John,Bill"
+		//		alert(oCar2.drivers);	//输出 "Mike,John"
+
+
+		//		var str = {};
+		//		Object.prototype.sayHi = function () {
+		//			alert("Hi");
+		//		};
+		//		str.sayHi();
+
+
+		function sayColor(sPrefix, sSuffix) {
+			alert(sPrefix + this.color + sSuffix);
+		}
+		var obj = {};
+		obj.color = "blue";
+		sayColor.call(obj, "The color is ", " a very nice color indeed.");
+
+
+		function validate_required(field, alerttxt) {
+			with (field) {
+				if (value === null || value === "") {
+					alert(alerttxt);
+					return false;
+				}
+				else {return true;}
+			}
+		}
+
+		function validate_form(thisform) {
+			with (thisform) {
+				if (validate_required(email, "Email must be filled out!") === false) {
+					email.focus();
+					return false;
+				}
+			}
+		}
+
+		function change_text(t) {
+			t.innerHTML = "memeda";
+		}
+
+		function toex(p) {
+			var x = 887878;
+			p.innerHTML = x.toExponential();
+		}
+		function tofix(p) {
+			var x = "mdaf";
+			p.innerHTML = x.fontsize(25).fontcolor("blue").link("http://www.baidu.com/");
+		}
+		function width1(p) {
+			p.innerHTML = screen.availWidth + "<br>"
+				+ location.hostname + "<br>"
+				+ location.port + "<br>"
+				+ location.pathname;
+		}
+	</script>
+</head>
+
+<body>
+	<form action="#" onsubmit="return validate_form(this);" method="post">
+		<label>
+			Email:
+			<input type="text" name="email" size="30">
+		</label>
+		<input type="submit" value="Submit">
+	</form>
+
+	<p onclick="change_text(this);">点我1</p>
+	<p onclick="toex(this);">点我2</p>
+	<p onclick="tofix(this);">点我3</p>
+	<p onclick="width1(this);">点我4</p>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>大众点评页面</title>
+	<link rel="stylesheet" href="../cssRes/resetTotal.css">
+	<style>
+		.clear::after {
+			content : '';
+			display : block;
+			height  : 0;
+			clear   : both;
+		}
+
+		/*Nacigate*/
+		nav {
+			background-color : #ff558a;
+			height           : 25px;
+		}
+
+		a {
+			text-decoration : none;
+		}
+
+		nav ul {
+			color : white;
+			float : right;
+		}
+
+		nav ul li {
+			padding      : 0 20px;
+			float        : left;
+			list-style   : none;
+			line-height  : 25px;
+			border-right : 1px dotted grey;
+		}
+
+		.more { border-right : 0; }
+
+		.nav-download {
+			float       : left;
+			margin-left : 15px;
+			line-height : 25px;
+		}
+
+		.nav-temp:after {
+			content  : "。";
+			position : absolute;
+			right    : -16px;
+			top      : -15px;
+		}
+
+		.nav-temp {
+			position : relative;
+		}
+
+		/*Container*/
+		.container {
+			width  : 1060px;
+			margin : 0 auto;
+		}
+
+		/*Search*/
+		.search {
+			height        : 60px;
+			border-bottom : 1px grey solid;
+			position      : relative;
+		}
+
+		.search-logo, .search-input {
+			float  : left;
+			margin : 10px 20px;
+		}
+
+		.search-login input {
+			line-height : 60px;
+		}
+
+		.search-input {
+			margin-top  : 15px;
+			margin-left : 20px;
+			position    : relative;
+		}
+
+		.search-input input {
+			width            : 600px;
+			height           : 25px;
+			background-color : #f5f6f7;
+			border           : 1px solid #dddddd;
+			outline          : none;
+			text-indent      : 10px;
+		}
+
+		.search-input a {
+			width      : 25px;
+			height     : 25px;
+			position   : absolute;
+			top        : 4px;
+			right      : 7px;
+			display    : inline-block;
+			background : url("../imgs/search2.png") no-repeat;
+		}
+
+		.search-login {
+			float       : right;
+			text-align  : center;
+			line-height : 60px;
+			font-size   : 16px;
+			margin      : 0 20px;
+		}
+	</style>
+</head>
+<body>
+	<nav>
+		<a href="#" class="nav-download">Download APP</a>
+		<ul>
+			<li>
+				<a href="#">温度
+					<span class="nav-temp">20</span>
+				            /
+					<span class="nav-temp">30</span>
+				</a>
+			</li>
+			<li><a href="#">头条号</a></li>
+			<li><a href="#">反馈</a></li>
+			<li class="more"><a href="#">更多</a></li>
+		</ul>
+	</nav>
+
+	<div class="container">
+
+		<div class="search clear">
+			<a href="#" class="search-logo ">
+				<img src="../imgs/dazongdianpin_logo.png" alt="">
+			</a>
+
+			<form class="search-input" action="">
+				<input type="search" title="搜索">
+				<a href="#"></a>
+			</form>
+
+			<a class="search-login" href="#">登陆</a>
+		</div>
+
+
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test1</title>
+  <script src="../res/vue2.4.0/vue.js"></script>
+</head>
+<body>
+  <div id='app'>
+    <ol>
+      <todo-list v-for='item in List' :todo='item' :key='item.id' :ttt='item.id'></todo-list>
+    </ol>
+  </div>
+  
+  
+  <script>
+    Vue.component('todo-list', {
+      props: ['todo','ttt'],
+      template: `<li>{{ todo.text }}-{{todo.id}}-{{bada}}-{{ttt}}</li>`
+    })
+    
+    const app7 = new Vue({
+      el: '#app',
+      data: {
+        List: [
+          { id: 0, text: '蔬菜' },
+          { id: 1, text: '奶酪' },
+          { id: 2, text: '随便其他什么人吃的东西' }
+        ],
+        bada: 23123
+      }
+      
+    })
+  </script>
+</body>
+</html>

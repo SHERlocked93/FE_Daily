@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test17 vuerouter</title>
+  <link href="../res/animate.css" rel="stylesheet"/>
+  
+  <script src="vue.js"></script>
+  <script src="vue-resource.js"></script>
+  <script src="../bower_components/vue-router/dist/vue-router.js"></script>
+  
+  <style>
+    .router-link-active {
+      font-size: large;
+      color: #ff558a;
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <button @click="push">push new</button>
+    
+    <ul>
+      <li>
+        <router-link to="/home"> GO TO Home</router-link>
+      </li>
+      <li>
+        <router-link to="/news">GO TO News</router-link>
+      </li>
+    </ul>
+    <transition enter-active-class="animated fadeInLeft"
+                leave-active-class="animated fadeOutRight">
+      <router-view></router-view>
+    </transition>
+  </div>
+  
+  
+  <template id="home">
+    <div>
+      <h3>I am home!</h3>
+      <router-link to="/home/zhangsan/login">LOGIN</router-link>
+      <router-link to="/home/lisi/reg">REG</router-link>
+      <transition enter-active-class="animated fadeInLeft"
+                  leave-active-class="animated fadeOutRight">
+        <router-view></router-view>
+      </transition>
+    </div>
+  </template>
+  
+  <template id="news">
+    <h3> i am news! </h3>
+  </template>
+  
+  <template id="login">
+    <p>please login -> {{$route.params}}</p>
+  </template>
+  
+  <template id="reg">
+    <p>please register -> {{$route.params}}</p>
+  </template>
+  
+  <script>
+    const router = new VueRouter({
+      routes: [
+        {
+          path: "/home",
+          component: { template: "#home" },
+          children: [
+            { path: ':username/login', component: { template: '#login' } },
+            { path: ':username/reg', component: { template: '#reg' } }
+          ]
+        },
+        { path: "/news", component: { template: "#news" } }
+      ]
+    })
+    
+    
+    const app = new Vue({
+      router,
+      methods: {
+        push() {
+          router.push({ path: '/home' })
+        }
+      }
+    }).$mount("#box")
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5.1.4</title>
+	
+	<style>
+		select {
+			width  : 100px;
+			height : 300px;
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<select name="sele" id="sele1" multiple title="sele">
+			<option value="1">选项1</option>
+			<option value="2">选项2</option>
+			<option value="3">选项3</option>
+			<option value="4">选项4</option>
+			<option value="5">选项5</option>
+			<option value="6">选项6</option>
+			<option value="7">选项7</option>
+			<option value="8">选项8</option>
+		</select>
+		<button id="tor">&gt;</button>
+		<button id="torAll">&Gt;</button>
+		<select name="sele" id="sele2" multiple title="sele">
+			<option value="1">选项21</option>
+			<option value="2">选项22</option>
+			<option value="3">选项23</option>
+			<option value="4">选项24</option>
+			<option value="5">选项25</option>
+			<option value="6">选项26</option>
+			<option value="7">选项27</option>
+			<option value="8">选项28</option>
+		</select>
+		<button id="tol">&lt;</button>
+		<button id="tolAll">&Lt;</button>
+	</div>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$("#sele1").dblclick(function () {
+			$("option:checked").appendTo("#sele2");
+		});
+		$("#sele2").dblclick(function () {
+			$("option:checked").appendTo("#sele1");
+		});
+		$("#tor").click(function () {
+			$("#sele1").find("option:checked")
+				.appendTo("#sele2");
+		});
+		$("#torAll").click(function () {
+			$("#sele1").find("option")
+				.appendTo("#sele2");
+		});
+		
+		$("#tol").click(function () {
+			$("#sele2").find("option:checked")
+				.appendTo("#sele1");
+		});
+		$("#tolAll").click(function () {
+			$("#sele2").find("option")
+				.appendTo("#sele1");
+		});
+	</script>
+</body>
+</html>

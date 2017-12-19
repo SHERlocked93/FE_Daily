@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: blue;
+      text-align: center;
+    }
+    
+    .chi {
+      width: 100px;
+      height: 100px;
+      background-color: khaki;
+      display: inline-block;
+    }
+  </style>
+  
+  <script type='text/javascript'>
+    for (var i = 0; i < 4; i++) {
+      (function(i) {
+        setTimeout(function() {console.log(i)}, 1000)
+      })(i)
+    }
+  </script>
+</head>
+<body>
+  <div class='box'>
+    <div class='chi'></div>
+  </div>
+</body>
+</html>

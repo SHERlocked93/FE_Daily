@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tst</title>
+</head>
+<body>
+	<h1>hello</h1>
+	
+	
+	<script type='application/javascript'>
+    var person1 = {}
+    Object.defineProperty(person1, 'name', { value: 'Nicholas' })
+    console.log('name' in person1)                          // true
+    console.log(person1.propertyIsEnumerable('name'))       // false
+    delete person1.name
+    console.log('name' in person1)                    // true
+    person1.name = 'Greg'
+    console.log(person1.name)                       // Nicholas
+	
+	</script>
+</body>
+</html>

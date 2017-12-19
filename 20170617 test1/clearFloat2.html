@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>clear float</title>
+  <style>
+    .box::after {
+      /*overflow : hidden;*/
+      /*clear: both;*/
+      content: '';
+      display: block;
+      clear: both;
+    }
+    
+    .d1 {
+      width: 120px;
+      height: 120px;
+      background-color: #ffd700;
+      float: left;
+    }
+    
+    .d2 {
+      width: 110px;
+      height: 130px;
+      background-color: lightblue;
+      float: left;
+    }
+    
+    .d3 {
+      width: 400px;
+      height: 400px;
+      background-color: #3c3c3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="d1">d1</div>
+  <div class="d2">d2</div>
+  <div class='box'></div>
+  <div class="d3">d3</div>
+
+</body>
+</html>

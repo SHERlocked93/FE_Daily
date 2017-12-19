@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>div span test</title>
+</head>
+<body>
+
+	<div>1</div>
+	<div>2</div>
+	<div>131啊a</div>
+
+	<span>span biaoqian1</span>
+	<span>span biaoqian2</span>
+	<span>span biaoqian3</span>
+	<span>span biaoqian4</span>
+	<br>
+
+
+	<!-- 表单信息需要包括在form中，在提交的时候整个form内容将提交给action属性指定的后台地址 -->
+	<form action="#">
+		用户名：<input type="text" name="Name"><br>
+		性别： 
+		<label for="gender-man"><input id="gender-man" type="radio" name="gender" checked>男</label>&nbsp;&nbsp;
+		<label for="gender-woman"><input id="gender-woman" type="radio" name="gender">女</label><br>
+
+		密码：<input type="password"><br>
+		日期：
+		<select>
+			<option value="1" selected="true"> 农历</option>
+			<option value="2"> 公历</option>
+		</select>&nbsp;
+		<select>
+			<option value="">2001年</option>
+			<option value="">2002年</option>
+			<option value="">2003年</option>
+			<option value="">2004年</option>
+			<option value="">2005年</option>
+			<option value="">2006年</option>
+			<option value="">2007年</option>
+			<option value="">2008年</option>
+			<option value="">2009年</option>
+			<option value="">2010年</option>
+		</select>
+		
+		<br>
+		备注：
+		<textarea cols="200" rows="10"></textarea>
+
+		<br>
+		<input type="checkbox" name="">开通
+
+		<br>
+		<input type="submit" name="" value="提交">
+	</form>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Clear Float</title>
+
+	<style>
+		.d1, .d2 {
+			width      : 100px;
+			height     : 100px;
+			background : #ff558a;
+			float      : left;
+		}
+
+		.box::after {
+			content : '';
+			display : block;
+			clear   : both;
+		}
+
+		.d3 {
+			width            : 250px;
+			height           : 250px;
+			background-color : #3c3c3c;
+		}
+	</style>
+</head>
+<body>
+	<div class="">
+		<div class="d1 box">d1</div>
+		<div class="d3 ">d3</div>
+		<div class="d2 ">d2</div>
+	</div>
+</body>
+</html>

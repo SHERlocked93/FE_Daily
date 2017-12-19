@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.6.1</title>
+</head>
+<body>
+	
+	<div id="loading">Loading....</div>
+	
+	<form action="#">
+		<div class="one">
+			<label>Username:
+				<input type="text" name="username">
+			</label>
+		</div>
+		<div class="two">
+			<label>Password:
+				<input type="password" name="password">
+			</label>
+		</div>
+		<button>Submit</button>
+	</form>
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$("button").click(function () {
+			var url = "";
+			
+			$.getJSON("config.json", function (data) {
+				console.log(data);
+				url = "http://"
+					+ data["id"] + ":"
+					+ data["port"] + "/"
+					+ data["project"] + "/logincheck";
+				console.log(url);
+			});
+			
+			$.get(url, $("form").serialize(), function (data, textStatus) {
+				console.log("data:" + data + "\ntextStatus" + textStatus);
+			});
+		});
+	</script>
+</body>
+</html>

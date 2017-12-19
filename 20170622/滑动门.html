@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>滑动门</title>
+
+	<style>
+		* {
+			padding : 0;
+			margin  : 0;
+		}
+
+		ul {
+			list-style : none;
+			position   : relative;
+		}
+
+		a {
+			text-decoration : none;
+			line-height     : 60px;
+		}
+
+		li {
+			height           : 60px;
+			width            : 200px;
+			background-color : #dddddd;
+			border-bottom    : 1px dotted gold;
+		}
+
+		div {
+			width            : 300px;
+			height           : 400px;
+			background-color : #fa486c;
+			position         : absolute;
+			left             : 200px;
+			top              : 0;
+			display          : none;
+		}
+
+		li:hover div {
+			display : block;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>
+			<a href="#">Data 1</a>
+			<div>支持多色图标了，不再受单色限制。</div>
+		</li>
+		<li>
+			<a href="#">Data 2</a>
+			<div>通过一些技巧，支持像字体那样，通过font-size,color来调整样式。</div>
+		</li>
+		<li>
+			<a href="#">Data 3</a>
+			<div> 兼容性较差，支持 ie9+,及现代浏览器。
+			      浏览器渲染svg的性能一般，还不如png。
+			</div>
+		</li>
+	</ul>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test</title>
+</head>
+<body>
+  <ul>
+    <li>item1</li>
+    <li>item2</li>
+    <li>item3</li>
+  </ul>
+  
+  
+  <script type='application/javascript'>
+    let lis = document.getElementsByTagName('li')
+    
+    for (let i = 0; i < lis.length; i++) {
+      lis[i].onclick = () => alert(`你点击了 li-${i}`)
+    }
+  </script>
+</body>
+</html>

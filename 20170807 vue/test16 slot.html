@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test16</title>
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+
+</head>
+<body>
+	<div id="box">
+		<aaa>
+			<ul slot="ul-slot">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+			<ol slot="ol-slot">
+				<li>111</li>
+				<li>222</li>
+			</ol>
+		</aaa>
+		<aaa></aaa>
+	</div>
+	
+	
+	<template id="temp">
+		<h1> - hello -
+			<slot name="ol-slot">This is default msg1.</slot>
+			<slot name="ul-slot">This is default msg2.</slot>
+		</h1>
+	</template>
+	
+	
+	<script>
+		var vm = new Vue({
+			el        : '#box',
+			data      : {},
+			components: {
+				'aaa': {
+					template: "#temp"
+				}
+			}
+		});
+	</script>
+</body>
+</html>

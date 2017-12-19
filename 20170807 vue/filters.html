@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>filters</title>
+	<script src="../res/vue2.4.0/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<input type="text" v-model="msg" placeholder="enter">
+		<br>
+		{{msg}}
+		<br>
+		{{msg|lowercase}}
+		<br>
+		{{msg|uppercase}}
+		<br>
+		{{msg|capitalize}}
+		<br>
+		<span v-html="msg"></span>
+	</div>
+	
+	<script>
+		new Vue({
+			el     : "#box",
+			data   : {
+				msg: ""
+			},
+			filters: {
+				lowercase : v => {
+					if (!v) return;
+					return v.toString().toLowerCase() + " -> lowercase";
+				},
+				uppercase : v => {
+					if (!v) return;
+					return v.toString().toUpperCase() + " -> uppercase";
+				},
+				capitalize: v => {
+					if (!v) return;
+					v = v.toString();
+					return v.charAt(0).toUpperCase() + v.slice(1) + " -> capitalize";
+				}
+			}
+		});
+	</script>
+</body>
+</html>

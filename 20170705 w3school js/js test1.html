@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js test1</title>
+</head>
+<body>
+	<h1>Hello</h1>
+	<button type="button" onclick="bbb();">请点击</button>
+	<div id="d1" style="height: 50px;width: 200px;"></div>
+
+	<form action="#" id="myForm">
+		Email:
+
+		<input type="text" name="email" size="20" title="email">
+
+		<input type="submit" value="Submit">
+	</form>
+
+	<script>
+		document.write("<h2>World!</h2>");
+
+		var x = document.getElementById("d1");
+		x.innerHTML = "hello~~";
+		x.style.color = "red";
+		if (isNaN("12")) alert("ddd");
+
+		var bb = "da";
+
+		function bbb() {
+			document.write("<h1>嘻\嘻</h1>");
+		}
+
+		cars = ["BMW", "Volvo", "Saab", "Ford"];
+		list:
+		{
+			document.write(cars[0] + "<br>");
+			document.write(cars[1] + "<br>");
+			document.write(cars[2] + "<br>");
+			break list;
+			document.write(cars[3] + "<br>");
+			document.write(cars[4] + "<br>");
+			document.write(cars[5] + "<br>");
+		}
+
+		function validate_email(email) {
+			with (email) {
+				if (value === null || value === "") {
+					alert("不能为空");
+					return false;
+				} else return true;
+			}
+		}
+		function validate_form(thisForm) {
+			with (thisForm) {
+				if (!validate_email(email))
+					alert("xixi");
+			}
+		}
+
+
+		var y = document.getElementById("myForm");
+		y.onsubmit = validate_form;
+
+	</script>
+</body>
+</html>

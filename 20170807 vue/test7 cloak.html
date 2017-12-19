@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test7 重复数据</title>
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+	<style>
+		[v-cloak] { display : none; }
+	</style>
+</head>
+<body>
+	<div id="box">
+		<button @click="add">Add</button>
+		<ul>
+			<li v-for="v in arr" v-cloak>{{v}}</li>
+		</ul>
+	</div>
+	
+	<script>
+		let vm = new Vue({
+			data   : {
+				arr: ["apple", "orange", "bear"]
+			},
+			methods: {
+				add: function () {
+					this.arr.push("tomato");
+				}
+			}
+		}).$mount("#box");
+	</script>
+</body>
+</html>

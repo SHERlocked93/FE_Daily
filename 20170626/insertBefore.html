@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>insertBefore</title>
+</head>
+<body>
+	<h1 id="e-h1">hello world!</h1>
+	<a href="#" id="tar">xixi</a>
+
+	<script>
+		var place = document.createElement("p");
+		place.appendChild(document.createTextNode("百度"));
+		var tar = document.getElementById("tar");
+
+//		tar.parentNode.insertBefore(place, tar);
+		insertAfter(place, hhh);
+
+		function insertAfter(newElement, targetElement) {       //插入目标元素后
+			var parent = targetElement.parentNode;
+			if (parent.lastChild === targetElement) {
+				parent.appendChild(newElement);
+			} else {
+				parent.insertBefore(newElement, targetElement.nextElementSibling);
+			}
+		}
+	</script>
+</body>
+</html>

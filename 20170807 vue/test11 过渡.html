@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test10</title>
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+	<style href="../bower_components/animate.css/animate.css"></style>
+	<style>
+		#box {
+			margin-left : 200px;
+		}
+		
+		#div1 {
+			width            : 100px;
+			height           : 100px;
+			background-color : orangered;
+		}
+	
+	
+	</style>
+</head>
+<body>
+	<div id="box">
+		<button @click="bFlag=!bFlag">
+			按钮
+		</button>
+		
+		<div id="div1" class="animated" v-show="bFlag"></div>
+	
+	</div>
+	
+	
+	<script>
+		const vm = new Vue({
+			el     : "#box",
+			data   : {
+				bFlag: true
+			},
+			methods: {
+				toggle() {
+					this.bFlag = !this.bFlag;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

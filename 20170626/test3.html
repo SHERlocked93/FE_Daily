@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tst</title>
+</head>
+<body>
+  <h1>hello</h1>
+  
+  
+  <script type='application/javascript'>
+    var person1 = {}
+    Object.defineProperties(person1, {
+      _name: {
+        value: 'Nicholas',
+        enumerable: true,
+        configurable: true,
+        writable: true
+      },
+      name: {
+        get: function() {
+          console.log('reading me')
+          return this._name
+        },
+        set: function(val) {
+          console.log(`setting name to ${val}`)
+          this._name = val
+        },
+        enumerable: true,
+        configurable: true
+      }
+    })
+  
+  </script>
+</body>
+</html>

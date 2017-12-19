@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>4.3</title>
+	
+	<style>
+		ul {
+			list-style : none;
+		}
+		
+		li {
+			float  : left;
+			margin : 50px 50px;
+		}
+		
+		img {
+			width  : 100px;
+			height : 100px;
+		}
+		
+		.current {
+			color : #5bc0de;
+		}
+	</style>
+</head>
+<body>
+	<div class="vShow">
+		<div class="vCaption">
+			<h2>卡通</h2>
+			<div class="highlightTip">
+				<span title="1">1</span>
+				<span title="2">2</span>
+				<span title="3">3</span>
+				<span title="4">4</span>
+			</div>
+			<div class="changeBtn">
+				<button class="prev">&lt;</button>
+				<button class="next">&gt;</button>
+			</div>
+			<em><a href="#">More &NestedGreaterGreater;</a></em>
+		</div>
+		<div class="vContent">
+			<div class="vContentList">
+				<ul>
+					<li>
+						<a href="#">
+							<img src="../imgs/aaa.jpeg" alt="memeda">
+							<h4><a href="">帅哥1</a><br>
+								<span>播放</span><em>23429</em>
+							</h4>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="../imgs/aaa.jpeg" alt="memeda">
+							<h4><a href="">帅哥2</a><br>
+								<span>播放</span><em>23429</em>
+							</h4>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="../imgs/aaa.jpeg" alt="memeda">
+							<h4><a href="">帅哥3</a><br>
+								<span>播放</span><em>23429</em>
+							</h4>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="../imgs/aaa.jpeg" alt="memeda">
+							<h4><a href="">帅哥4</a><br>
+								<span>播放</span><em>23429</em>
+							</h4>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		var page = 1;
+		var i = 4;
+		
+		$("span.next").click(function () {
+			var $parent = $(this).parents("div.vShow");
+			var $vShow = $parent.find("div.vContentList");
+			var $vContent = $parent.find("div.vContent");
+
+			var vWidth = $vContent.width();
+			var len = $vShow.find("li").length;
+
+		});
+	</script>
+</body>
+</html>

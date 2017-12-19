@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css Transform</title>
+	<link rel="stylesheet" href="../cssRes/resetTotal.css">
+	<style>
+
+		.d1 {
+			width              : 300px;
+			height             : 700px;
+			margin             : 100px 100px;
+			background-color   : #3c3c3c;
+			-webkit-transition : 0.4s;
+			position           : relative;
+			overflow           : hidden;
+		}
+
+		.d1:hover {
+			transform  : translate3d(50px, -60px, 0px);
+			box-shadow : 1px 15px 20px rgba(0, 0, 0, .5);
+		}
+
+		p {
+			height           : 70px;
+			width            : 100%;
+			background-color : orange;
+			position         : absolute;
+			bottom           : -70px;
+			transition       : 0.2s;
+		}
+
+		div:hover p {
+			bottom : 0;
+		}
+
+
+	</style>
+</head>
+<body>
+	<div class="d1">
+		<p>订单中含有未退款项，待系统处理，请您耐心等待。东券发生拆分时不予返还，京券、手机红包请您联系在线客服处理。</p>
+	</div>
+</body>
+</html>

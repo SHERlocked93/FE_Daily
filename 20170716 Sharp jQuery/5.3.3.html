@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5.3.3</title>
+	<link rel="stylesheet" href="skin0.css" id="cssfile">
+</head>
+<body>
+	<button id="skin0">skin0</button>
+	<button id="skin1">skin1</button>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		function switchSkin(skinName) {
+			$("#cssfile").attr("href", skinName + ".css");
+		}
+		
+		$(function () {
+			$("button").click(function () {
+				switchSkin(this.id);
+			});
+		});
+	</script>
+</body>
+</html>

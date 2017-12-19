@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>遍历快捷键</title>
+</head>
+<body>
+	<h1>hello world</h1>
+
+	<ul id="navigation">
+		<li><a href="#" accesskey="1">home</a></li>
+		<li><a href="#" accesskey="2">contact</a></li>
+		<li><a href="#" accesskey="3">search</a></li>
+	</ul>
+
+	<script>
+		function displayAccesskeys() {
+			if (!document.getElementsByTagName) return false;
+			var links = document.getElementsByTagName("a");
+			var tags = [];
+			if (links.length < 1) return false;
+			for (var i = 0; i < links.length; i++) {
+				if (!links[i].getAttribute("accesskey")) continue;
+
+				var source = links[i].lastChild.nodeValue;
+				var key = links[i].getAttribute("accesskey");
+
+				tags[key] = source;
+			}
+
+			var list = document.createElement("ul");
+			for (key in tags) {
+				var txt = key + " : " + tags[key];
+				var li = document.createElement("li");
+				var li_txt = document.createTextNode(txt);
+
+				li.appendChild(li_txt);
+				list.appendChild(li);
+			}
+
+			insertAfter(list, document.getElementById("navigation"));
+		}
+
+		addLoadEvent(displayAccesskeys);
+
+
+		function addLoadEvent(func) {                           //将函数添加到页面加载时执行
+			var oldonload = window.onload;
+			if (typeof window.onload !== 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				};
+			}
+		}
+
+		function insertAfter(newElement, targetElement) {       //插入目标元素后
+			var parent = targetElement.parentNode;
+			if (parent.lastChild === targetElement) {
+				parent.appendChild(newElement);
+			} else {
+				parent.insertBefore(newElement, targetElement.nextElementSibling);
+			}
+		}
+
+		function getNextElement(node) {
+			if (node.nextSibling) {
+				var nodeNext = node.nextSibling;
+				if (nodeNext.nodetype === 1) return node;
+				if (nodeNext.nextSibling) return getNextElement(node.nextSibling);
+			}
+			return null;
+		}
+
+		function addClass(element, theClass) {
+			if (!element.className) {
+				element.className = theClass;
+			} else {
+				var newClassName = element.className;
+				newClassName += " ";
+				newClassName += theClass;
+				element.className = newClassName;
+			}
+		}
+	</script>
+</body>
+</html>

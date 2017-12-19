@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>静态网页文本</title>
+	<style>
+		table {
+			width: 100%;
+			border: 1px solid #999;
+		}
+	</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<th>name</th>
+			<th>pass</th>
+			<th>age</th>
+		</tr>
+		
+		<tr>
+			<td>zhu</td>
+			<td>123</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>zhang</td>
+			<td>456</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>wang</td>
+			<td>789</td>
+			<td>3</td>
+		</tr>
+	</table>
+	
+	
+	<form action="#">
+		<label for="user">姓名：</label>
+		<input type="text" name="user" id="user">
+		
+		<label for="sex">性别：</label>
+		<input type="text" name="sex" id="sex">
+		
+		<label for="grade">年级：</label>
+		<select name="grade" id="grade">
+			<option value="1">一</option>
+			<option value="2">二</option>
+			<option value="3">三</option>
+		</select>
+		
+		<label for="kemu">科目：</label>
+		<select name="kemu" id="kemu">
+			<option value="yuwen">语文</option>
+			<option value="suxue">数学</option>
+			<option value="waiyu">外语</option>
+			<option value="wuli">物理</option>
+			<option value="jisuanji">计算机</option>
+			<option value="huaxue">化学</option>
+		</select>
+		
+		<button id="submit">提交</button>
+	</form>
+</body>
+</html>

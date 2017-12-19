@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tet todolist</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link href="../bootstrapLib/css/bootstrap.min.css" rel="stylesheet">
+	<script src="../res/vue2.4.0/vue.js"></script>
+	<!--[if lt IE 9]>
+	<script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
+	 width="55.394px" height="55.379px" viewBox="-0.884 281.066 55.394 55.379"
+	 style="enable-background:new -0.884 281.066 55.394 55.379;" xml:space="preserve">
+		<path style="fill:#111111;" d="M34.563,302.153H18.81c0.097,2.025,0.957,3.853,2.302,5.198c1.428,1.428,3.399,2.309,5.575,2.309
+			c2.178,0,4.15-0.881,5.578-2.309C33.605,306.006,34.47,304.178,34.563,302.153L34.563,302.153L34.563,302.153z M14.713,302.153
+			H9.626v-2.809l5.434-0.557c1.314-5.388,6.175-9.388,11.967-9.388c6.802,0,12.32,5.518,12.32,12.324c0,0.143-0.003,0.287-0.01,0.43
+			h-1.588c-0.097,2.906-1.314,5.528-3.233,7.45c-2.005,2.005-4.771,3.243-7.83,3.243c-3.056,0-5.825-1.238-7.826-3.243
+			c-1.918-1.918-3.139-4.544-3.236-7.45H14.713z"></path>
+		<path style="fill:#999999;" d="M25.86,324.114h-0.191c-3.025,0-6.05,0.004-9.076-0.002c-1.573-0.003-2.786-0.388-3.604-1.159
+			c-0.323-0.304-0.487-0.641-0.532-0.995c-0.009-0.068-0.009-0.136-0.009-0.204c0-2.04-0.002-4.081,0-6.121
+			c0.001-0.806,0.567-1.454,1.71-1.93c0.723-0.301,1.548-0.428,2.437-0.428c0.967,0,1.933,0.002,2.9-0.002
+			c0.138-0.001,0.19,0.026,0.232,0.098c2.024,3.546,4.052,7.092,6.079,10.637C25.823,324.039,25.837,324.07,25.86,324.114
+			L25.86,324.114z"></path>
+		<path style="fill:red;" d="M41.345,318.696c0-1.02-0.003-2.04,0.002-3.061c0.002-0.394-0.127-0.77-0.46-1.115
+			c-0.722-0.748-1.827-1.176-3.328-1.232c-1.096-0.041-2.196-0.006-3.294-0.016c-0.127-0.001-0.158,0.034-0.189,0.089
+			c-0.196,0.346-0.394,0.692-0.592,1.039c-1.829,3.204-3.658,6.407-5.489,9.61c-0.037,0.065-0.08,0.105,0.107,0.105
+			c3.05-0.003,6.101-0.001,9.151-0.003c0.734,0,1.434-0.092,2.065-0.311c1.334-0.463,2.018-1.143,2.026-2.035
+			C41.352,320.744,41.345,319.72,41.345,318.696L41.345,318.696z"></path>
+		<path style="fill:#ffd000;" d="M19.644,313.294c0,0,6.922,10.672,14.471-0.032l0.669,1.195l-1.672,7.645l-3.679,1.242L28,324.109
+			l-2.174,0.005l-6.715-7.268L19.644,313.294z"></path>
+		<path style="fill:#ffd000;" d="M26.813,281.21c7.595,0,14.477,3.082,19.469,8.067c4.998,4.992,8.08,11.88,8.08,19.475
+		c0,7.601-3.082,14.49-8.067,19.475c-4.979,4.985-11.868,8.074-19.475,8.074s-14.502-3.088-19.481-8.067
+		c-4.979-4.979-8.074-11.868-8.074-19.475s3.088-14.496,8.074-19.475C12.323,284.292,19.212,281.21,26.813,281.21L26.813,281.21z
+		 M43.855,291.71c-4.355-4.361-10.387-7.059-17.042-7.059c-6.662,0-12.687,2.698-17.042,7.053
+		c-4.355,4.368-7.059,10.399-7.059,17.049c0,6.656,2.704,12.681,7.059,17.042c4.355,4.355,10.387,7.059,17.042,7.059
+		c6.649,0,12.681-2.698,17.036-7.059c4.361-4.355,7.059-10.387,7.059-17.042C50.908,302.091,48.21,296.066,43.855,291.71z"></path>
+	</svg>
+	
+	<div class="container" id="box">
+		<form action="#" role="form">
+			<div class="form-group">
+				<label for="username">Username:</label>
+				<input class="form-control" type="text" name="username" id="username" v-model="unameToAdd" placeholder="Username to add ...">
+			</div>
+			<div class="form-group">
+				<label for="age">Age:</label>
+				<input class="form-control" type="text" name="age" id="age" v-model="ageToAdd" placeholder="Age to add ...">
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-info" v-on:click="addMan">Add</button>
+				<button type="reset" class="btn btn-danger">Reset</button>
+			</div>
+		</form>
+		
+		
+		<table class="table table-hover text-center">
+			<caption class="text-center text-info">用户信息表</caption>
+			<tr>
+				<th class="text-center">序号</th>
+				<th class="text-center">名字</th>
+				<th class="text-center">年龄</th>
+				<th class="text-center">操作</th>
+			</tr>
+			<tr v-for="item in items">
+				<td>{{item.idx}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.age}}</td>
+				<td>
+					<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal" v-on:click="idxDele=item.idx">删除</button>
+				</td>
+			</tr>
+			
+			
+			<tr v-show="items.length!==0">
+				<td colspan="4" class="text-center">
+					<button class="btn btn-danger" data-toggle="modal" data-target="#myModal" v-on:click="idxDele=-2">全部删除</button>
+				</td>
+			</tr>
+			
+			<tr v-show="items.length===0">
+				<td colspan="4" class="text-center text-info">
+					<p>No Data ...</p>
+				</td>
+			</tr>
+		</table>
+		
+		
+		<!--模态框-->
+		<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Delete this message</h4>
+					</div>
+					<div class="modal-body">
+						<p>Please ensure to delete this message&hellip;</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="deleMan(idxDele)">Ensure</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	</div>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<script>
+		$(new Vue({
+			el     : "#box",
+			data   : {
+				unameToAdd: "",
+				ageToAdd  : "",
+				items     : [
+					{idx: 1, name: "ggg", age: 12},
+					{idx: 2, name: "fff", age: 23},
+					{idx: 3, name: "zzz", age: 43}
+				],
+				idxNow    : 4,
+				idxDele   : 0
+			},
+			methods: {
+				addMan : function () {
+					if (this.unameToAdd && this.ageToAdd) {
+						this.items.push({idx: this.idxNow++, name: this.unameToAdd, age: this.ageToAdd});
+						this.unameToAdd = this.ageToAdd = "";
+					}
+				},
+				deleMan: function (n) {
+					if (n === -2) {
+						this.items = [];
+					} else {
+						this.items.splice(n - 1, 1);
+					}
+				}
+			}
+		}));
+	</script>
+</body>
+</html>

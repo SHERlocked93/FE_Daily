@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test1</title>
+  <script src='../res/echarts.common.min.js'></script>
+</head>
+<body>
+  <div id='main'></div>
+  
+  <script type='application/javascript'>
+    let myChart = echarts.init(document.getElementById('main'))
+    let option = {
+      title: {
+        text: 'test Demo1'
+      },
+      tooltip: {},
+      legend: {
+        data: ['销量']
+      },
+      xAxis: {
+        data: ['衬衫', '羊毛衫', '羊绒衫', '裤子', 'T恤', '袜子']
+      },
+      yAxis: {},
+      series: [{
+        name: '销量',
+        type: 'bar',
+        data: [5, 12, 30, 10, 10, 20]
+      }]
+    }
+    
+    myChart.setOption(option)
+  </script>
+</body>
+</html>

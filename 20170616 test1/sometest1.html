@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+
+	<style>
+		* {
+			margin  : 0;
+			border  : 0;
+			padding : 0;
+		}
+
+		ul li {
+			list-style   : none;
+			margin-right : 30px;
+			width        : 300px;
+			height       : 210px;
+			border       : 1px solid #dddddd;
+			float        : left;
+			position     : relative;
+		}
+
+		.iconDiv {
+			width      : 100px;
+			height     : 100px;
+			background : url("../20170617 test1/img/icon.jpg") no-repeat;
+			position   : absolute;
+			left       : 100px;
+			top        : -50px;
+
+		}
+
+		.p1 {
+			position : absolute;
+			right    : 0;
+			bottom   : 0;
+		}
+
+		.bacBgd {
+			background : pink;
+			width      : 100%;
+			height     : 500px;
+			position   : relative;
+		}
+
+		.bacBgd::before {
+			content    : "";
+			display    : block;
+			width      : 100px;
+			height     : 100px;
+			background : url("../20170617 test1/img/icon.jpg") no-repeat;
+			position   : absolute;
+			bottom     : -5px;
+			right      : 100px;
+		}
+
+
+	</style>
+</head>
+<body>
+	<h1>Some Text</h1>
+	<br>
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<div class="bacBgd"></div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<ul>
+		<li>
+			<div class="iconDiv"></div>
+			<p class="p1">所有知识框架，那肯定是一个结构型的展现，就是一棵树。</p>
+		</li>
+
+		<li>
+			<div class="iconDiv">
+
+			</div>
+		</li>
+
+		<li>
+			<div class="iconDiv">
+
+			</div>
+		</li>
+
+	</ul>
+</body>
+</html>

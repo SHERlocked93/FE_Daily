@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test2</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	
+	<link href="../bootstrapLib/css/bootstrap.css" rel="stylesheet">
+	
+	<style>
+		body { padding-top : 70px; }
+	</style>
+	
+	<!--[if lt IE 9]>
+	<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<!--导航栏-->
+	<nav class="nav navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<!--nav-header-->
+			<div class="navbar-header">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Brand</a>
+				</div>
+			</div>
+			
+			<!-- link -->
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Link1</a></li>
+				<li><a href="#">Link2</a></li>
+				<li><a href="#">Link3</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle " data-toggle="dropdown">
+						Link4
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">4</a></li>
+					</ul>
+				</li>
+			</ul>
+			
+			<p class="navbar-text">navbar-text</p>
+			
+			<p class="navbar-text"><a href="#" class="navbar-link"> SomeLinkInA</a></p>
+			
+			
+			<!--Search-->
+			<form action="#" class="navbar-form navbar-right">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search something">
+				</div>
+				<button type="submit" class="btn btn-default ">Search</button>
+			</form>
+		
+		</div>
+	</nav>
+	
+	
+	<div class="container">
+		
+		
+		<div class="row">
+			<div class="col-md-1">col-md-1~</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+			<div class="col-md-1">col-md-1</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-3">col-md-3</div>
+			<div class="col-md-3">col-md-3</div>
+			<div class="col-md-3">col-md-3</div>
+			<div class="col-md-3">col-md-3</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-4">col-md-4</div>
+			<div class="col-md-4">col-md-4</div>
+			<div class="col-md-4">col-md-4</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-4">col-md-4</div>
+			<div class="col-md-8">col-md-8</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-9">col-md-9
+				<div class="row">
+					<div class="col-md-8">col-md-8</div>
+					<div class="col-md-4">col-md-4</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<h1>hello world
+				<small>memeda</small>
+			</h1>
+			<h2>hello world
+				<small>memeda</small>
+			</h2>
+		</div>
+		
+		<div class="row">
+			<p class="lead">Lorem
+				<mark>ipsum</mark>
+			                dolor sit amet, consectetur
+				<del>adipisicing edit</del>
+			                . A accusamus asperiores atque beatae corporis
+			                dignissimos, dolorem eaque est ex facilis fuga fugit <em>ipsa</em> iste iure sunt tempore
+			                temporibus? Obcaecati,
+			                suscipit.
+			</p>
+			<p class="text-right text-capitalize">lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus asperiores atque beatae corporis
+			                                      dignissimos, dolorem eaque est ex facilis fuga fugit ipsa iste iure sunt tempore temporibus? Obcaecati,
+			                                      suscipit.</p>
+			<p class="text-success text-lowercase">LOREM IPSUM DOLOR sit amet, consectetur adipisicing elit. A accusamus asperiores atque beatae corporis
+			                                       dignissimos, dolorem eaque est ex facilis fuga fugit ipsa iste iure sunt tempore temporibus?
+				<small> Obcaecati, suscipit.</small>
+			</p>
+			<p class="text-uppercase">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus asperiores
+			                          atque beatae corporis
+			                          dignissimos, <strong>dolorem</strong> dolorem <em>eaque</em> eaque est ex facilis
+				<abbr title="memeda">fuga</abbr> fuga fugit ipsa iste
+			                          iure sunt tempore temporibus? Obcaecati,
+			                          suscipit.</p>
+			
+			<abbr title="HyperText Markup Language" class="initialism">HTML</abbr>
+			
+			<address>
+				<strong>Twitter, Inc.</strong><br>
+				1355 Market Street, Suite 900<br>
+				San Francisco, CA 94103<br>
+				<abbr title="Phone">P:</abbr> (123) 456-7890
+			</address>
+			
+			<address>
+				<strong>Full Name</strong><br>
+				<a href="mailto:#">first.last@example.com</a>
+			</address>
+			
+			<blockquote>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+			</blockquote>
+			
+			<blockquote class="blockquote-reverse">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+				<footer class="text-right">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+			</blockquote>
+		</div>
+		
+		<!--列表-->
+		<div class="row">
+			<ul class="list-unstyled">
+				<li>hello
+					<ul class="list-inline">
+						<li>inner</li>
+						<li>inner</li>
+						<li>inner</li>
+					</ul>
+				</li>
+				<li>hello</li>
+				<li>hello</li>
+				<li>hello</li>
+				<li>
+					hello
+				</li>
+			</ul>
+		</div>
+		
+		<div class="row">
+			<ol>
+				<li>hello
+					<ol>
+						<li>inner</li>
+						<li>inner</li>
+						<li>
+							inner
+						</li>
+					</ol>
+				</li>
+				<li>hello</li>
+				<li>hello</li>
+				<li>hello</li>
+				<li>
+					hello
+				</li>
+			</ol>
+		</div>
+		
+		<div class="row">
+			<dl class="dl-horizontal">
+				<dt>Description lists</dt>
+				<dd>A description list is perfect for defining terms.</dd>
+				<dt>Euismod</dt>
+				<dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
+				<dd>Donec id elit non mi porta gravida at eget metus.</dd>
+				<dt>Malesuada porta</dt>
+				<dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+			</dl>
+		</div>
+		
+		<!--代码-->
+		<div class="row">
+			<p>
+				Lorem ipsum dolor sit amet, consectetur <kbd>ctrl + ,</kbd> adipisicing elit. A accusamus architecto autem earum enim eos et eveniet exercitationem
+				ipsam natus nesciunt odio pariatur porro praesentium quibusdam, sit vero voluptates voluptatum.
+			</p>
+			<p>
+				For example, <code>&lt;section&gt;</code> should be wrapped as inline.
+			</p>
+			<var>y</var> = <var>m</var><var>x</var> + <var>b</var>
+			<pre>&lt;p&gt;Sample text here...&lt;/p&gt;</pre>
+			<samp>This text is meant to be treated as sample output from a computer program.</samp>
+		</div>
+		
+		<!--表格-->
+		<div class="row table-responsive">
+			<table class="table table-striped table-hover table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th>表格标题</th>
+						<th>表格标题</th>
+						<th>表格标题</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>表格内容</th>
+						<th>表格内容</th>
+						<th>表格内容</th>
+					</tr>
+					<tr class="info">
+						<th>表格内容</th>
+						<th>表格内容</th>
+						<th>表格内容</th>
+					</tr>
+					<tr>
+						<th>表格内容</th>
+						<th>表格内容</th>
+						<th>表格内容</th>
+					</tr>
+					<tr class="danger">
+						<th>表格内容</th>
+						<th>表格内容</th>
+						<th>表格内容</th>
+					</tr>
+					<tr>
+						<th>表格内容</th>
+						<th>表格内容</th>
+						<th>表格内容</th>
+					</tr>
+					<tr class="success">
+						<th>表格内容</th>
+						<th>表格内容</th>
+						<th>表格内容</th>
+					</tr>
+					<tr>
+						<th>表格内容</th>
+						<th>表格内容</th>
+						<th>表格内容</th>
+					</tr>
+					<tr class="active">
+						<th>表格内容</th>
+						<th>表格内容</th>
+						<th>表格内容</th>
+					</tr>
+					<tr>
+						<th>表格内容</th>
+						<th>表格内容</th>
+						<th>表格内容</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<!--表单-->
+		<div class="row">
+			<form action="#">
+				<div class="form-group">
+					<label for="userName1">UserName</label>
+					<input type="text" class="form-control" placeholder="UserName" id="userName1">
+				</div>
+				<div class="form-group">
+					<label for="psd1">Password</label>
+					<input type="password" class="form-control" placeholder="Password" id="psd1">
+				</div>
+				<div class="form-group">
+					<label>File Input</label>
+					<input type="file">Slect file
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox">Female
+					</label>
+				</div>
+				<button type="submit" class="btn btn-success">Submit</button>
+			</form>
+		</div>
+		<br>
+		
+		<!--行内表单-->
+		<div class="row">
+			<form action="#" class="form-inline">
+				<div class="form-group">
+					<label for="userName2" class="sr-only">user name</label>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type="text" class="form-control" id="userName2" placeholder="UserName">
+						<div class="input-group-addon">@qq.com</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="psd2">user psd</label>
+					<input type="password" class="form-control" id="psd2" placeholder="Password">
+				</div>
+				<button type="submit" class="btn btn-success">Submit</button>
+			</form>
+		</div>
+		<br>
+		
+		<form class="form-horizontal" action="#">
+			<div class="form-group">
+				<label for="" class="col-md-2 control-label">Email</label>
+				<div class="col-md-10"><input type="email" class="form-control" placeholder="Email"></div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-md-2 control-label">Password</label>
+				<div class="col-md-10">
+					<input type="password" class="form-control" placeholder="password">
+				</div>
+			</div>
+			<div class="form-group">
+				<textarea name="" id="" rows="3" class="form-control" placeholder="text"></textarea>
+			</div>
+		</form>
+		<br>
+		
+		<div class="row">
+			<form action="">
+				<select class="form-control" title="">
+					<option value="">1</option>
+					<option value="">2</option>
+					<option value="">3</option>
+					<option value="">4</option>
+					<option value="">5</option>
+				</select>
+			</form>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" value="">
+					Option one is this and that&mdash;be sure to include why it's great
+				</label>
+			</div>
+			<div class="checkbox disabled">
+				<label>
+					<input type="checkbox" value="" disabled>
+					Option two is disabled
+				</label>
+			</div>
+			
+			<div class="radio">
+				<label>
+					<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+					Option one is this and that&mdash;be sure to include why it's great
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+					Option two can be something else and selecting it will deselect option one
+				</label>
+			</div>
+			<div class="radio disabled">
+				<label>
+					<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+					Option three is disabled
+				</label>
+			</div>
+		</div>
+		
+		<form action="#" class="form-horizontal">
+			<div class="form-group">
+				<label for="" class="col-md-2 control-label">Email</label>
+				<div class="col-md-10">
+					<p class="form-control-static">44343434343434@qq.com</p>
+				</div>
+			</div>
+		</form>
+		
+		<div class="row">
+			<label class="sr-only" for="inputHelpBlock">Input with help text</label>
+			<input type="text" id="inputHelpBlock" class="form-control" aria-describedby="helpBlock">
+			<span id="helpBlock" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+		</div>
+		<br>
+		
+		<!--表单-->
+		<div class="row">
+			<div class="form-group has-success">
+				<label class="control-label" for="inputSuccess1">Input with success</label>
+				<input type="text" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2">
+				<span id="helpBlock2" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+			</div>
+			<div class="form-group has-warning">
+				<label class="control-label" for="inputWarning1">Input with warning</label>
+				<input type="text" class="form-control" id="inputWarning1">
+			</div>
+			<div class="form-group has-error">
+				<label class="control-label" for="inputError1">Input with error</label>
+				<input type="text" class="form-control" id="inputError1">
+			</div>
+			<div class="has-success">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="checkboxSuccess" value="option1">
+						Checkbox with success
+					</label>
+				</div>
+			</div>
+			<div class="has-warning">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="checkboxWarning" value="option1">
+						Checkbox with warning
+					</label>
+				</div>
+			</div>
+			<div class="has-error">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="checkboxError" value="option1">
+						Checkbox with error
+					</label>
+				</div>
+			</div>
+		</div>
+		<br>
+		
+		<!--表单-->
+		<div class="row">
+			<div class="form-group has-success has-feedback">
+				<label class="control-label" for="inputSuccess2">Input with success</label>
+				<input type="text" class="form-control" id="inputSuccess2">
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
+			<div class="form-group has-warning has-feedback">
+				<label class="control-label" for="inputWarning2">Input with warning</label>
+				<input type="text" class="form-control" id="inputWarning2">
+				<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+			</div>
+			<div class="form-group has-error has-feedback">
+				<label class="control-label" for="inputError2">Input with error</label>
+				<input type="text" class="form-control" id="inputError2">
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			</div>
+			<div class="form-group has-success has-feedback">
+				<label class="control-label" for="inputGroupSuccess1">Input group with success</label>
+				<div class="input-group">
+					<span class="input-group-addon">@</span>
+					<input type="text" class="form-control" id="inputGroupSuccess1">
+				</div>
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>
+			
+			<form class="form-horizontal">
+				<div class="form-group has-success has-feedback">
+					<label class="control-label col-sm-3" for="inputSuccess3">Input with success</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="inputSuccess3">
+						<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+					</div>
+				</div>
+				
+				<div class="form-group has-success has-feedback">
+					<label class="control-label col-sm-3" for="inputGroupSuccess2">Input group with success</label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<span class="input-group-addon">@</span>
+							<input type="text" class="form-control" id="inputGroupSuccess2">
+						</div>
+						<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+					</div>
+				</div>
+			</form>
+		</div>
+		<br>
+		
+		<!--表单-->
+		<div class="row">
+			<input class="form-control input-lg" type="text" placeholder=".input-lg 大">
+			<input class="form-control" type="text" placeholder="Default input 默认">
+			<input class="form-control input-sm" type="text" placeholder=".input-sm 小">
+			
+			<select class="form-control input-lg" title="">
+				<option value="">大</option>
+				<option value="">2</option>
+				<option value="">3</option>
+			</select>
+			
+			<select class="form-control" title="">
+				<option value="">默认</option>
+				<option value="">2</option>
+				<option value="">3</option>
+			</select>
+			
+			<select class="form-control input-sm" title="">
+				<option value="">小</option>
+				<option value="">2</option>
+				<option value="">3</option>
+			</select><br>
+			
+			<form class="form-horizontal">
+				<div class="form-group form-group-lg">
+					<label class="col-sm-2 control-label" for="formGroupInputLarge">Large label</label>
+					<div class="col-sm-10">
+						<input class="form-control" type="text" id="formGroupInputLarge" placeholder="Large input">
+					</div>
+				</div>
+				
+				<div class="form-group form-group-sm">
+					<label class="col-sm-2 control-label" for="formGroupInputSmall">Small label</label>
+					<div class="col-sm-10">
+						<input class="form-control" type="text" id="formGroupInputSmall" placeholder="Small input">
+					</div>
+				</div>
+			</form>
+			
+			<div class="row">
+				<div class="col-xs-2">
+					<input type="text" class="form-control" placeholder=".col-xs-2">
+				</div>
+				<div class="col-xs-3">
+					<input type="text" class="form-control" placeholder=".col-xs-3">
+				</div>
+				<div class="col-xs-4">
+					<input type="text" class="form-control" placeholder=".col-xs-4">
+				</div>
+				<button type="button" class="btn btn-primary btn-lg btn-block">（块级元素）Block level button</button>
+				<button type="button" class="btn btn-default btn-lg btn-block">（块级元素）Block level button</button>
+			</div>
+		</div>
+		<br>
+		
+		<!--图片样式-->
+		<div class="row">
+			<div style="height: 100px;width: 100px;">
+				<img src="../imgs/aaa.jpeg" alt=".asdfasda" class="img-rounded img-responsive">
+			</div>
+			<div style="height: 100px;width: 100px;">
+				<img src="../imgs/aaa.jpeg" alt="..." class="img-circle img-responsive">
+			</div>
+			<div style="height: 100px;width: 100px;">
+				<img src="../imgs/aaa.jpeg" alt="..." class="img-thumbnail img-responsive">
+			</div>
+		</div>
+		<br>
+		
+		<!--文本前景-->
+		<div class="row">
+			<a class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci atque deleniti eligendi, itaque maiores nesciunt pariatur
+			                      provident quas quia, quis reiciendis repellat sapiente similique, temporibus ullam velit voluptates voluptatum?</a>
+			<p class="text-primary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad, animi atque eius expedita facere facilis in ipsa minus modi nostrum
+			                        odit, quisquam quo reprehenderit repudiandae sapiente sit tempora voluptatum?</p>
+			<p class="text-success">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur expedita explicabo hic iure maiores nemo nihil
+			                        reiciendis ut vel! Consectetur delectus magni similique! Impedit nesciunt optio sequi sint tempora.</p>
+			<p class="text-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci aperiam aut culpa cupiditate dicta, facere, fugit, modi
+			                     molestias provident repellendus ullam voluptate. Cumque eum excepturi ipsam iure odit quam!</p>
+			<p class="text-warning">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab aperiam blanditiis corporis, dignissimos dolor doloribus fugit itaque
+			                        labore neque officiis optio quasi recusandae, sed unde! At facilis nam voluptatem!</p>
+			<p class="text-danger">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores dignissimos dolore earum iste iure iusto laboriosam modi
+			                       odio omnis pariatur qui, quis recusandae reiciendis sapiente tempore, vel vitae voluptatum.</p>
+		</div>
+		<br>
+		
+		<!--文本背景-->
+		<div class="row">
+			<p class="bg-primary">bg-primary Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias aliquid assumenda beatae, commodi consequatur, error exercitationem
+			                      fugit ipsam officiis quis recusandae reiciendis, similique tenetur vitae. Aliquid dignissimos fugit quae.</p>
+			<p class="bg-success">bg-success Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque nihil repudiandae sint. At beatae eum, ex nihil obcaecati quos recusandae sequi
+			                      tenetur veniam voluptates! Et maiores possimus quidem sed vitae.</p>
+			<p class="bg-info">bg-info Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus asperiores aspernatur esse et exercitationem explicabo facere ipsa magnam modi
+			                   nemo nulla placeat possimus quasi quia, ratione unde? Consequuntur, quaerat.</p>
+			<p class="bg-warning">bg-warning Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aperiam consequuntur culpa error impedit, ipsam labore
+			                      maiores necessitatibus nesciunt officia placeat, possimus ratione repellendus similique sint temporibus ullam voluptates voluptatum.</p>
+			<p class="bg-danger">bg-danger Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur facilis iste odio praesentium quo reiciendis sapiente
+			                     unde vero. Beatae commodi cumque dolore esse nesciunt odio qui, rem sit vero voluptas.</p>
+		</div>
+		<br>
+		
+		<!--图标-->
+		<div class="row">
+			<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h2 class="text-lowercase">Custom heading<span class="caret"></span></h2>
+			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			<button class="btn btn-success">MEMEDA <span class="glyphicon glyphicon-menu-down"></span></button>
+		</div>
+		
+		<!--下拉菜单-->
+		<div class="row">
+			<button type="button" class="btn btn-default" id="heheda">
+				<span class="glyphicon glyphicon-align-left"></span>
+			</button>
+			
+			<button type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-star"></span> Star
+			</button>
+			
+			<div class="alert alert-danger" role="alert">
+				<span class="glyphicon glyphicon-exclamation-sign"></span>
+				<span class="sr-only">Error:</span>
+				Enter a valid email address
+			</div>
+			
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+					Dropdown
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">Action</a></li>
+					<li class="disabled"><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				</ul>
+			</div>
+		</div>
+		<br>
+		
+		<!--按钮组-->
+		<div class="row">
+			<div class="btn-group-vertical">
+				<button type="button" class="btn btn-success">Left</button>
+				<button type="button" class="btn btn-default">Middle</button>
+				<button type="button" class="btn btn-danger">Right</button>
+			</div>
+			
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+					<button class="btn btn-success">Left</button>
+				</div>
+				<div class="btn-group">
+					<button class="btn btn-default">Middle</button>
+				</div>
+				<div class="btn-group">
+					<button class="btn btn-warning">Right</button>
+				</div>
+			</div>
+			
+			<div class="btn-toolbar">
+				<div class="btn-group btn-group-lg">
+					<button type="button" class="btn btn-success">Left</button>
+					<button type="button" class="btn btn-default">Middle</button>
+					<button type="button" class="btn btn-danger">Right</button>
+				</div>
+				<div class="btn-group btn-group-sm">
+					<button type="button" class="btn btn-success">Left</button>
+					<button type="button" class="btn btn-default">Middle</button>
+					<button type="button" class="btn btn-danger">Right</button>
+				</div>
+				<div class="btn-group btn-group-xs ">
+					<button type="button" class="btn btn-success">Left</button>
+					<button type="button" class="btn btn-default">Middle</button>
+					<button type="button" class="btn btn-danger">Right</button>
+				</div>
+				
+				<div class="btn-group">
+					<button type="button" class="btn btn-danger">Right</button>
+					
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+						Dropdown
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+					</ul>
+				</div>
+			
+			</div>
+			
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+					<button class="btn btn-default">Left</button>
+				</div>
+				<div class="btn-group">
+					<button class="btn btn-default">Middle</button>
+				</div>
+				<div class="btn-group">
+					<button class="btn btn-default">Right</button>
+				</div>
+			</div>
+		
+		
+		</div>
+		<br>
+		
+		<!--按钮式下拉菜单-->
+		<div class="row">
+			<!-- Single button -->
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Action <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#heheda">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				</ul>
+			</div>
+			
+			<!-- Split button -->
+			<div class="btn-group dropup">
+				<button type="button" class="btn btn-warning">Action</button>
+				<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				</ul>
+			</div>
+		</div>
+		<br>
+		
+		<!--输入框组-->
+		<div class="row">
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">@</span>
+				<input type="text" class="form-control" placeholder="Username">
+			</div>
+			
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Recipient's username">
+				<span class="input-group-addon" id="basic-addon2">@example.com</span>
+			</div>
+			
+			<div class="input-group">
+				<span class="input-group-addon">$</span>
+				<input type="text" class="form-control" title="title">
+				<span class="input-group-addon">.00</span>
+			</div>
+			
+			<label for="basic-url">Your vanity URL</label>
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon3">https://example.com/users/</span>
+				<input type="text" class="form-control" id="basic-url">
+			</div>
+			
+			<!--作为额外元素的多选框和单选框-->
+			<div class="col-lg-6">
+				<div class="input-group">
+                    <span class="input-group-addon">
+                          <input type="checkbox" title="">
+                    </span>
+					<input type="text" class="form-control" title="">
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="input-group">
+                        <span class="input-group-addon">
+                              <input type="radio" aria-label="..." title="">
+                        </span>
+					<input type="text" class="form-control" title="">
+				</div>
+			</div>
+			
+			<!--作为额外元素的按钮-->
+			<div class="col-lg-6">
+				<div class="input-group">
+                     <span class="input-group-btn">
+                           <button class="btn btn-default" type="button">Go!</button>
+                     </span>
+					<input type="text" class="form-control" placeholder="Search for...">
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search for...">
+					<span class="input-group-btn">
+                       <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+				</div>
+			</div>
+			
+			<!--作为额外元素的按钮式下拉菜单-->
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+							</ul>
+						</div>
+						<input type="text" class="form-control" title="">
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="input-group">
+						<input type="text" class="form-control" title="">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!--导航栏-->
+			<div class="row">
+				<ul class="nav nav-tabs" id="myTab">
+					<li role="presentation" class="active"><a>Home</a></li>
+					<li role="presentation"><a>Profile</a></li>
+					<li role="presentation"><a>Messages</a></li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							Dropdown
+							<span class="caret"></span>
+							<ul class="dropdown-menu">
+								<li><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+							</ul>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<br>
+		
+		
+		</div>
+		<br>
+		
+		<!--分页-->
+		<nav>
+			<ul class="pagination">
+				<li>
+					<a href="#">
+						<span>&laquo;</span>
+					</a>
+				</li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active"><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li class="disabled"><a href="#">5</a></li>
+				<li><a href="#">6</a></li>
+				<li><a href="#">7</a></li>
+				<li><a href="#">8</a></li>
+				<li>
+					<a href="#">
+						<span>&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<br>
+		
+		<!--翻页-->
+		<nav>
+			<ul class="pager">
+				<li><a href="#">&laquo; Privious</a></li>
+				<li><a href="#">next &raquo;</a></li>
+			</ul>
+		</nav>
+		<br>
+		
+		<!--路径导航-->
+		<ol class="breadcrumb">
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Library</a></li>
+			<li class="active"><a href="#">data</a></li>
+		</ol>
+		<br>
+		
+		<!--标签 & 徽章-->
+		<div class="row">
+			<h3> Example heading <span class="label label-default">new</span></h3>
+			
+			<a href="#">Inbox <span class="badge">42</span></a>
+			
+			<button class="btn btn-primary" type="button">
+				Messages <span class="badge">6</span>
+			</button>
+		</div>
+		<br>
+		
+		<!--巨幕-->
+		<div class="jumbotron">
+			<h1>Hello world!</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias corporis culpa debitis deleniti distinctio doloremque ea facilis fuga iure, iusto mollitia natus
+			   necessitatibus neque nesciunt nostrum quas quod sequi.</p>
+			<button class="btn btn-success btn-lg">Learn More</button>
+		</div>
+		
+		<!--页头-->
+		<div class="page-header">
+			<h1>Example page header
+				<small>Subtext for header</small>
+			</h1>
+		</div>
+		<div class="page-header">
+			<h3>Example somne text
+				<small>heheda</small>
+			</h3>
+		</div>
+		
+		<!--缩略图-->
+		<div class="row">
+			<div class="col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<img src="../imgs/step.png" alt="...">
+					<div class="caption">
+						<h3>Thumbnail label</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam ex maxime natus odio officiis placeat! Consectetur, eveniet hic ipsam maiores nemo, non
+						   obcaecati, officiis praesentium repellat sunt unde voluptas voluptatibus?</p>
+						<p>
+							<a href="#" class="btn btn-primary" role="button">重置</a>
+							<a href="#" class="btn btn-default" role="button">Learn</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<img src="../imgs/step.png" alt="...">
+					<div class="caption">
+						<h3>Thumbnail label</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam ex maxime natus odio officiis placeat! Consectetur, eveniet hic ipsam maiores nemo, non
+						   obcaecati, officiis praesentium repellat sunt unde voluptas voluptatibus?</p>
+						<p>
+							<a href="#" class="btn btn-primary" role="button">重置</a>
+							<a href="#" class="btn btn-default" role="button">Learn</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<img src="../imgs/step.png" alt="...">
+					<div class="caption">
+						<h3>Thumbnail label</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam ex maxime natus odio officiis placeat! Consectetur, eveniet hic ipsam maiores nemo, non
+						   obcaecati, officiis praesentium repellat sunt unde voluptas voluptatibus?</p>
+						<p>
+							<a href="#" class="btn btn-primary" role="button">重置</a>
+							<a href="#" class="btn btn-default" role="button">Learn</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<img src="../imgs/step.png" alt="...">
+					<div class="caption">
+						<h3>Thumbnail label</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam ex maxime natus odio officiis placeat! Consectetur, eveniet hic ipsam maiores nemo, non
+						   obcaecati, officiis praesentium repellat sunt unde voluptas voluptatibus?</p>
+						<p>
+							<a href="#" class="btn btn-primary" role="button">重置</a>
+							<a href="#" class="btn btn-default" role="button">Learn</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		
+		<!--警告框-->
+		<div class="alert alert-success" role="alert">Well done! You successfully read this important alert message.</div>
+		<div class="alert alert-info" role="alert">...</div>
+		<div class="alert alert-warning" role="alert">...</div>
+		<div class="alert alert-danger" role="alert">...</div>
+		<div class="alert alert-warning alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+			<strong>Warning!</strong> Better check yourself, you're not looking too good.
+			<a href="#" class="alert-link">memeda</a>
+		</div>
+		<br>
+		
+		<!--进度条-->
+		<div class="row">
+			<div class="progress">
+				<div class="progress-bar progress-bar-striped active" style="width: 80%;">
+					<span class="sr-only">60% Complete</span>
+				</div>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-striped active" style="width: 60%;">
+					60%
+				</div>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 40%;">
+					<span>40% Complete (success)</span>
+				</div>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 20%;">
+					<span>20% Complete</span>
+				</div>
+				<div class="progress-bar progress-bar-warning progress-bar-striped active" style="width: 60%;">
+					<span>60% Complete (warning)</span>
+				</div>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-danger progress-bar-striped active" style="width: 80%;">
+					<span>80% Complete (danger)</span>
+				</div>
+			</div>
+		</div>
+		
+		<!--媒体对象-->
+		<div class="row">
+			<div class="media">
+				<div class="media-right media-bottom">
+					<a href="#">
+						<img class="media-object" src="../imgs/step.png" alt="...">
+					</a>
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">Media heading 媒体对象</h4>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate dolor eaque ex magni minus odit officia omnis pariatur, possimus quo quod sequi sit tenetur velit
+					veniam voluptate voluptates voluptatibus!
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores dolores excepturi neque nihil quas quos saepe voluptatibus! Delectus esse facere iure laudantium
+					maiores odit, praesentium quidem ratione repellat rerum voluptas?
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, debitis dolores eum eveniet fuga fugit incidunt, magni, natus nihil quibusdam quidem tempore. Amet
+					expedita explicabo illo incidunt nobis nostrum reprehenderit.
+				</div>
+			</div>
+		</div>
+		<ul class="media-list">
+			<li class="media">
+				<div class="media-left">
+					<a href="#">
+						<img class="media-object" src="../imgs/search.png" alt="...">
+					</a>
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">Media heading</h4>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi distinctio, dolore doloribus enim, eos fuga ipsum laborum minima, minus molestiae necessitatibus nihil
+					nostrum placeat possimus quibusdam reiciendis repudiandae voluptatum.
+				</div>
+			</li>
+		</ul>
+		<br>
+		
+		
+		<!--列表组-->
+		<ul class="list-group">
+			<li class="list-group-item">Cras justo odio</li>
+			<li class="list-group-item">Dapibus ac facilisis in</li>
+			<li class="list-group-item">Morbi leo risus</li>
+			<li class="list-group-item">Porta ac consectetur ac</li>
+			<li class="list-group-item">Vestibulum at eros</li>
+			<li class="list-group-item">
+				<span class="badge">14</span>
+				Cras justo odio
+			</li>
+		</ul>
+		<div class="list-group">
+			<a href="#" class="list-group-item active">
+				Cras justo odio
+			</a>
+			<a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+			<a href="#" class="list-group-item">Morbi leo risus</a>
+			<a href="#" class="list-group-item">Porta ac consectetur ac</a>
+			<a href="#" class="list-group-item">Vestibulum at eros</a>
+			<a href="#" class="list-group-item active">
+				<h4 class="list-group-item-heading">List group item heading</h4>
+				<p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita fugit ipsam magnam maxime nam obcaecati possimus, quidem? Eius iste, quos
+				                                recusandae sequi totam unde ut voluptas. Accusamus eligendi esse voluptatum.</p>
+			</a>
+		</div>
+		<div class="list-group">
+			<button type="button" class="list-group-item">Cras justo odio</button>
+			<button type="button" class="list-group-item">Dapibus ac facilisis in</button>
+			<button type="button" class="list-group-item">Morbi leo risus</button>
+			<button type="button" class="list-group-item">Porta ac consectetur ac</button>
+			<button type="button" class="list-group-item">Vestibulum at eros</button>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-success">Dapibus ac facilisis in</li>
+			<li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
+			<li class="list-group-item list-group-item-warning">Porta ac consectetur ac</li>
+			<li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+		</ul>
+		<div class="list-group">
+			<a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
+			<a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
+			<a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
+			<a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+		</div>
+		<br>
+		
+		<!--面板-->
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+				<h3 class="panel-title">Panel Heading</h3>
+			</div>
+			<div class="panel-body">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aut commodi dolor earum esse eum fugiat fugit id incidunt omnis, pariatur placeat quaerat quo soluta
+				tempore voluptatem! Ipsa, perspiciatis?Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores aspernatur, dolore error eum eveniet explicabo hic, id iusto
+				laudantium mollitia necessitatibus officiis, optio quas quia tempora ullam velit voluptatibus.
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Second Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Qian1</th>
+						<th>Qian2</th>
+						<th>Qian3</th>
+					</tr>
+					<tr>
+						<th>Qian1</th>
+						<th>Qian2</th>
+						<th>Qian3</th>
+					</tr>
+					<tr>
+						<th>Qian1</th>
+						<th>Qian2</th>
+						<th>Qian3</th>
+					</tr>
+				</tbody>
+			</table>
+			
+			<!-- List group -->
+			<ul class="list-group">
+				<li class="list-group-item">Cras justo odio</li>
+				<li class="list-group-item">Dapibus ac facilisis in</li>
+				<li class="list-group-item">Morbi leo risus</li>
+				<li class="list-group-item">Porta ac consectetur ac</li>
+				<li class="list-group-item">Vestibulum at eros</li>
+			</ul>
+			<div class="panel-footer">Panel Footer</div>
+		</div>
+		
+		<!--响应式特性的嵌入内容-->
+		<div class="embed-responsive embed-responsive-4by3">
+			<iframe class="embed-responsive-item" src="../imgs/aaa.jpeg"></iframe>
+		</div>
+		<br>
+		
+		<br><br><br><br><br><br><br><br><br><br>
+	</div>
+	
+	<script src="../res/jquery-3.2.1.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<script>
+		$("#myTab").find("a").click(function () {
+			$(this).tab("show");
+		});
+	</script>
+
+</body>
+</html>

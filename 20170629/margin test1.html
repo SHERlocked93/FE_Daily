@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>水平方向的两个盒子</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    
+    body {
+      font-size: 0;
+    }
+    
+    .left {
+      width: 100px;
+      height: 100px;
+      background: red;
+      display: inline-block;
+      /*margin-right: 50px;*/
+      font-size: 20px;
+    }
+    
+    .right {
+      width: 100px;
+      height: 100px;
+      background: yellow;
+      display: inline-block;
+      /*margin-left: 50px;*/
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="left">宽为100px,右边距为50px</div>
+  <div class="right">宽为100px,左边距为50px</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数调用模式</title>
+</head>
+<body>
+	<h1>hello</h1>
+	
+	<script>
+		var myobject = {
+			value    : 1,
+			increment: function (inc) {
+				this.value += typeof inc === "number" ? inc : 1;
+			}
+		};
+		
+		myobject.double = function () {
+			console.log(this);
+			console.log("mdmd");
+			
+			
+			var that = this, ss = "sssss",
+			    helper          = function () {
+				    console.log(this);
+				    console.log(that);
+				    console.log(ss);
+				    that.value = add(that.value, that.value);           //此处 this 指向的是window对象
+			    };
+			
+			helper();
+		};
+		
+		var scope = "global";
+		function t() {
+			console.log(scope);
+			scope = "local";
+			console.log(scope);
+		}
+		
+		t();
+		
+		
+		myobject.double();
+		document.writeln(myobject.value);
+		
+		function add(i, n) {
+			return i + n;
+		}
+	</script>
+</body>
+</html>

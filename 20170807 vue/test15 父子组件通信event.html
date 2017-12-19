@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test14 动态组件 父子组件通信</title>
+  <script src="vue.js"></script>
+  <script src="vue-resource.js"></script>
+
+</head>
+<body>
+  <div id="box">
+    <aaa></aaa>
+  </div>
+  
+  
+  <template id="aaa">
+    <strong>I am father ! -> {{amsg}}
+      <button>event</button>
+      <bbb @child-msg="get"></bbb>
+    </strong>
+  </template>
+  
+  
+  <template id="bbb">
+    <p>I am child! -> {{cmsg}}
+      <button @click='send'>send</button>
+    </p>
+  </template>
+  
+  <script>
+    
+    const vm = new Vue({
+      el: '#box',
+      data: {},
+      components: {
+        'aaa': {
+          data() { return { amsg: 'father-msg' } },
+          template: '#aaa',
+          methods: {
+            get(value) {
+              this.amsg = value
+            }
+          },
+          components: {
+            'bbb': {
+              data() {
+                return {
+                  cmsg: 'child-msg'
+                }
+              },
+              template: '#bbb',
+              methods: {
+                send() {
+                  this.$emit('child-msg', this.cmsg)
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

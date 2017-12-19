@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test17 vuerouter</title>
+	
+	<script src="vue.js"></script>
+	<script src="vue-resource.js"></script>
+	<script src="../bower_components/vue-router/dist/vue-router.js"></script>
+
+</head>
+<body>
+	<div id="box">
+		<router-link to="/home">GO TO Index</router-link>
+		<router-link to="/news">GO TO News</router-link>
+		<router-view></router-view>
+	</div>
+	
+	
+	<template id="home">
+		<h3>I am home!</h3>
+	</template>
+	
+	<template id="news">
+		<h3> i am news!</h3>
+	</template>
+	
+	
+	<script>
+		const routes = [
+			{path: "/home", component: {template: "#home"}},
+			{path: "/news", component: {template: "#news"}},
+			{path: "*", redirect: "/home"}
+		];
+		
+		const router = new VueRouter({routes});
+		const app    = new Vue({router}).$mount("#box");
+	</script>
+</body>
+</html>

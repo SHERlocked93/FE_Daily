@@ -1,0 +1,18 @@
+/* 伪元素，指向标签内容*/
+
+.article-p:first-letter {
+	font-size: 80px;
+}
+
+.article-p:first-line {
+	background-color: grey;
+}
+
+li:first-child {
+	color: green;
+}
+
+.wrap:before, .wrap:after {
+	content: "-------";
+	display: block;  
+}

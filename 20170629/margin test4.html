@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background-color: lightcyan;
+    }
+    
+    #outer {
+      width: 200px;
+      height: 200px;
+      background-color: rosybrown;
+      /*margin-top: 20px;*/
+      /*padding: 1px 0;*/
+    }
+    
+    #inner {
+      width: 80px;
+      height: 80px;
+      background-color: darkcyan;
+      margin: 10px;
+    }
+  
+  </style>
+</head>
+
+<body>
+  
+  <div id="outer">
+    <div id="inner">margin:10px</div>
+  </div>
+  
+  <p>注释：请注意，如果不设置 div 的内边距和边框，那么内部 div 的上外边距将与外部 div 的上外边距合并（叠加）。</p>
+</body>
+</html>

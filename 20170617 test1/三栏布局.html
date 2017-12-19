@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style rel='stylesheet'>
+    body { padding: 0;
+      margin: 0; }
+    
+    .header {
+      background-color: black;
+      height: 100px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+    }
+    
+    .main {
+      display: flex;
+      justify-content: space-between;
+      height: 3000px;
+    }
+    
+    .left {
+      width: 300px;
+      background-color: #2b542c;
+    }
+    
+    .center {
+      flex: 1;
+      background-color: #5bc0de;
+    }
+    
+    .right {
+      width: 400px;
+      background-color: #66512c;
+    }
+    
+    .footer {
+      height: 100px;
+      width: 100%;
+      background-color: #795da3;
+      position: fixed;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class='header'></div>
+  
+  <div class='main'>
+    <div class='left'></div>
+    <div class='center'></div>
+    <div class='right'></div>
+  </div>
+  
+  <div class='footer'></div>
+</body>
+</html>

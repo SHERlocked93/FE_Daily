@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3.2.2</title>
+</head>
+<body>
+	<ul>
+		<li>Hello 1</li>
+		<li>Hello 2</li>
+		<li>Hello 3</li>
+	</ul>
+	
+	
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$("ul").append($("<li>Memeda</li>"))
+			.append($("<li>Memeda222</li>"));
+		$("li").click(function () {
+			$(this).clone(true).appendTo("ul");
+			$(this).replaceWith($("<li><strong>memeda ~</strong></li>"))
+		});
+	</script>
+</body>
+</html>

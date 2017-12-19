@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态创建标记</title>
+</head>
+<body>
+	<h1>hello world!</h1>
+
+	<div id="test-div"></div>
+
+	<script>
+		var newE = document.createElement("p");
+		newE.firstChild.nodeValue="da";
+		alert(newE.firstChild);
+		var newT = document.createTextNode("hello world~");
+
+		newE.appendChild(newT);
+		document.getElementById("test-div").appendChild(newE);
+	</script>
+
+
+</body>
+</html>
