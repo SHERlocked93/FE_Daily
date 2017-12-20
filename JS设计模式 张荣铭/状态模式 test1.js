@@ -33,6 +33,7 @@ const SuperMarry = (function() {
 
 SuperMarry
     .change(['jump', 'shoot'])
-    .go()
-    .go()
+    .go()                     // 触发动作  跳跃!  射击!
+    .go()                     // 触发动作  跳跃!  射击!
     .change(['squat'])
+    .go()                     // 触发动作  蹲下!
