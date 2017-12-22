@@ -3,6 +3,7 @@ const A = function(selector) {
 }
 
 A.fn = A.prototype = {
+  constructor: A,
   init: function(selector) {
     this[0] = document.getElementById(selector)
     this.length = 1
