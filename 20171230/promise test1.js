@@ -1,4 +1,5 @@
 // 按照标准：https://promisesaplus.com/   来写的Promise
+// 参考：https://segmentfault.com/l/1500000012002932     ps:讲的垃圾
 // pending -> fulfilled/resolved & rejected
 
 function Promise(executor) {
@@ -11,7 +12,7 @@ function Promise(executor) {
   self.data = undefined         // resolve与reject的返回值
   
   try {
-    executor(resolve, reject)
+    executor(resolve, reject)   // 执行executer
   } catch (e) {
     reject(e)
   }
@@ -122,4 +123,7 @@ let p = new Promise(function(resolve, reject) {
     console.log('执行完成')
     resolve('随便什么数据')
   }, 2000)
-}).then(T => console.log(T + ' then执行'), () => console.log(T + ' 错误？'))
+}).then(
+    T => console.log(T + ' then执行'),
+    T => console.log(T + ' 错误？')
+)
