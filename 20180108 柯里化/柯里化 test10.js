@@ -39,11 +39,9 @@ function crazyCurryingHelper(fn, length, args, holes) {
       }
     }
     
-    
     return _args.length >= length                      // 递归的进行柯里化
         ? fn.apply(this, _args)
         : crazyCurryingHelper.call(this, fn, length, _args, _holes)
-    
   }
 }
 
