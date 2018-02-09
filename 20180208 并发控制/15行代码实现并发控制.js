@@ -17,27 +17,30 @@ let mapLimit = (list, limit, asyncHandle) => {
   let recursion = arr => {
     return asyncHandle(arr.shift())
         .then(() => {
-          if (arr.length !== 0) return recursion(arr)   // 数组还未迭代完，递归继续进行迭代
-          else return 'finish'
+          count--
+          return arr.length
+                 ? recursion(arr)
+                 : 'finish'
         })
   }
   
-  let listCopy = [...list]
-  let asyncList = []                       // 正在进行的所有并发异步操作
+  let listCopy = [...list]                  // 浅复制一份，以免改变了原来的array
+  let asyncList = []                        // 正在进行的所有并发异步操作
   while (limit--) {
     asyncList.push(recursion(listCopy))
   }
-  return Promise.all(asyncList)  // 所有并发异步操作都完成后，本次并发控制迭代完成
+  return Promise.all(asyncList)             // 所有并发异步操作都完成后，本次并发控制迭代完成
 }
 
 
-const dataLists = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 100, 123]
+const dataLists = [6, 4, 9, 2, 5, 1, 7, 8, 3, 11, 100, 123]
 let count = 0
 mapLimit(dataLists, 3, curItem => {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     count++
-    setTimeout(() => {
-      console.log(curItem, '当前并发量:', count--)
+    setTimeout(() => {                              // 模拟处理异步处理完了的回调
+      console.log(curItem, '当前并发量:', count)
+      if (curItem > 200) reject('Error happen!')
       resolve()
     }, Math.random() * 5000)
   })
