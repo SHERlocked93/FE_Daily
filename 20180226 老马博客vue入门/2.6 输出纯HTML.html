@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownAttribute -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src='https://cdn.bootcss.com/vue/2.5.13/vue.js'></script>
+</head>
+<body>
+  <div id="app">
+    <div :id="MenuContaineId" v-html="MenuBody">
+    </div>
+  </div>
+  <script>
+      const app = new Vue({
+          el: '#app',
+          data: {                   // data: 是Vue对象中绑定的数据
+              MenuContaineId: 'menu',
+              MenuBody: '<p>这里是菜单的内容</p>'
+          }
+      })
+  </script>
+</body>
+</html>

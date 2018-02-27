@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue入门之helloworld</title>
+  <script src='https://cdn.bootcss.com/vue/2.5.13/vue.js'></script>
+</head>
+<body>
+  /**
+  * 创建于 2018/2/26
+  * 作者: Qianyu
+  * 功能: 来自老马的博客 http://aicoder.com/vue/preview/all.html
+  */
+  
+  <div id='app'>
+    {{message}}
+  </div>
+  
+  <script type='text/javascript'>
+      const app = new Vue({
+          el: '#app',
+          data: {
+              message: 'Hello world~'
+          }
+      })
+  </script>
+</body>
+</html>
