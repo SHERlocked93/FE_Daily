@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <div id='test-id'></div>
+  
+  <div class='menu-top'></div>
+  <div class='menu-top'></div>
+  
+  <!-- 测试getElement和querySelector的性能 -->
+  
+  <script type='text/javascript'>
+      console.time('querySelector')
+      for (let i = 0; i < 100000; i++) {
+          document.querySelector("#test-id")
+      }
+      console.timeEnd('querySelector')
+      //querySelector: 17.5ms
+      
+      console.time('getElementById')
+      for (let i = 0; i < 100000; i++) {
+          document.getElementById("wp_editbtns")
+      }
+      console.timeEnd('getElementById')
+      //getElementById: 6.2ms
+      
+      console.time('querySelectorAll')
+      for (let i = 0; i < 10000; i++) {
+          document.querySelectorAll(".menu-top")
+      }
+      console.timeEnd('querySelectorAll')
+      //querySelectorAll: 5.4ms
+      
+      console.time('getElementsByClassName')
+      for (let i = 0; i < 10000; i++) {
+          document.getElementsByClassName("menu-top")
+      }
+      console.timeEnd('getElementsByClassName')
+      //getElementsByClassName: 1.8ms
+  </script>
+</body>
+</html>

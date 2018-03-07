@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore.js"></script>
+</head>
+<body>
+  <h1>hello world</h1>
+  
+  <script type='text/javascript'>
+      function lameCSV(str) {
+          return _.reduce(str.split(';'), function(table, row) {
+              table.push(_.map(row.split(','), function(c) {
+                  return c.trim()
+              }))
+          })
+      }
+      
+      console.log(lameCSV('hehe,haha,xixi;didi,meme,dada;zizi,lele,nene;'))
+  </script>
+</body>
+</html>
