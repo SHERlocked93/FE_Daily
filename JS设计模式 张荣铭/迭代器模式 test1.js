@@ -1,6 +1,6 @@
 /**
  * 创建于 2017/12/20
- * 作者: Qianyu
+ * 作者: SHERlocked93
  * 功能: http://www.cnblogs.com/TomXu/archive/2012/03/09/2358903.html
  */
 const agg = (function() {
