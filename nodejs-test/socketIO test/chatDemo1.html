@@ -25,16 +25,27 @@
   <ul id="messages"></ul>
   <form action="">
     <input id="m" autocomplete="off" title=''/>
+    <style rel='stylesheet'>
+      body {
+        background-color: rgba(243, 245, 247, .5);
+      }
+    </style>
     <button>Send</button>
   </form>
   
   
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.bootcss.com/socket.io/2.0.4/socket.io.js"></script>
   
-  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
     $(function() {
-      const socket = io()
+      // const socket = io()
+      const socket = io('ws://172.16.15.166:10002', {
+        path: '/mes-web/endpointScada/websocket',
+        transports: ['websocket']
+      })
+      socket.on('chat message', data => console.info(data))
+      
       $('form').submit(function() {
         socket.emit('chat message', $('#m').val())
         $('#m').val('')

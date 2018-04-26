@@ -12,6 +12,11 @@ io.on('connection', function(socket) {
   socket.on('chat message', function(msg) {
     console.log(`chat message: ${msg}`)
   })
+  
+  socket.emit('chat message', function(msg) {
+    let i = 0
+    setInterval(() => console.log(`chat message~: ${i++}`), 5000)
+  })
 })
 
 http.listen(3000, function() {
