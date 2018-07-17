@@ -130,9 +130,9 @@ Worker线程中全局对象为 `self`，代表子线程自身，这时 `this`指
 - `self.onmessage`: 指定主线程发worker线程消息时的回调，也可以`self.addEventListener('message',cb)`
 - `self.onerror`: 指定worker线程发生错误时的回调，也可以 `self.addEventListener('error',cb)`
 
-更详细的API参见 [MDN - WorkerGlobalScope](https://developer.mozilla.org/zh-CN/docs/Web/API/WorkerGlobalScope)。
+注意，`w.postMessage(aMessage, transferList)` 方法接受两个参数，`aMessage` 是可以传递任何类型数据的，包括对象，这种通信是拷贝关系，即是传值而不是传址，Worker 对通信内容的修改，不会影响到主线程。事实上，浏览器内部的运行机制是，先将通信内容串行化，然后把串行化后的字符串发给 Worker，后者再将它还原。一个可选的 [Transferable](https://developer.mozilla.org/zh-CN/docs/Web/API/Transferable)对象的数组，用于传递所有权。如果一个对象的所有权被转移，在发送它的上下文中将变为不可用（中止），并且只有在它被发送到的worker中可用。可转移对象是如ArrayBuffer，MessagePort或ImageBitmap的实例对象，`transferList`数组中不可传入null。
 
-注意，主线程与 Worker 线程 `postMessage` 通信是可以传递任何类型数据的，包括对象，这种通信是拷贝关系，即是传值而不是传址，Worker 对通信内容的修改，不会影响到主线程。事实上，浏览器内部的运行机制是，先将通信内容串行化，然后把串行化后的字符串发给 Worker，后者再将它还原。
+更详细的API参见 [MDN - WorkerGlobalScope](https://developer.mozilla.org/zh-CN/docs/Web/API/WorkerGlobalScope)。
 
 worker线程中加载脚本的api：
 ```js
