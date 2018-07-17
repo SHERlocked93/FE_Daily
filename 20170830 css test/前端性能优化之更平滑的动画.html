@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style rel='stylesheet'>
+    .move {
+      position: absolute;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      background-color: yellowgreen;
+      transition: all 2s;
+      /*z-index:1;*/
+    }
+    
+    body:hover .move {
+      left: 300px;
+      /*transform: translate(300px, 0);*/
+    }
+  
+  </style>
+</head>
+<body>
+  <div class='move'></div>
+</body>
+</html>
