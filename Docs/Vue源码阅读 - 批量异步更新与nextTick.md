@@ -44,7 +44,7 @@ update() {
 }
 ```
 
-如果不是  `computed watcher` 也非 `sync` 会把调用update的当前watcher推送到调度者观察者队列中，下一个tick时调用，看看 `queueWatcher` ：
+如果不是 `computed watcher` 也非 `sync` 会把调用update的当前watcher推送到调度者队列中，下一个tick时调用，看看 `queueWatcher` ：
 
 ```js
 // src/core/observer/scheduler.js
@@ -57,7 +57,6 @@ export function queueWatcher (watcher: Watcher) {
   if (has[id] == null) {     // 检验id是否存在，已经存在则直接跳过，不存在则标记哈希表has，用于下次检验
     has[id] = true
     queue.push(watcher)      // 如果没有正在flush，直接push到队列中
-    
     if (!waiting) {          // 标记是否已传给nextTick
       waiting = true
       nextTick(flushSchedulerQueue)
@@ -73,9 +72,9 @@ function resetSchedulerState () {
 }
 ```
 
-这里使用了一个 `has` 的哈希map用来检查是否当前watcher的id是否存在，不存在就push到 `queue` 队列中，若已存在则跳过，不存在则标记哈希表has，用于下次检验。这就是一个去重的过程，这样就不会重复添加，比每次查重都要去queue中找要文明，保证在 `patch` 的时候不会重复 `patch` 相同watcher的变化，这样就算同步修改了一百次视图中用到的data，异步 `patch` 的时候也只会更新最后一次修改。
+这里使用了一个 `has` 的哈希map用来检查是否当前watcher的id是否存在，若已存在则跳过，不存在则就push到 `queue` 队列中并标记哈希表has，用于下次检验，防止重复添加。这就是一个去重的过程，比每次查重都要去queue中找要文明，在渲染的时候就不会重复 `patch` 相同watcher的变化，这样就算同步修改了一百次视图中用到的data，异步 `patch` 的时候也只会更新最后一次修改。
 
-这里的 `waiting` 方法是用来标记 `flushSchedulerQueue` 是否已经传递给 `nextTick` 的标记位，如果已经传递则只push到队列中不传递 `flushSchedulerQueue` 给 `nextTick`，等到 `resetSchedulerState` 重置调度者状态的时候 `waiting` 会被置 `false` 允许 `flushSchedulerQueue` 被传递给下一个tick的回调，总之保证了 `flushSchedulerQueue` 回调一个tick内只允许被传入一次。来看看被传递给 `nextTick` 的回调 `flushSchedulerQueue` 做了什么：
+这里的 `waiting` 方法是用来标记 `flushSchedulerQueue` 是否已经传递给 `nextTick` 的标记位，如果已经传递则只push到队列中不传递 `flushSchedulerQueue` 给 `nextTick`，等到 `resetSchedulerState` 重置调度者状态的时候 `waiting` 会被置回 `false` 允许 `flushSchedulerQueue` 被传递给下一个tick的回调，总之保证了 `flushSchedulerQueue` 回调在一个tick内只允许被传入一次。来看看被传递给 `nextTick` 的回调 `flushSchedulerQueue` 做了什么：
 
 ```js
 // src/core/observer/scheduler.js
@@ -109,19 +108,21 @@ function flushSchedulerQueue () {
 }
 ```
 
-在 `nextTick` 方法中执行 `flushSchedulerQueue` 方法，这个方法是 `flush` 之前push进的队列 `queue`，挨个执行 `queue` 中的watcher的 `run` 方法。我们看到在首先有个 `queue.sort()` 方法把队列中的watcher按id从小到大排了个序，这样做可以保证：
+在 `nextTick` 方法中执行 `flushSchedulerQueue` 方法，这个方法挨个执行 `queue` 中的watcher的 `run` 方法。我们看到在首先有个 `queue.sort()` 方法把队列中的watcher按id从小到大排了个序，这样做可以保证：
 
 1. 组件更新的顺序是从父组件到子组件的顺序，因为父组件总是比子组件先创建。
 2. 一个组件的user watchers(侦听器watcher)比render watcher先运行，因为user watchers往往比render watcher更早创建
 3. 如果一个组件在父组件watcher运行期间被销毁，它的watcher执行将被跳过
 
-在挨个执行队列中的for循环中，`index < queue.length` 不要将length进行缓存，因为在执行处理现有watcher对象期间，更多的watcher对象可能会被push进queue。
+在挨个执行队列中的for循环中，`index < queue.length` 这里没有将length进行缓存，因为在执行处理现有watcher对象期间，更多的watcher对象可能会被push进queue。
 
-
+那么数据的修改从model层反映到view的过程：`数据更改 -> setter -> Dep -> Watcher -> nextTick -> patch -> 更新视图`
 
 ## 2. nextTick原理
 
-这里就来看看包含着每个watcher执行的方法被作为回调传入 `nextTick` 之后，`nextTick` 对这个方法做了什么，不过首先要了解一下浏览器中的 `EventLoop`、`macro task`、`micro task`几个概念，不了解可以参考一下 [JS与Node.js中的事件循环](https://segmentfault.com/a/1190000012362096#articleHeader6) 这篇文章，这里就用一张图来表明一下后两者在主线程中的执行关系
+### 2.1 宏任务/微任务
+
+这里就来看看包含着每个watcher执行的方法被作为回调传入 `nextTick` 之后，`nextTick` 对这个方法做了什么。不过首先要了解一下浏览器中的 `EventLoop`、`macro task`、`micro task`几个概念，不了解可以参考一下 [JS与Node.js中的事件循环](https://segmentfault.com/a/1190000012362096#articleHeader6) 这篇文章，这里就用一张图来表明一下后两者在主线程中的执行关系：
 
 ![clipboard.png](https://segmentfault.com/img/bV3EIf?w=547&h=261) 
 
@@ -131,10 +132,10 @@ function flushSchedulerQueue () {
 2. 然后再从macrotask queue中取下一个，执行完毕后，再次将microtask queue中的全部取出；
 3. 循环往复，直到两个queue中的任务都取完。
 
-浏览器环境中常见的异步任务种类
+浏览器环境中常见的异步任务种类，按照优先级：
 
-- `macro task` ：`setTimeout`、`setInterval`、`MessageChannel`、`postMessage`、`setImmediate`
-- `micro task`：`MutationObserver`、`Promise.then`
+- `macro task` ：同步代码、`setImmediate`、`MessageChannel`、`setTimeout/setInterval`
+- `micro task`：`Promise.then`、`MutationObserver`
 
 有的文章把 `micro task` 叫微任务，`macro task` 叫宏任务，因为这两个单词拼写太像了 -。- ，所以后面的注释多用中文表示~
 
@@ -146,7 +147,7 @@ function flushSchedulerQueue () {
 const callbacks = []     // 存放异步执行的回调
 let pending = false      // 一个标记位，如果已经有timerFunc被推送到任务队列中去则不需要重复推送
 
-/* 执行异步回调 */
+/* 挨个同步执行callbacks中回调 */
 function flushCallbacks() {
   pending = false
   const copies = callbacks.slice(0)
@@ -190,30 +191,20 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
 } else {
   microTimerFunc = macroTimerFunc      // fallback to macro
 }
-
-/* 强制使用macrotask的方法 */
-export function withMacroTask(fn: Function): Function {
-  return fn._withTask || (fn._withTask = function() {
-    useMacroTask = true
-    const res = fn.apply(null, arguments)
-    useMacroTask = false
-    return res
-  })
-}
 ```
 
+`flushCallbacks` 这个方法就是挨个同步的去执行callbacks中的回调函数们，callbacks中的回调函数是在调用 `nextTick` 的时候添加进去的；那么怎么去使用 `micro task` 与 `macro task` 去执行 `flushCallbacks` 呢，这里他们的实现 `macroTimerFunc`、`microTimerFunc` 使用浏览器中宏任务/微任务的API对`flushCallbacks` 方法进行了一层包装。比如宏任务方法 `macroTimerFunc=()=>{ setImmediate(flushCallbacks) }`，这样在触发宏任务执行的时候 `macroTimerFunc()` 就可以在浏览器中的下一个宏任务loop的时候消费这些保存在callbacks数组中的回调了，微任务同理。同时也可以看出传给 `nextTick` 的异步回调函数是被压成了一个同步任务在一个tick执行完的，而不是开启多个异步任务。
 
+注意这里有个比较难理解的地方，第一次调用 `nextTick` 的时候 `pending` 为false，此时已经push到浏览器event loop中一个宏任务或微任务的task，如果在没有flush掉的情况下继续往callbacks里面添加，那么在执行这个占位queue的时候会执行之后添加的回调，所以 `macroTimerFunc`、`microTimerFunc` 相当于task queue的占位，以后 `pending` 为true则继续往占位queue里面添加，event loop轮到这个task queue的时候将一并执行。执行 `flushCallbacks` 时 `pending` 置false，允许下一轮执行 `nextTick` 时往event loop占位。
 
-这里的 `macroTimerFunc` 与 `microTimerFunc` 进行了在不同兼容性下的平稳退化：
+可以看到上面 `macroTimerFunc` 与 `microTimerFunc` 进行了在不同浏览器兼容性下的平稳退化，或者说**降级策略**：
 
-1. `macroTimerFunc` ：`setImmediate -> MessageChannel -> setTimeout `。首先检测是否原生支持 `setImmediate `，这个方法只在 IE、Edge 浏览器中原生实现，然后检测是否支持 [MessageChannel](https://developer.mozilla.org/zh-CN/docs/Web/API/MessageChannel)，如果对 `MessageChannel` 不了解可以参考一下[这篇文章](https://zhuanlan.zhihu.com/p/37589777)，还  不支持的话最后使用 `setTimeout `；
-   为什么优先使用 `setImmediate ` 与 `MessageChannel` 而不直接使用 `setTimeout ` 呢，是因为HTML5规定[setTimeout执行的最小延时为4ms](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout)，为了尽可能快的让回调执行，没有最小延时限制的前两者显然要优于 `setTimeout`。
+1. `macroTimerFunc` ：`setImmediate -> MessageChannel -> setTimeout `。首先检测是否原生支持 `setImmediate `，这个方法只在 IE、Edge 浏览器中原生实现，然后检测是否支持 [MessageChannel](https://developer.mozilla.org/zh-CN/docs/Web/API/MessageChannel)，如果对 `MessageChannel` 不了解可以参考一下[这篇文章](https://zhuanlan.zhihu.com/p/37589777)，还不支持的话最后使用 `setTimeout `；
+   为什么优先使用 `setImmediate ` 与 `MessageChannel` 而不直接使用 `setTimeout ` 呢，是因为HTML5规定[setTimeout执行的最小延时为4ms](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout)，而嵌套的timeout表现为10ms，为了尽可能快的让回调执行，没有最小延时限制的前两者显然要优于 `setTimeout`。
 2. `microTimerFunc`：`Promise.then -> macroTimerFunc` 。首先检查是否支持 `Promise`，如果支持的话通过 `Promise.then` 来调用 `flushCallbacks` 方法，否则退化为 `macroTimerFunc` ；
    vue2.5之后 `nextTick` 中因为兼容性原因删除了微任务平稳退化的 `MutationObserver` 的方式。
 
-在vue2.5之前的版本中，nextTick基本上基于 `micro task` 来实现的，但是在某些情况下 `micro task` 具有太高的优先级，并且可能在连续顺序事件（例如[＃4521](https://github.com/vuejs/vue/issues/4521)，[＃6690](https://github.com/vuejs/vue/issues/6690)）之间或者甚至在同一事件的事件冒泡过程中（[＃6566](https://github.com/vuejs/vue/issues/6566)）之间触发。但是如果全部都改成macrotask，对一些有重绘和动画的场景也会有性能影响，如 issue [#6813](https://github.com/vuejs/vue/issues/6813)。vue2.5之后版本提供的解决办法是默认使用 `micro task`，但在需要时（例如在v-on附加的事件处理程序中）强制使用 `macro task`。
-
-这里强制方法的实现是在绑定 DOM 事件的时候，默认会给回调的 handler 函数调用 `withMacroTask` 方法做一层包装 `handler = withMacroTask(handler)`，它保证整个回调函数执行过程中，遇到数据状态的改变，这些改变都会被推到 `macro task` 中。以上实现在 [src/platforms/web/runtime/modules/events.js](https://github.com/SHERlocked93/vue-analysis/blob/12343b07f468bd4b6c2e7c078312b882cd7885ee/vue/src/platforms/web/runtime/modules/events.js#L48) 的 `add` 方法中，可以自己看一看具体代码。
+### 2.2 nextTick实现
 
 最后来看看我们平常用到的 `nextTick` 方法到底是如何实现的：
 
@@ -247,29 +238,88 @@ export function nextTick(cb?: Function, ctx?: Object) {
     })
   }
 }
+
+/* 强制使用macrotask的方法 */
+export function withMacroTask(fn: Function): Function {
+  return fn._withTask || (fn._withTask = function() {
+    useMacroTask = true
+    const res = fn.apply(null, arguments)
+    useMacroTask = false
+    return res
+  })
+}
 ```
 
+ `nextTick` 在这里分为三个部分，我们一起来看一下；
 
+1. 首先 `nextTick` 把传入的 `cb` 回调函数用 `try-catch` 包裹后放在一个匿名函数中推入callbacks数组中，这么做是因为防止单个 `cb` 如果执行错误不至于让整个JS线程挂掉，每个 `cb` 都包裹是防止这些回调函数如果执行错误不会相互影响，比如前一个抛错了后一个仍然可以执行。
+2. 然后检查 `pending` 状态，这个跟之前介绍的 `queueWatcher` 中的 `waiting` 是一个意思，它是一个标记位，一开始是 `false` 在进入 `macroTimerFunc`、`microTimerFunc` 方法前被置为 `true`，因此下次调用 `nextTick` 就不会进入 `macroTimerFunc`、`microTimerFunc` 方法，这两个方法中会在下一个 `macro/micro tick` 时候 `flushCallbacks` 异步的去执行callbacks队列中收集的任务，而 `flushCallbacks` 方法在执行一开始会把 `pending` 置 `false`，因此下一次调用 `nextTick` 时候又能开启新一轮的 `macroTimerFunc`、`microTimerFunc`，这样就形成了vue中的 `event loop`。
+3. 最后检查是否传入了 `cb`，因为 `nextTick` 还支持Promise化的调用：`nextTick().then(() => {})`，所以如果没有传入 `cb` 就直接return了一个Promise实例，并且把resolve传递给_resolve，这样后者执行的时候就跳到我们调用的时候传递进 `then` 的方法中。
 
+Vue源码中 `next-tick.js` 文件还有一段重要的[注释](https://github.com/vuejs/vue/blob/48acf71a01e5665f72696d44aa5a8d8f1d137172/src/core/util/next-tick.js#L20)，这里就翻译一下：
 
+> 在vue2.5之前的版本中，nextTick基本上基于 `micro task` 来实现的，但是在某些情况下 `micro task` 具有太高的优先级，并且可能在连续顺序事件之间（例如[＃4521](https://github.com/vuejs/vue/issues/4521)，[＃6690](https://github.com/vuejs/vue/issues/6690)）或者甚至在同一事件的事件冒泡过程中之间触发（[＃6566](https://github.com/vuejs/vue/issues/6566)）。但是如果全部都改成 `macro task`，对一些有重绘和动画的场景也会有性能影响，如 issue [#6813](https://github.com/vuejs/vue/issues/6813)。vue2.5之后版本提供的解决办法是默认使用 `micro task`，但在需要时（例如在v-on附加的事件处理程序中）强制使用 `macro task`。
 
+为什么默认优先使用 `micro task` 呢，是利用其高优先级的特性，保证队列中的微任务在一次循环全部执行完毕。
 
+强制 `macro task` 的方法是在绑定 DOM 事件的时候，默认会给回调的 handler 函数调用 `withMacroTask` 方法做一层包装 `handler = withMacroTask(handler)`，它保证整个回调函数执行过程中，遇到数据状态的改变，这些改变都会被推到 `macro task` 中。以上实现在 [src/platforms/web/runtime/modules/events.js](https://github.com/SHERlocked93/vue-analysis/blob/12343b07f468bd4b6c2e7c078312b882cd7885ee/vue/src/platforms/web/runtime/modules/events.js#L48) 的 `add` 方法中，可以自己看一看具体代码。
 
+刚好在写这篇文章的时候思否上有人问了个问题 [vue 2.4 和2.5 版本的@input事件不一样](https://segmentfault.com/q/1010000015663316?_ea=4018873) ，这个问题的原因也是因为2.5之前版本的DOM事件采用 `micro task` ，而之后采用 `macro task`，解决的途径参考 [< Vue.js 升级踩坑小记>](https://juejin.im/post/5a1af88f5188254a701ec230) 中介绍的几个办法，这里就提供一个在mounted钩子中用 `addEventListener` 添加原生事件的方法来实现，参见 [CodePen](https://codepen.io/SHERlocked93/pen/WKGNKJ)。
 
+## 3. 一个例子
 
+说这么多，不如来个例子，执行参见 [CodePen](https://codepen.io/SHERlocked93/pen/XBjOLq) 
 
+```html
+<div id="app">
+  <span id='name' ref='name'>{{ name }}</span>
+  <button @click='change'>change name</button>
+  <div id='content'></div>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        name: 'SHERlocked93'
+      }
+    },
+    methods: {
+      change() {
+        const $name = this.$refs.name
+        this.$nextTick(() => console.log('setter前：' + $name.innerHTML))
+        this.name = ' name改喽 '
+        console.log('同步方式：' + this.$refs.name.innerHTML)
+        setTimeout(() => this.console("setTimeout方式：" + this.$refs.name.innerHTML))
+        this.$nextTick(() => console.log('setter后：' + $name.innerHTML))
+        this.$nextTick().then(() => console.log('Promise方式：' + $name.innerHTML))
+      }
+    }
+  })
+</script>
+```
 
-刚好在写这篇文章的时候思否上有人问了个问题 [vue 2.4 和2.5 版本的@input事件不一样](https://segmentfault.com/q/1010000015663316?_ea=4018873) ，这个问题的原因也是因为2.5之前版本的DOM事件采用 `micro task`，而 `micro task` 在当前tick的 `macro task` 执行之后 `patch` 之前执行，所以我猜测是因为 `micro task` 高优先级的原因没等当前tick的变动 `patch` 渲染到真实DOM上就已经更改了数据，所以 `diff` 的时候已经是更改之后的数据了，因此当然不会渲染到真实DOM上。而2.5之后的 `nextTick` 使用 `macro task` ，是肯定在下个tick之后执行的回调，所以在这个回调执行之前input进去的内容自然会被渲染到真实dom上，所以看到的就是更改的数据一闪而过~
+执行以下看看结果：
 
+```
+同步方式：SHERlocked93 
+setter前：SHERlocked93 
+setter后：name改喽 
+Promise方式：name改喽 
+setTimeout方式：name改喽
+```
 
+为什么是这样的结果呢，解释一下：
 
+1. **同步方式：** 当把data中的name修改之后，此时会触发name的 `setter` 中的 `dep.notify` 通知依赖本data的render watcher去 `update`，`update` 会把 `flushSchedulerQueue` 函数传递给 `nextTick`，render watcher在 `flushSchedulerQueue` 函数运行时 `watcher.run` 再走 `diff -> patch` 那一套重渲染 `re-render` 视图，这个过程中会重新依赖收集，这个过程是异步的；所以当我们直接修改了name之后打印，这时异步的改动还没有被 `patch` 到视图上，所以获取视图上的DOM元素还是原来的内容。
+2. **setter前：** setter前为什么还打印原来的是原来内容呢，是因为 `nextTick` 在被调用的时候把回调挨个push进callbacks数组，之后执行的时候也是 `for` 循环出来挨个执行，所以是类似于队列这样一个概念，先入先出；在修改name之后，触发把render watcher填入 `schedulerQueue` 队列并把他的执行函数 `flushSchedulerQueue` 传递给 `nextTick` ，此时callbacks队列中已经有了 `setter前函数` 了，因为这个 `cb` 是在 `setter前函数` 之后被push进callbacks队列的，那么先入先出的执行callbacks中回调的时候先执行 `setter前函数`，这时并未执行render watcher的 `watcher.run`，所以打印DOM元素仍然是原来的内容。
+3. **setter后：** setter后这时已经执行完 `flushSchedulerQueue`，这时render watcher已经把改动 `patch` 到视图上，所以此时获取DOM是改过之后的内容。
+4. **Promise方式：** 相当于 `Promise.then` 的方式执行这个函数，此时DOM已经更改。
+5. **setTimeout方式：** 最后执行macro task的任务，此时DOM已经更改。
 
+注意，在执行 `setter前函数` 这个异步任务之前，同步的代码已经执行完毕，异步的任务都还未执行，所有的 `$nextTick` 函数也执行完毕，所有回调都被push进了callbacks队列中等待执行，所以在`setter前函数` 执行的时候，此时callbacks队列是这样的：[`setter前函数`，`flushSchedulerQueue`，`setter后函数`，`Promise方式函数`]，它是一个micro task队列，执行完毕之后执行macro task `setTimeout`，所以打印出上面的结果。
 
-
-
-
-
-
+另外，如果浏览器的宏任务队列里面有`setImmediate`、`MessageChannel`、`setTimeout/setInterval` 各种类型的任务，那么会按照上面的顺序挨个按照添加进event loop中的顺序执行，所以如果浏览器支持`MessageChannel`， `nextTick` 执行的是 `macroTimerFunc`，那么如果 macrotask queue 中同时有 `nextTick` 添加的任务和用户自己添加的 `setTimeout` 类型的任务，会优先执行 `nextTick` 中的任务，因为`MessageChannel` 的优先级比 `setTimeout`的高，`setImmediate` 同理。
 
 
 
@@ -278,17 +328,18 @@ export function nextTick(cb?: Function, ctx?: Object) {
 **本文是系列文章，随后会更新后面的部分，共同进步~**
 > 1. [Vue源码阅读 - 文件结构与运行机制](https://juejin.im/post/5b38830de51d455888216675)
 > 2. [Vue源码阅读 - 依赖收集原理](https://juejin.im/post/5b40c8495188251af3632dfa)
-> 3. [Vue源码阅读 - 批量异步更新与nextTick原理]()
+> 3. [Vue源码阅读 - 批量异步更新与nextTick原理](https://juejin.im/post/5b50760f5188251ad06b61be)
 
 网上的帖子大多深浅不一，甚至有些前后矛盾，在下的文章都是学习过程中的总结，如果发现错误，欢迎留言指出~
 
 > 参考：
->    1. [Vue2.1.7源码学习](http://hcysun.me/2017/03/03/Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/)
->    2. [Vue.js 技术揭秘](https://ustbhuangyi.github.io/vue-analysis)
->    3. [剖析 Vue.js 内部运行机制](https://juejin.im/book/5a36661851882538e2259c0f/)
->    4. [Vue.js 文档](https://cn.vuejs.org/)
->    5. [记录：window.MessageChannel那些事](https://zhuanlan.zhihu.com/p/37589777)
->    6. [MDN - MessageChannel](https://developer.mozilla.org/zh-CN/docs/Web/API/MessageChannel)
->    7. [JS与Node.js中的事件循环](https://segmentfault.com/a/1190000012362096#articleHeader6)
->    8. [黄轶 - Vue.js 升级踩坑小记](https://juejin.im/post/5a1af88f5188254a701ec230)
+> 1. [Vue2.1.7源码学习](http://hcysun.me/2017/03/03/Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/)
+> 2. [Vue.js 技术揭秘](https://ustbhuangyi.github.io/vue-analysis)
+> 3. [剖析 Vue.js 内部运行机制](https://juejin.im/book/5a36661851882538e2259c0f/)
+> 4. [Vue.js 文档](https://cn.vuejs.org/)
+> 5. [记录：window.MessageChannel那些事](https://zhuanlan.zhihu.com/p/37589777)
+> 6. [MDN - MessageChannel](https://developer.mozilla.org/zh-CN/docs/Web/API/MessageChannel)
+> 7. [JS与Node.js中的事件循环](https://segmentfault.com/a/1190000012362096#articleHeader6)
+> 8. [黄轶 - Vue.js 升级踩坑小记](https://juejin.im/post/5a1af88f5188254a701ec230)
+> 9. [Vue nextTick 机制](https://juejin.im/post/5ae3f0956fb9a07ac90cf43e)
 
