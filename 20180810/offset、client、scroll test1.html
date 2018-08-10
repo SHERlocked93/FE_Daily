@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>offset、client、scroll test1</title>
+  
+  <style rel='stylesheet'>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    .outer {
+      width: 300px;
+      height: 200px;
+      background-color: #ccc;
+      border: 30px solid #2b7547;
+    }
+    
+    .inner {
+      width: 100px;
+      height: 100px;
+      border: 10px solid #1a4025;
+      background-color: #ff9d52;
+    }
+  </style>
+</head>
+<body>
+  <div class="outer">
+    <div class="inner"></div>
+  </div>
+  
+  <div class='writer'></div>
+  
+  <script type='text/javascript'>
+    const $outer = document.querySelector('.outer')
+    const $inner = document.querySelector('.inner')
+    const $writer = document.querySelector('.writer')
+    
+    console.log(`outer.offsetWidth: ${$outer.offsetWidth}`)
+    console.log(`outer.offsetHeight: ${$outer.offsetHeight}`)
+    console.log(`outer.offsetTop: ${$outer.offsetTop}`)
+    console.log(`outer.offsetLeft: ${$outer.offsetLeft}`)
+    console.log('')
+    console.log(`inner.offsetWidth: ${$inner.offsetWidth}`)
+    console.log(`inner.offsetHeight: ${$inner.offsetHeight}`)
+    console.log(`inner.offsetTop: ${$inner.offsetTop}`)
+    console.log(`inner.offsetLeft: ${$inner.offsetLeft}`)
+  </script>
+</body>
+</html>
