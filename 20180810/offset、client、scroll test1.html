@@ -31,6 +31,7 @@
     <div class="inner"></div>
   </div>
   
+  <br>
   <div class='writer'></div>
   
   <script type='text/javascript'>
@@ -38,15 +39,35 @@
     const $inner = document.querySelector('.inner')
     const $writer = document.querySelector('.writer')
     
-    console.log(`outer.offsetWidth: ${$outer.offsetWidth}`)
-    console.log(`outer.offsetHeight: ${$outer.offsetHeight}`)
-    console.log(`outer.offsetTop: ${$outer.offsetTop}`)
-    console.log(`outer.offsetLeft: ${$outer.offsetLeft}`)
-    console.log('')
-    console.log(`inner.offsetWidth: ${$inner.offsetWidth}`)
-    console.log(`inner.offsetHeight: ${$inner.offsetHeight}`)
-    console.log(`inner.offsetTop: ${$inner.offsetTop}`)
-    console.log(`inner.offsetLeft: ${$inner.offsetLeft}`)
+    $writer.innerHTML = `
+      <p><b>outer.offsetWidth: </b>${$outer.offsetWidth}</p>
+      <p><b>outer.offsetHeight: </b>${$outer.offsetHeight}</p>
+      <p><b>outer.offsetTop: </b>${$outer.offsetTop}</p>
+      <p><b>outer.offsetLeft: </b>${$outer.offsetLeft}</p>
+      <p><b>inner.offsetWidth: </b>${$inner.offsetWidth}</p>
+      <p><b>inner.offsetHeight: </b>${$inner.offsetHeight}</p>
+      <p><b>inner.offsetTop: </b>${$inner.offsetTop}</p>
+      <p><b>inner.offsetLeft: </b>${$inner.offsetLeft}</p>
+      <br>
+      <p><b>outer.clientWidth: </b>${$outer.clientWidth}</p>
+      <p><b>outer.clientHeight: </b>${$outer.clientHeight}</p>
+      <p><b>outer.clientTop: </b>${$outer.clientTop}</p>
+      <p><b>outer.clientLeft: </b>${$outer.clientLeft}</p>
+      <p><b>inner.clientWidth: </b>${$inner.clientWidth}</p>
+      <p><b>inner.clientHeight: </b>${$inner.clientHeight}</p>
+      <p><b>inner.clientTop: </b>${$inner.clientTop}</p>
+      <p><b>inner.clientLeft: </b>${$inner.clientLeft}</p>
+      <br>
+      <p><b>outer.scrollWidth: </b>${$outer.scrollWidth}</p>
+      <p><b>outer.scrollHeight: </b>${$outer.scrollHeight}</p>
+      <p><b>outer.scrollTop: </b>${$outer.scrollTop}</p>
+      <p><b>outer.scrollLeft: </b>${$outer.scrollLeft}</p>
+      <p><b>inner.scrollWidth: </b>${$inner.scrollWidth}</p>
+      <p><b>inner.scrollHeight: </b>${$inner.scrollHeight}</p>
+      <p><b>inner.scrollTop: </b>${$inner.scrollTop}</p>
+      <p><b>inner.scrollLeft: </b>${$inner.scrollLeft}</p>
+    `
+  
   </script>
 </body>
 </html>
