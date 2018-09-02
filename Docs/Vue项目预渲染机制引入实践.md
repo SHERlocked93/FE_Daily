@@ -1,4 +1,5 @@
 # Vue项目预渲染机制引入实践
+[TOC]
 
 周末想顺便把已经做好静态页面的webApp项目做一下SEO优化，由于不想写蹩脚的[SSR](https://ssr.vuejs.org/zh/)代码，所以准备采用预渲染，本来想着网上有这么多[预渲染](https://ssr.vuejs.org/zh/#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%B8%B2%E6%9F%93-vs-%E9%A2%84%E6%B8%B2%E6%9F%93-ssr-vs-prerendering)的文章，随便找个来跟着做不就完了嘛，结果年轻的我付出了整个周末..... 这篇文章就记录一下最后是怎么配置的 T.T
 
@@ -13,7 +14,7 @@
 
 我们知道SPA有很多优点，不过一个缺点就是对(不是Google的)愚蠢的搜索引擎的SEO不友好，为了照顾这些引擎，目前主要有两个方案：**服务端渲染**(Server Side Rendering)、**预渲染**(Prerending)。
 
-如果你只需要改善少数页面（例如 `/`, `/about`, `/contact` 等）的 `SEO`，那么你可能需要预渲染。无需使用 web 服务器实时动态编译 HTML (服务端渲染, SSR)，而是使用预渲染方式，在构建时(build time)简单地生成针对特定路由的静态 HTML 文件。它主要使用[prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin)插件，优点是设置预渲染更简单，并可以将你的前端作为一个完全静态的站点。
+如果你只需要改善少数页面（例如 `/`, `/about`, `/contact` 等）的 `SEO`，那么你可能需要预渲染。无需使用 web 服务器实时动态编译 HTML (服务端渲染, SSR)，而是使用预渲染方式，在构建时(build time)简单地生成针对特定路由的静态 HTML 文件。它主要使用 [prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin) 插件，其与SSR一样都可以加快页面的加载速度，并且侵入性更小，在已上线的项目稍加改动也可以轻松引入预渲染机制，而SSR方案则需要将整个项目结构推翻；
 
 访问预渲染出来的页面在访问时与`SSR`一样快，并且它将服务端编译HTML的时机提前到了构建时，因此也降低了服务端的压力，如果你的服务器跟我的一样买的 **1M1G1核** 的小水管服务器 ( 穷 )，那么预渲染可能更适合你。不过SSR和预渲染的使用场景还是有较明显的区别的。预渲染的使用场景更多是简单的静态页面。服务端渲染适用于复杂、较大型、与服务端交互频繁的功能型网站，比如电商网站。
 
@@ -37,35 +38,35 @@ $ npm install prerender-spa-plugin --save-dev
 首先看看文件结构，用的是vue-cli2的webpack模板生成的文件结构
 
 ```bash
-│  .babelrc
-│  index.html
-│  package.json
-│  README.md
+│ .babelrc
+│ index.html
+│ package.json
+│ README.md
 ├─build
-│      build.js
-│      check-versions.js
-│      utils.js
-│      vue-loader.conf.js
-│      webpack.base.conf.js
-│      webpack.dev.conf.js
-│      webpack.prod.conf.js
+│ build.js
+│ check-versions.js
+│ utils.js
+│ vue-loader.conf.js
+│ webpack.base.conf.js
+│ webpack.dev.conf.js
+│ webpack.prod.conf.js
 ├─config
-│      dev.env.js
-│      index.js
-│      prod.env.js
+│ dev.env.js
+│ index.js
+│ prod.env.js
 ├─src
-│  │  App.vue
-│  │  main.js
-│  │  
-│  ├─assets
-│  ├─components
-│  ├─router
-│  │      index.js
-│  ├─styles
-│  ├─utils
-│  └─views
-│          BigData.vue
-│          CompanyHonor.vue
+│ │ App.vue
+│ │ main.js
+│ │
+│ ├─assets
+│ ├─components
+│ ├─router
+│ │ index.js
+│ ├─styles
+│ ├─utils
+│ └─views
+│ BigData.vue
+│ CompanyHonor.vue
 ```
 
 
@@ -120,14 +121,14 @@ const webpackConfig = merge(baseWebpackConfig, {
    staticDir: config.build.assetsRoot,
    outputDir: path.join(config.build.assetsRoot, 'base'),
    indexPath: config.build.index,
-   
+
    // 对应路由文件的path
    routes: [
      '/',
      '/BigData',
      '/CompanyHonor'
    ],
-   
+
    renderer: new Renderer({
      headless: false,
      renderAfterDocumentEvent: 'render-event'
@@ -170,11 +171,11 @@ ExtractTextPlugin.extract({
 最后生成的目录树：
 
 ```bash
-│  index.html
+│ index.html
 ├─BigData
-│      index.html
+│ index.html
 ├─CompanyHonor
-│      index.html
+│ index.html
 └─static
     ├─css
     ├─fonts
@@ -190,7 +191,7 @@ ExtractTextPlugin.extract({
 
 ```nginx
 location ~ ^/base/ {
-  try_files  $uri $uri/ /base/index.html =404;
+  try_files $uri $uri/ /base/index.html =404;
 }
 ```
 
