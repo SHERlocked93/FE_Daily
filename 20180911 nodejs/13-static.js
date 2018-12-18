@@ -8,14 +8,20 @@ const http = require('http')
 const path = require('path')
 const url = require('url')
 const fs = require('fs')
+let MIME_TYPE
 
 const resolve = dir => path.resolve(__dirname, dir)
+fs.readFile(resolve(`./test/mime.json`), (err, data) => {
+  if (err) throw Error('找不到mime.json')
+  MIME_TYPE = JSON.parse(data)
+})
 
 http
   .createServer((req, res) => {
     
     let { pathname } = url.parse(req.url)
     if (pathname === '/') pathname = 'index.html'
+    if (!pathname.includes('.')) pathname = path.join(pathname, '/index.html')
     const extname = path.extname(pathname)
     
     res.writeHead(200, { 'Content-Type': getMIME(extname) })
@@ -44,20 +50,5 @@ http
  * @returns {string}
  */
 function getMIME(extname) {
-  switch (extname) {
-    case '.html':
-    case '.htm':
-      return 'text/html'
-    case '.jpeg':
-    case '.jpg':
-      return 'image/jpeg'
-    case '.gif':
-      return 'image/gif'
-    case '.txt':
-      return 'text/plain'
-    case '.css':
-      return 'text/css'
-    default :
-      return 'text/html;charset=UTF8'
-  }
+  return MIME_TYPE[extname] || 'text/plain'
 }
