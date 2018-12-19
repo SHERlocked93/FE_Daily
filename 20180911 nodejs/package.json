@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "ejs": "^2.6.1"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
   }
 }
