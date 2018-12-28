@@ -1,5 +1,11 @@
+/**
+ * 创建于 2018/12/24
+ * 作者: SHERlocked93
+ * 功能: 连接并操作mongoDB
+ */
+
+
 const app = require("express")()
-const MongoClient = require('mongodb').MongoClient
 const assert = require('assert')
 
 const BASE_URL = 'mongodb://localhost:27017/'
@@ -11,10 +17,10 @@ app.get('/', (req, res) => {
     
     // 链接数据库
     const db = client.db('test1')
-    db.collection('users').insertOne({ name: 'chichi' }, (err, result) => {
+    db.collection('users').insertOne({ name: '么西' }, (err, result) => {
       if (err) throw err
       console.log(result)
-      res.send('插入数据成功')
+      res.send(result)
     })
     
     client.close()
