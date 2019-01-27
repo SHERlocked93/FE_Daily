@@ -1,9 +1,9 @@
 class Routers {
   constructor() {
-    this.routes = {}
+    this.routes = {}        // 记录路径标识符对应的cb
     this.currentUrl = ''    // 记录hash只为方便执行cb
-    window.addEventListener('load', () => this.refresh, false)
-    window.addEventListener('hashchange', () => this.refresh, false)
+    window.addEventListener('load', () => this.refresh())
+    window.addEventListener('hashchange', () => this.refresh())
   }
   
   /**
@@ -16,7 +16,7 @@ class Routers {
   }
   
   /**
-   * 记录当前
+   * 记录当前hash，执行cb
    */
   refresh() {
     this.currentUrl = location.hash.slice(1) || '/'
@@ -27,7 +27,10 @@ class Routers {
 window.Router = new Routers()
 const content = document.querySelector('body')
 
-// change Page anything
+/**
+ * 改变背景色
+ * @param color
+ */
 function changeBgColor(color) {
   content.style.backgroundColor = color
 }
