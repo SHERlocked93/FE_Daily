@@ -28,7 +28,7 @@ class Routers {
     this.currentUrl = location.hash.slice(1) || '/'
     this.historyStack.push(this.currentUrl)
     this.routes[this.currentUrl]()
-    console.log('refresh事件   Stack：', this.historyStack, '   currentUrl:', this.currentUrl)
+    // console.log('refresh事件   Stack：', this.historyStack, '   currentUrl:', this.currentUrl)
   }
   
   /**
