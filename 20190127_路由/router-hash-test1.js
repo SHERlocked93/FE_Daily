@@ -7,7 +7,7 @@ class Routers {
   }
   
   /**
-   * 导航到路径
+   * 记录path对应cb
    * @param path
    * @param cb 回调
    */

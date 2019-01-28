@@ -9,7 +9,7 @@ class Routers {
   }
   
   /**
-   * 导航到路径
+   * 记录path对应cb
    * @param path
    * @param cb 回调
    */
@@ -21,8 +21,8 @@ class Routers {
    * 入栈当前hash，执行cb
    */
   refresh() {
-    if (this.isBack) {      // 如果是因为回退进入，则置false之后return
-      this.isBack = false   // 其他操作在回退时已经做了
+    if (this.isBack) {      // 如果是由backoff进入，则置false之后return
+      this.isBack = false   // 其他操作在backoff方法中已经做了
       return
     }
     this.currentUrl = location.hash.slice(1) || '/'
@@ -36,13 +36,13 @@ class Routers {
    */
   backOff() {
     this.isBack = true
-    this.historyStack.pop()         // 移除当前hash，回退到上一个
+    this.historyStack.pop()                   // 移除当前hash，回退到上一个
     const { length } = this.historyStack
     if (!length) return
-    let prev = this.historyStack[length - 1]
+    let prev = this.historyStack[length - 1]  // 拿到要回退到的目标hash
     location.hash = `#${ prev }`
     this.currentUrl = prev
-    this.routes[prev]()             // 执行对应cb
+    this.routes[prev]()                       // 执行对应cb
     // console.log('点击后退，当前stack：', this.historyStack, '   currentUrl:', this.currentUrl)
   }
 }
