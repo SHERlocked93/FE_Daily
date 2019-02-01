@@ -1,4 +1,4 @@
-class Routers {
+class RouterClass {
   constructor(path) {
     this.routes = {}        // 记录路径标识符对应的cb
     history.replaceState({ path }, null, path)
@@ -10,7 +10,14 @@ class Routers {
   }
   
   /**
-   * 记录path对应cb
+   * 初始化
+   */
+  static init() {
+    window.Router = new RouterClass(location.pathname)
+  }
+  
+  /**
+   * 注册路由和回调
    * @param path 路径
    * @param cb 回调
    */
@@ -19,7 +26,7 @@ class Routers {
   }
   
   /**
-   * 触发路由对应回调
+   * 跳转路由，并触发路由对应回调
    * @param path
    */
   go(path) {
@@ -28,21 +35,15 @@ class Routers {
   }
 }
 
-window.Router = new Routers(location.pathname)
-const content = document.querySelector('body')
+
+RouterClass.init()
 const ul = document.querySelector('ul')
+const ContentDom = document.querySelector('.content-div')
+const changeContent = content => ContentDom.innerHTML = content
 
-/**
- * 改变背景色
- * @param color
- */
-function changeBgColor(color) {
-  content.style.backgroundColor = color
-}
-
-Router.route('/', () => changeBgColor('yellow'))
-Router.route('/blue', () => changeBgColor('blue'))
-Router.route('/green', () => changeBgColor('green'))
+Router.route('/', () => changeContent('默认页面'))
+Router.route('/page1', () => changeContent('page1页面'))
+Router.route('/page2', () => changeContent('page2页面'))
 
 ul.addEventListener('click', e => {
   if (e.target.tagName === 'A') {

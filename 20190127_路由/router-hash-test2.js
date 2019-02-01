@@ -1,11 +1,18 @@
-class Routers {
+class RouterClass {
   constructor() {
     this.isBack = false
     this.routes = {}        // 记录路径标识符对应的cb
     this.currentUrl = ''    // 记录hash只为方便执行cb
     this.historyStack = []  // hash栈
-    window.addEventListener('load', () => this.refresh())
-    window.addEventListener('hashchange', () => this.refresh())
+    window.addEventListener('load', () => this.render())
+    window.addEventListener('hashchange', () => this.render())
+  }
+  
+  /**
+   * 初始化
+   */
+  static init() {
+    window.Router = new RouterClass()
   }
   
   /**
@@ -20,7 +27,7 @@ class Routers {
   /**
    * 入栈当前hash，执行cb
    */
-  refresh() {
+  render() {
     if (this.isBack) {      // 如果是由backoff进入，则置false之后return
       this.isBack = false   // 其他操作在backoff方法中已经做了
       return
@@ -34,7 +41,7 @@ class Routers {
   /**
    * 路由后退
    */
-  backOff() {
+  back() {
     this.isBack = true
     this.historyStack.pop()                   // 移除当前hash，回退到上一个
     const { length } = this.historyStack
@@ -48,20 +55,13 @@ class Routers {
 }
 
 
-window.Router = new Routers()
-const content = document.querySelector('body')
-const button = document.querySelector('button')
+RouterClass.init()
+const BtnDom = document.querySelector('button')
+const ContentDom = document.querySelector('.content-div')
+const changeContent = content => ContentDom.innerHTML = content
 
-/**
- * 改变背景色
- * @param color
- */
-function changeBgColor(color) {
-  content.style.backgroundColor = color
-}
+Router.route('/', () => changeContent('默认页面'))
+Router.route('/page1', () => changeContent('page1页面'))
+Router.route('/page2', () => changeContent('page2页面'))
 
-Router.route('/', () => changeBgColor('yellow'))
-Router.route('/blue', () => changeBgColor('blue'))
-Router.route('/green', () => changeBgColor('green'))
-
-button.addEventListener('click', Router.backOff.bind(Router), false)
+BtnDom.addEventListener('click', Router.back.bind(Router), false)
