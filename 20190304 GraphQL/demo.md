@@ -47,7 +47,8 @@ Note: reveal-md demo.md  --scripts demo.js,https://www.google-analytics.com/anal
 
 1. 不关注特别细节的问题
 2. 主要面向前端组人员扩展视野
-3. 服务端端轻喷
+3. 并不一定在本团队落地
+4. 服务端端轻喷
 
 
 <!--s-->
