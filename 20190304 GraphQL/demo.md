@@ -53,14 +53,18 @@ Note: reveal-md demo.md  --scripts demo.js,https://www.google-analytics.com/anal
 3. 并不一定在本团队落地
 4. 服务端轻喷
 
+Note: 上周刚好看了一下GraphQL相关的内容，写了个小demo，跟大家分享一下，如果大家有什么疑问的话可以提出来共同学习一下
+
 <!--v-->
 
 ### 举个 🌰
 
-1. 找到 ID 为 233 的用户的年龄和性别 <!-- .element: class="fragment" data-fragment-index="1"-->
+1. ID 为 233 的用户的年龄和性别 <!-- .element: class="fragment" data-fragment-index="1"-->
 2. 这个用户前十个雇员的名字和 Email <!-- .element: class="fragment" data-fragment-index="2"-->
 3. 这个用户父亲的电话 <!-- .element: class="fragment" data-fragment-index="3"-->
 4. 这个用户父亲的黄色的狗的名字 <!-- .element: class="fragment" data-fragment-index="4"-->
+
+Note: 首先查用户信息 - 查用户雇员列表 - 查用户父亲的用户信息 - 用户父亲的狗的列表
 
 <!--v-->
 1. 找到 ID 为 233 的用户的年龄和性别
@@ -97,11 +101,14 @@ query {
 
 ### 模式 Schema
 
-<span class="highlight">一个简单的强类型模式语法，称为模式描述语言（Schema Definition Language, SDL）</span>
+<span class="highlight">使用一个简单的强类型模式语法，称为模式描述语言（Schema Definition Language, SDL）</span>
 
 定义字段的类型、数据的结构，描述接口数据请求的规则，当客户端进行一些错误的查询的时候 GraphQL 引擎会负责告诉我们哪里有问题，和详细的错误信息，对开发调试十分友好。 <!-- .element: class="fragment" data-fragment-index="1"-->
 
+Note: 主要作用就是约束API的参数与返回体格式，作用相当于sosoapi，不过这里将它文件化了
+
 <!--v-->
+
 ### 对象类型和标量类型 
 Object Type & Scalar Type
 
@@ -161,6 +168,9 @@ http://myapi/graphql?query={user{name}}
 }
 ```
 <!-- .element: class="fragment" data-fragment-index="2"-->
+
+Note: GraphQL 最常见的是通过 HTTP 来发送请求，那么如何通过 HTTP 来进行 GraphQL 通信呢。
+举个栗子，通过 Get/Post 方式来执行下面的 GraphQL 查询
 
 <!--s-->
 
