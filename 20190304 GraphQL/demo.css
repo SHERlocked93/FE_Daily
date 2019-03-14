@@ -1,3 +1,5 @@
+/* reveal-md demo.md  --scripts demo.js,https://www.google-analytics.com/analytics.js  --css demo.css */
+
 .reveal h2 {
   text-shadow: none;
   font-size: 1.85em;

@@ -32,7 +32,9 @@ revealOptions:
   <span class="punctuation">}</span>
 <span class="punctuation">}</span></pre></div></div></div>
 
-Note: reveal-md demo.md  --scripts demo.js,https://www.google-analytics.com/analytics.js  --css demo.css
+
+Note: 前端自己描述自己希望的数据形式，服务端则返回前端所描述的数据结构。
+上周刚好看了一下GraphQL相关的内容，写了个小demo，跟大家分享一下，如果大家有什么疑问的话可以提出来共同学习一下
 
 <!--s-->
 
@@ -42,7 +44,8 @@ Note: reveal-md demo.md  --scripts demo.js,https://www.google-analytics.com/anal
 2. 语法
 3. 使用
 4. 应用现状
-5. Util、DAO、Resolver
+5. 总结
+6. Util、DAO、Resolver
 
 <!--v-->
 
@@ -52,8 +55,6 @@ Note: reveal-md demo.md  --scripts demo.js,https://www.google-analytics.com/anal
 2. 面向前端组人员扩展视野
 3. 并不一定在本团队落地
 4. 服务端轻喷
-
-Note: 上周刚好看了一下GraphQL相关的内容，写了个小demo，跟大家分享一下，如果大家有什么疑问的话可以提出来共同学习一下
 
 <!--v-->
 
@@ -101,7 +102,7 @@ query {
 
 ### 模式 Schema
 
-<span class="highlight">使用一个简单的强类型模式语法，称为模式描述语言（Schema Definition Language, SDL）</span>
+<span class="highlight">使用一种简单的强类型模式语法 - 模式描述语言（Schema Definition Language, SDL）</span>
 
 定义字段的类型、数据的结构，描述接口数据请求的规则，当客户端进行一些错误的查询的时候 GraphQL 引擎会负责告诉我们哪里有问题，和详细的错误信息，对开发调试十分友好。 <!-- .element: class="fragment" data-fragment-index="1"-->
 
@@ -113,9 +114,22 @@ Note: 主要作用就是约束API的参数与返回体格式，作用相当于so
 Object Type & Scalar Type
 
 <div>
-1. 对象类型：Schema 中定义的 type
-2. 标量类型：String、Int、Float、Boolean、ID，也可自定义
+1. 对象类型：Schema 中定义的 <span class="highlight">type</span>
+2. 标量类型：<span class="highlight">String、Int、Float、Boolean、ID</span>，也可自定义
 </div><!-- .element: class="fragment" data-fragment-index="1"-->
+
+<!--v-->
+
+### 操作类型 Operation Type
+
+<div>
+1. <span class="highlight">query 查询</span>：获取数据，比如查找，CRUD 中的 R
+2. <span class="highlight">mutation 变更</span>：对数据进行变更，比如增加、删除、修改，CRUD 中的 CUD
+3. <span class="highlight">substription 订阅</span>：当数据发生更改，进行消息推送
+</div>
+<!-- .element: class="fragment" data-fragment-index="1"-->
+         
+Note: GraphQL 的操作类型可以是 `query`、`mutation` 或 `subscription`，描述客户端希望进行什么样的操作
 
 <!--v-->
 
