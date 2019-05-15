@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>通过ActiveX打开网络文件</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+  <label>
+    请输入要运行的程序：
+    <input name=exe type=text size=20 value="regedit">
+  </label>
+  <BUTTON class=button
+          onclick="Run(exe.value)">确定
+  </BUTTON>
+  
+  <BUTTON class=button onclick="Run('http://www.sherlocked93.club/test/test.txt')">txt文件</BUTTON>
+  <BUTTON class=button onclick="Run('http://www.sherlocked93.club/test/test.docx')">word文件</BUTTON>
+  <BUTTON class=button onclick="Run('http://www.sherlocked93.club/test/test.pptx')">ppt文件</BUTTON>
+  <BUTTON class=button onclick="Run('http://www.sherlocked93.club/test/test.jpg')">jpg文件</BUTTON>
+  <BUTTON class=button onclick="Run('http://www.sherlocked93.club/test/bolt.sldprt')">solidworks文件</BUTTON>
+  <BUTTON class=button onclick="Run('IEXPLORE.EXE')">IE</BUTTON>
+  
+  <script>
+    function Run(strPath) {
+      exe.value = strPath
+      console.log(strPath)
+      try {
+        var objShell = new ActiveXObject("wscript.shell");
+        objShell.Run(strPath);
+        objShell = null;
+      } catch (e) {
+        console.error(e)
+        alert('找不到文件"' + strPath + '"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。')
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>通过ActiveX打开软件</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+  请输入要运行的程序：
+  <input name=exe type=text size=20
+                   value="regedit">
+  <BUTTON class=button
+          onclick="Run(exe.value)">确定
+  </BUTTON>
+  <BUTTON class=button onclick="Run('notepad')">记事本</BUTTON>
+  <BUTTON class=button onclick="Run('mspaint')">画图板</BUTTON>
+  <BUTTON class=button onclick="Run('calc')">计算器</BUTTON>
+  <BUTTON class=button onclick="Run('cmd')">cmd</BUTTON>
+  <BUTTON class=button onclick="Run('solidworks')">solidworks</BUTTON>
+  <BUTTON class=button onclick="Run('Regedit')">Regedit</BUTTON>
+  <BUTTON class=button onclick="Run('Msconfig')">Msconfig</BUTTON>
+  <BUTTON class=button onclick="Run('file:///D:/Program%20Files/Winamp/WINAMP.EXE')">WINAMP</BUTTON>
+  <BUTTON class=button onclick="Run('IEXPLORE.EXE')">IE</BUTTON>
+  <BUTTON class=button onclick="Run('..')">..</BUTTON>
+  <BUTTON class=button onclick="Run('%windir%')">%windir%</BUTTON>
+  <BUTTON class=button onclick="Run('%temp%')">%temp%</BUTTON>
+  
+  <script>
+    function Run(strPath) {
+      exe.value = strPath
+      console.log(strPath)
+      try {
+        var objShell = new ActiveXObject("wscript.shell");
+        objShell.Run(strPath);
+        objShell = null;
+      } catch (e) {
+        console.error(e)
+        alert('找不到文件"' + strPath + '"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。')
+      }
+    }
+  
+  
+    function ifExist(appPath, appMain, OBJ_ID) {
+      const filespec = appPath + "/" + appMain
+      let fso = null
+      try {
+        fso = new ActiveXObject("Scripting.FileSystemObject")
+      } catch (errorObject) {
+        alert("请添加该站点为受信任的站点并修改其安全级别")
+      }
+      
+      if (fso.FileExists(filespec))
+        runExecutable(appPath, filespec)
+      else {
+        window.open("<%=request.getContextPath()%>/portalController/downPortal.do?objId=" + OBJ_ID)
+      }
+    }
+    
+    function runExecutable(appPath, filespec) {
+      try {
+        let shellActiveXObject = new ActiveXObject("WScript.Shell")
+        shellActiveXObject.CurrentDirectory = appPath
+        if (!shellActiveXObject) {
+          alert('Could not getreference to WScript.Shell')
+          return
+        }
+        
+        shellActiveXObject.Run("\"" + filespec, 1, false)
+        shellActiveXObject = null
+      } catch (errorObject) {
+        alert('Error:\n' + errorObject.message)
+      }
+    }
+  </script>
+</body>
+</html>
