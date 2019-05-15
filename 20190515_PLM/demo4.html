@@ -14,23 +14,44 @@
     <BUTTON class=button onclick="Run('http://localhost:3002/bolt.sldprt')">solidworks文件</BUTTON>
     
     <script>
+    
         function Run(url) {
-            fetch(url).then(res => {
-                res.blob().then(blob => {
-                    const localPath = window.URL.createObjectURL(blob)
+            fetch(url).then(function(res) {
+                res.blob().then(function(blob) {
+                    var localPath = window.URL.createObjectURL(blob);
+                
                     try {
-                        let objShell = new ActiveXObject('wscript.shell')
-                        objShell.Run(localPath)
-                        objShell = null
+                        var objShell = new ActiveXObject('wscript.shell');
+                        objShell.Run(localPath);
+                        objShell = null;
                     } catch (e) {
-                        console.error(e)
-                        alert('找不到文件"' + strPath + '"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。')
+                        console.error(e);
+                        alert('找不到文件"' + strPath + '"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。');
                     } finally {
-                        window.URL.revokeObjectURL(localPath)
+                        window.URL.revokeObjectURL(localPath);
                     }
-                })
-            })
+                });
+            });
         }
+        
+        // es6
+        // function Run(url) {
+        //     fetch(url).then(res => {
+        //         res.blob().then(blob => {
+        //             const localPath = window.URL.createObjectURL(blob)
+        //             try {
+        //                 let objShell = new ActiveXObject('wscript.shell')
+        //                 objShell.Run(localPath)
+        //                 objShell = null
+        //             } catch (e) {
+        //                 console.error(e)
+        //                 alert('找不到文件"' + strPath + '"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。')
+        //             } finally {
+        //                 window.URL.revokeObjectURL(localPath)
+        //             }
+        //         })
+        //     })
+        // }
     </script>
 </body>
 </html>
