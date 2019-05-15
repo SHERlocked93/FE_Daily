@@ -1,0 +1,59 @@
+/* reveal-md demo.md  --scripts demo.js,https://www.google-analytics.com/analytics.js  --css demo.css */
+
+.reveal h2 {
+  text-shadow: none;
+  font-size: 1.85em;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  text-transform: unset;
+  font-family: "Arial Hebrew Scholar", Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace;
+}
+
+.reveal code {
+  font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace;
+  text-transform: none;
+}
+
+.reveal pre {
+  font-size: 0.45em;
+  font-family: monaco;
+}
+
+.reveal section img {
+  border: none;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15)
+}
+
+.reveal span.highlight {
+  color: #e8874be6;
+}
+
+.reveal span.highlight-red {
+  color: rgba(232, 33, 0, 0.9);
+}
+
+.reveal span.highlight-blue {
+  color: rgba(48, 109, 232, 0.9);
+}
+
+.reveal blockquote {
+  width: 100%;
+  text-align: left;
+  font-style: normal;
+  color: #ccc;
+  font-size: 80%;
+}
+
+.reveal blockquote p:last-child {
+  display: inherit;
+  text-align: right;
+}
+
+.reveal .text-left {
+  text-align: left;
+}
+
+.reveal .text-right {
+  text-align: right;
+}
