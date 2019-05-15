@@ -1,7 +1,7 @@
 /**
  * 创建于 2018/12/18
  * 作者: SHERlocked93
- * 功能: 静态资源 打开自动下载
+ * 功能: 静态资源 通过流的方式返回，前端blob接受
  */
 
 const http = require('http')
@@ -24,22 +24,22 @@ http
         if (!pathname.includes('.')) pathname = path.join(pathname, '/index.html')
         
         const extName = path.extname(pathname)
-        const fullPath = resolve(`./test/` + pathname)
-        res.writeHead(200, { 'Content-Type': getMIME(extName), 'Content-Disposition': 'attachment' })
+        const fullPath = resolve(`../files/` + pathname)
         
-        fs.readFile(resolve(fullPath), (err, data) => {
-            
-            // 404
+        fs.access(fullPath, function(err) {
+            debugger
             if (err) {
                 fs.readFile(resolve(`./test/404.html`), (err, notfount) => {
                     if (err) throw err
                     res.writeHead(404, { 'Content-Type': 'text/html;charset=UTF8' })
                     res.end(notfount)
                 })
-                return
             }
-            
-            res.end(data)
+            res.writeHead(200, {
+                'Content-Type': getMIME(extName)
+                // 'Content-Disposition': 'attachment'
+            })
+            fs.createReadStream(fullPath).pipe(res)
         })
     })
     .listen(3002)
