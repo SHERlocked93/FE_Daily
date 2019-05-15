@@ -27,4 +27,4 @@ app.post('/dopost', (req, res) => {
   res.end(`欢迎${req.body.sex === '男' ? '帅哥' : '美女'} ${req.body.name}, age: ${req.body.age}`)
 })
 
-app.listen(3002, () => console.log('Example app listening on port 3002!'))
+app.listen(3002, () => console.log('Example app listening on http://localhost:3002 !'))

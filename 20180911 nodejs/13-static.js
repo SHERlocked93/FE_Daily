@@ -11,38 +11,37 @@ const fs = require('fs')
 let MIME_TYPE
 
 const resolve = dir => path.resolve(__dirname, dir)
+
 fs.readFile(resolve(`./test/mime.json`), (err, data) => {
-  if (err) throw Error('找不到mime.json')
-  MIME_TYPE = JSON.parse(data)
+    if (err) throw Error('找不到mime.json')
+    MIME_TYPE = JSON.parse(data)
 })
 
 http
-  .createServer((req, res) => {
-    
-    let { pathname } = url.parse(req.url)
-    if (pathname === '/') pathname = 'index.html'
-    if (!pathname.includes('.')) pathname = path.join(pathname, '/index.html')
-    const extname = path.extname(pathname)
-    
-    res.writeHead(200, { 'Content-Type': getMIME(extname) })
-    console.log(extname)
-    
-    fs.readFile(resolve(`./test/` + pathname), (err, data) => {
-      
-      // 404
-      if (err) {
-        fs.readFile(resolve(`./test/404.html`), (err, notfount) => {
-          if (err) throw err
-          res.writeHead(404, { 'Content-Type': 'text/html;charset=UTF8' })
-          res.end(notfount)
+    .createServer((req, res) => {
+        let { pathname } = url.parse(req.url)
+        if (pathname === '/') pathname = 'index.html'
+        if (!pathname.includes('.')) pathname = path.join(pathname, '/index.html')
+        
+        const extname = path.extname(pathname)    // 扩展名
+        res.writeHead(200, { 'Content-Type': getMIME(extname) })
+        
+        fs.readFile(resolve(`./test/` + pathname), (err, data) => {
+            
+            // 404
+            if (err) {
+                fs.readFile(resolve(`./test/404.html`), (err, notfount) => {
+                    if (err) throw err
+                    res.writeHead(404, { 'Content-Type': 'text/html;charset=UTF8' })
+                    res.end(notfount)
+                })
+                return
+            }
+            
+            res.end(data)
         })
-        return
-      }
-      
-      res.end(data)
     })
-  })
-  .listen(3002)
+    .listen(3002)
 
 /**
  * 获取content-type
@@ -50,5 +49,5 @@ http
  * @returns {string}
  */
 function getMIME(extname) {
-  return MIME_TYPE[extname] || 'text/plain'
+    return MIME_TYPE[extname] || 'text/plain'
 }

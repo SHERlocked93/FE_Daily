@@ -14,4 +14,4 @@ app.get('', (req, res) => {
   res.end('进入/admin/login')
 })
 
-app.listen(3002, () => console.log('Example app listening on port 3002!'))
+app.listen(3002, () => console.log('Example app listening on http://localhost:3002 !'))

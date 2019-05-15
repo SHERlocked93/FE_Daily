@@ -19,4 +19,4 @@ app.get('/:username/:id', (req, res) => {
   res.end(`用户信息 username: ${req.params.username}  id: ${req.params.id}`)
 })
 
-app.listen(3002, () => console.log('Example app listening on port 3002!'))
+app.listen(3002, () => console.log('Example app listening on http://localhost:3002 !'))
