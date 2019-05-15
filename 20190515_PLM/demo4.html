@@ -7,31 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 </head>
 <body>
-    <BUTTON class=button onclick="Run('http://localhost:3002/test.txt')">txt文件</BUTTON>
-    <BUTTON class=button onclick="Run('http://localhost:3002/test.docx')">word文件</BUTTON>
-    <BUTTON class=button onclick="Run('http://localhost:3002/test.pptx')">ppt文件</BUTTON>
-    <BUTTON class=button onclick="Run('http://localhost:3002/test.jpg')">jpg文件</BUTTON>
-    <BUTTON class=button onclick="Run('http://localhost:3002/bolt.sldprt')">solidworks文件</BUTTON>
+    <button class=button onclick="Run('http://localhost:3002/test.txt')">txt文件</button>
+    <button class=button onclick="Run('http://localhost:3002/test.docx')">word文件</button>
+    <button class=button onclick="Run('http://localhost:3002/test.pptx')">ppt文件</button>
+    <button class=button onclick="Run('http://localhost:3002/test.jpg')">jpg文件</button>
+    <button class=button onclick="Run('http://localhost:3002/bolt.sldprt')">solidworks文件</button>
     
     <script>
-    
+        require('es6-promise').polyfill();
         function Run(url) {
             fetch(url).then(function(res) {
                 res.blob().then(function(blob) {
-                    var localPath = window.URL.createObjectURL(blob);
-                
+                    var localPath = window.URL.createObjectURL(blob)
+                    
                     try {
-                        var objShell = new ActiveXObject('wscript.shell');
-                        objShell.Run(localPath);
-                        objShell = null;
+                        var objShell = new ActiveXObject('wscript.shell')
+                        objShell.Run(localPath)
+                        objShell = null
                     } catch (e) {
-                        console.error(e);
-                        alert('找不到文件"' + strPath + '"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。');
+                        console.error(e)
+                        alert('找不到文件"' + strPath + '"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。')
                     } finally {
-                        window.URL.revokeObjectURL(localPath);
+                        window.URL.revokeObjectURL(localPath)
                     }
-                });
-            });
+                })
+            })
         }
         
         // es6
