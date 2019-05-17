@@ -24,6 +24,7 @@ http
         if (!pathname.includes('.')) pathname = path.join(pathname, '/index.html')
         
         const extName = path.extname(pathname)
+        const baseName = path.basename(pathname)
         const fullPath = resolve(`../files/` + pathname)
         
         console.log(fullPath)
@@ -32,8 +33,8 @@ http
             if (err) res.end('notfount')
             res.writeHead(200, {
                 'Content-Type': getMIME(extName),
-                'Access-Control-Allow-Origin': '*'
-                // 'Content-Disposition': 'attachment'   // 自动保存文件
+                'Content-Disposition': `attachment;filename=${baseName}`,   // 自动保存文件
+                'Access-Control-Allow-Origin': '*',
             })
             fs.createReadStream(fullPath).pipe(res)
         })

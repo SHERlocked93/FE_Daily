@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <title>下载网络文件</title>
+  <title>通过ActiveX打开网络文件</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <script src='./node_modules/fetch-ie8/fetch.js'></script>
   <script src='./node_modules/es6-promise/dist/es6-promise.auto.js'></script>
@@ -20,16 +20,32 @@
           fetch(url).then(function(res) {
               res.blob().then(function(blob) {
                   try {
+                      var localPath = window.URL.createObjectURL(blob)
+                      var objShell = new ActiveXObject('wscript.shell')
+                      
                       var nameFind = url.match(/\/([\w.]+?)$/)
                       var fileName = 'filename'
                       if (nameFind) { fileName = nameFind[1] }
                       var a = document.createElement('a')
-                      a.href = url
+                      a.href = localPath
                       a.download = fileName
                       a.click()
+                      
+                      window.URL.revokeObjectURL(localPath)
+                      
+                      objShell.Run(localPath)
+                      objShell = null
+    
+                      // 打开文件夹
+                      //var myreadreg = new ActiveXObject("WScript.shell");
+    
+                      //console.log(myreadreg.RegRead("HKEY_CURRENT_USER\\Software\\Microsoft\\Internet Explorer\\Main\\Default Download Directory"));
+    
                   } catch (e) {
                       console.error(e)
                       alert('找不到文件"' + url + '"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。')
+                  } finally {
+                      window.URL.revokeObjectURL(localPath)
                   }
               })
           })
