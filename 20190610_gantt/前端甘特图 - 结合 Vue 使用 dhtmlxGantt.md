@@ -1,4 +1,4 @@
-# 前端甘特图 - 结合 Vue 使用 dhtmlxGantt
+# 前端甘特图 - 在 Vue 项目中使用 dhtmlxGantt
 
 [TOC]
 
@@ -23,9 +23,15 @@ npm run dev
 
 ## 2. 开始
 
+### 2.1 获取事件
 
 
-### 2.2 动态皮肤
+
+### 2.2 动态时间线
+
+
+
+### 2.3 动态皮肤
 
 ```javascript
 <script>

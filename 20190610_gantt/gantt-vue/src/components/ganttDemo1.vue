@@ -82,40 +82,86 @@
         gantt.$_eventsInitialized = true
       },
       
-      addMessage(message) {
-        this.messages.unshift(message)
-        if (this.messages.length > 40) {
-          this.messages.pop()
+      /**
+       * 更改时间尺度
+       */
+      changeTimeScale(scaleType) {
+        switch (scaleType) {
+          case 'day':
+            gantt.config.date_scale = '%F%j日'
+            gantt.config.subscales = [{ unit: 'year', step: 1, date: '%Y年' }]
+            gantt.config.scale_unit = 'day'
+            gantt.config.step = 1
+            gantt.templates.date_scale = null
+            break
+          case 'week':
+            const weekScaleTemplate = function(date) {
+              const dateToStr = gantt.date.date_to_str('%F%j日')
+              const startDate = gantt.date.week_start(new Date(date))
+              const endDate = gantt.date.add(gantt.date.add(startDate, 1, 'week'), -1, 'day')
+              return dateToStr(startDate) + ' - ' + dateToStr(endDate)
+            }
+            
+            gantt.config.scale_unit = 'week'
+            gantt.config.step = 1
+            gantt.templates.date_scale = weekScaleTemplate
+            gantt.config.subscales = [{ unit: 'day', step: 1, date: '%l' }]
+            break
+          case 'month':
+            gantt.config.scale_unit = 'month'
+            gantt.config.date_scale = '%Y年%F'
+            gantt.config.subscales = [{ unit: 'day', step: 1, date: '%j日, %l' }]
+            gantt.templates.date_scale = null
+            break
+          case 'quarter':
+            gantt.config.scale_unit = 'year'
+            gantt.config.step = 1
+            gantt.config.date_scale = '%Y年'
+            gantt.templates.date_scale = null
+            gantt.config.subscales = [
+              {
+                unit: 'quarter', step: 1, template: function(date) {
+                  const dateToStr = gantt.date.date_to_str('%F')
+                  const endDate = gantt.date.add(gantt.date.add(date, 3, 'month'), -1, 'day')
+                  return dateToStr(date) + ' - ' + dateToStr(endDate)
+                }
+              }
+            ]
+            break
+          case 'year':
+            gantt.config.scale_unit = 'year'
+            gantt.config.step = 1
+            gantt.config.date_scale = '%Y年'
+            gantt.templates.date_scale = null
+            gantt.config.subscales = [{ unit: 'month', step: 1, date: '%F' }]
+            break
         }
-      },
-      
-      logTaskUpdate(id, mode, task) {
-        let text = (task && task.text ? ' (${task.text})' : '')
-        let message = 'Task ${mode}: ${id} ${text}'
-        this.addMessage(message)
-      },
-      
-      logLinkUpdate(id, mode, link) {
-        let message = 'Link ${mode}: ${id}'
-        if (link) {
-          message += ' ( source: ${link.source}, target: ${link.target} )'
-        }
-        this.addMessage(message)
+        gantt.render()
       }
     },
     mounted() {
-      this.initGanttEvents()
+      gantt.config.work_time = true
+      gantt.templates.task_cell_class = function(task, date) {
+        if (!gantt.isWorkTime(date))
+          return 'week_end'
+        return ''
+      }
       
-      gantt.config.subscales = [
-        {
-          unit: 'year',
-          step: 1,
-          date: '%Y'
-        }
-      ]
+      gantt.config.order_branch = true        // 可以拖动换行
+      gantt.config.order_branch_free = true
       
+      this.initGanttEvents()          // 注册事件
       gantt.init(this.$refs.gantt)    // 初始化
       gantt.parse(this.tasks)         // 加载数据
+      this.changeTimeScale('day')     // 时间尺度
+      
+      
+      const weekScaleTemplate = function(date) {
+        const dateToStr = gantt.date.date_to_str('%d %M')
+        const weekNum = gantt.date.date_to_str('(week %W)')
+        const endDate = gantt.date.add(gantt.date.add(date, 1, 'week'), -1, 'day')
+        return dateToStr(date) + ' - ' + dateToStr(endDate) + ' ' + weekNum(date)
+      }
     }
   }
 </script>
@@ -124,6 +170,14 @@
   .gantt-container {
     .gantt-instance {
       height: 800px;
+      
+      .gantt_task_cell.week_end {
+        background-color: #eff5fd !important;
+      }
+      
+      .gantt_task_row.gantt_selected .gantt_task_cell.week_end {
+        background-color: #f8ec9c;
+      }
     }
   }
 </style>

@@ -16,6 +16,18 @@
       <button @click="changeSkin('contrast_black')">High contrast dark</button>
     </div>
     
+    <!-- 动态时间尺度 -->
+    <div class='btns'>
+      <span class='btns-desc'>
+        修改时间尺度：
+      </span>
+      <button @click="changeTimeScale('day')">Day</button>
+      <button @click="changeTimeScale('week')">Week</button>
+      <button @click="changeTimeScale('month')">Month</button>
+      <button @click="changeTimeScale('quarter')">Quarter</button>
+      <button @click="changeTimeScale('year')">Year</button>
+    </div>
+    
     <gantt-demo1 ref='ganttDemo1'
                  :tasks="tasks"
                  @task-updated="taskUpdated"
@@ -52,6 +64,14 @@
        */
       changeSkin(skinType) {
         this.$refs.ganttDemo1.changeSkin(skinType)
+      },
+      
+      /**
+       * 动态时间尺度
+       * @param scaleType
+       */
+      changeTimeScale(scaleType) {
+        this.$refs.ganttDemo1.changeTimeScale(scaleType)
       },
       
       /**
