@@ -4,7 +4,8 @@
 	<title>Custom working days and time</title>
 	<script src="../../codebase/dhtmlxgantt.js?v=6.1.6"></script>
 	<link rel="stylesheet" href="../../codebase/dhtmlxgantt.css?v=6.1.6">
-
+	<script src='../../codebase/locale/locale_cn.js'></script>
+	
 	<script src="../common/testdata.js?v=6.1.6"></script>
 	<style>
 		html, body {
@@ -55,7 +56,7 @@
 
 	gantt.config.subscales = [
 		{unit: "week", step: 1, template: weekScaleTemplate},
-		{unit: "hour", step: 1, date: "%G"}
+		{unit: "hour", step: 1, date: "%s-%a-%A"},
 
 	];
 

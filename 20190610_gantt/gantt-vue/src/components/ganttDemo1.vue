@@ -6,6 +6,7 @@
 
 <script>
   import gantt from 'dhtmlx-gantt'
+  import 'dhtmlx-gantt/codebase/sources/ext/dhtmlxgantt_tooltip'
   
   import terrace from '!!raw-loader!dhtmlx-gantt/codebase/skins/dhtmlxgantt_terrace.css'
   import skyblue from '!!raw-loader!dhtmlx-gantt/codebase/skins/dhtmlxgantt_skyblue.css'
@@ -137,18 +138,33 @@
             break
         }
         gantt.render()
+      },
+      
+      /**
+       * 是否考虑周末
+       */
+      weekendTask(flag) {
+        if (flag) {
+          gantt.config.work_time = true
+          gantt.templates.task_cell_class = function(task, date) {
+            if (!gantt.isWorkTime(date))
+              return 'week_end'
+            return ''
+          }
+        } else {
+          gantt.config.work_time = false
+        }
+        gantt.render()
       }
     },
     mounted() {
-      gantt.config.work_time = true
-      gantt.templates.task_cell_class = function(task, date) {
-        if (!gantt.isWorkTime(date))
-          return 'week_end'
-        return ''
-      }
-      
       gantt.config.order_branch = true        // 可以拖动换行
       gantt.config.order_branch_free = true
+      
+      gantt.attachEvent('onGanttReady', () => {   // tooltip
+        const tooltips = gantt.ext.tooltips
+        tooltips.tooltip.setViewport(gantt.$task_data)
+      })
       
       this.initGanttEvents()          // 注册事件
       gantt.init(this.$refs.gantt)    // 初始化
@@ -171,12 +187,14 @@
     .gantt-instance {
       height: 800px;
       
-      .gantt_task_cell.week_end {
-        background-color: #eff5fd !important;
-      }
-      
-      .gantt_task_row.gantt_selected .gantt_task_cell.week_end {
-        background-color: #f8ec9c;
+      /deep/ {
+        .gantt_task_cell.week_end {
+          background-color: #eff5fd !important;
+        }
+        
+        .gantt_task_row.gantt_selected .gantt_task_cell.week_end {
+          background-color: #f8ec9c;
+        }
       }
     }
   }

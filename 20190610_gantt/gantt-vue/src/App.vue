@@ -28,6 +28,15 @@
       <button @click="changeTimeScale('year')">Year</button>
     </div>
     
+    <!-- 周末自动跳过 -->
+    <div class='btns'>
+      <span class='btns-desc'>
+        是否考虑周末：
+      </span>
+      <button @click="weekendTask(true)">考虑</button>
+      <button @click="weekendTask(false)">不考虑</button>
+    </div>
+    
     <gantt-demo1 ref='ganttDemo1'
                  :tasks="tasks"
                  @task-updated="taskUpdated"
@@ -38,8 +47,8 @@
 
 <script>
   import GanttDemo1 from './components/ganttDemo1'
-  
-  
+  import gantt from 'dhtmlx-gantt'
+
   export default {
     name: 'app',
     components: { GanttDemo1 },
@@ -47,8 +56,9 @@
       return {
         tasks: {
           data: [
-            { id: 1, text: 'Task #1', start_date: '15-04-2019', personName: '张三', duration: 3, progress: 0.6 },
-            { id: 2, text: 'Task #2', start_date: '18-04-2019', personName: '李四', duration: 3, progress: 0.2 },
+            { id: 4, text: 'Project #1', start_date: '15-04-2019', type: gantt.config.types.project, open: true },
+            { id: 1, text: 'Task #1', start_date: '15-04-2019', personName: '张三', duration: 3, progress: 0.6, parent: 4},
+            { id: 2, text: 'Task #2', start_date: '18-04-2019', personName: '李四', duration: 3, progress: 0.2, parent: 4 },
             { id: 3, text: 'Task #2-1', start_date: '20-04-2019', personName: '王五', duration: 3, progress: 0.1, parent: 2 }
           ],
           links: [
@@ -93,6 +103,14 @@
        */
       linkUpdated(id, type, task) {
         console.log('任务链接更新： ', { id, type, task })
+      },
+      
+      /**
+       * 是否考虑周末
+       * @param flag
+       */
+      weekendTask(flag) {
+        this.$refs.ganttDemo1.weekendTask(flag)
       }
     }
   }
