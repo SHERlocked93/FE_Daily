@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微信语音</title>
+    <link rel="stylesheet" href="./demo1.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const oSendBtn = document.getElementById('sendBtn')
+            const soundClips = document.querySelector('.sound-clips')
+            let mediaRecorder
+            const oChatList = document.getElementById('chatList')
+            navigator.getUserMedia = (navigator.getUserMedia ||
+              navigator.webkitGetUserMedia ||
+              navigator.mozGetUserMedia ||
+              navigator.msGetUserMedia)
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                  .then(function(stream) {
+                      console.log('获取stream：')
+                      console.log(stream)
+                      rec(stream)
+                  })
+                  .catch(function(err) {
+                        console.error('错误啦 ' + err)
+                    }
+                  )
+            } else {
+                console.error('不支持 navigator.mediaDevices 的环境')
+            }
+            
+            function rec(stream) {
+                mediaRecorder = new MediaRecorder(stream)
+                oSendBtn.addEventListener('touchstart', function(ev) {
+                    ev.preventDefault()
+                    this.innerHTML = '松开 结束'
+                    this.classList.add('activeBtn')
+                    console.log('开始记录')
+                    mediaRecorder.start()
+                }, false)
+                oSendBtn.addEventListener('touchend', function(ev) {
+                    ev.preventDefault()
+                    this.innerHTML = '按下 说话'
+                    this.classList.remove('activeBtn')
+                    mediaRecorder.stop()
+                }, false)
+                mediaRecorder.ondataavailable = function(e) {
+                    console.log('ondataavailable： ')
+                    console.log(e)
+                    const clipContainer = document.createElement('li')
+                    const audio = document.createElement('audio')
+                    clipContainer.classList.add('item_audio')
+                    clipContainer.innerHTML = `
+                    <div class = "redDot"></div>
+                    <div class="chatContent">
+                        <i class="material-icons material-icons_wifi">🙃</i>
+                        <span class="bot"></span>
+                        <span class="top"></span>
+                    </div>
+                    <div class="avatar">
+                        <img src="https://i.loli.net/2019/08/09/sqnjmxSZBdPfNtb.jpg" alt="">
+                    </div>`
+                    audio.setAttribute('controls', '')
+                    oChatList.appendChild(clipContainer)
+                    const audioURL = window.URL.createObjectURL(e.data)
+                    audio.src = audioURL
+                    oChatList.addEventListener('touchstart', function(ev) {
+                        if (ev.srcElement.parentNode.className !== 'item_audio') return
+                        audio.play()
+                        ev.srcElement.parentNode.removeChild(ev.srcElement.parentNode.children[0])
+                    }, false)
+                }
+            }
+        }, false)
+    </script>
+</head>
+​
+<body>
+    <div id="wrap">
+        <header id="header">
+            <div id="left">
+                <i class="material-icons"><</i>
+                微信(184)
+            </div>
+            <div id="mid">艾达·王</div>
+            <div id="right">
+                <i class="material-icons">😁</i>
+            </div>
+        </header>
+        <div id="contentWrap">
+            <ul id="chatList">
+                <li class="item_me">
+                    <div class="chatContent">我是不是你最疼爱的人?
+                        <span class="bot"></span>
+                        <span class="top"></span>
+                    </div>
+                    <div class="avatar">
+                        <img src="https://i.loli.net/2019/08/09/sqnjmxSZBdPfNtb.jpg" alt="">
+                    </div>
+                </li>
+                <li class="item_you">
+                    <div class="avatar">
+                        <img src="https://i.loli.net/2019/08/09/sqnjmxSZBdPfNtb.jpg" alt="">
+                    </div>
+                    <div class="chatContent">奔跑吧，兄弟！（滚犊子）
+                        <span class="bot"></span>
+                        <span class="top"></span>
+                    </div>
+                    ​
+                </li>
+                <li class="item_me">
+                    <div class="chatContent">这里我就不多说了，上来就是一梭子代码……
+                        <span class="bot"></span>
+                        <span class="top"></span>
+                    </div>
+                    <div class="avatar">
+                        <img src="https://i.loli.net/2019/08/09/sqnjmxSZBdPfNtb.jpg" alt="">
+                    </div>
+                </li>
+                <li class="item_you">
+                    <div class="avatar">
+                        <img src="https://i.loli.net/2019/08/09/sqnjmxSZBdPfNtb.jpg" alt="">
+                    </div>
+                    <div class="chatContent">大彬哥，你说你咋这么优秀呢？看见你我有一种大海的感觉
+                        <span class="bot"></span>
+                        <span class="top"></span>
+                    </div>
+                    ​
+                </li>
+                <li class="item_me">
+                    <div class="chatContent">老妹儿，你是不是喜欢上我了呢……
+                        <span class="bot"></span>
+                        <span class="top"></span>
+                    </div>
+                    <div class="avatar">
+                        <img src="https://i.loli.net/2019/08/09/sqnjmxSZBdPfNtb.jpg" alt="">
+                    </div>
+                </li>
+                <li class="item_you">
+                    <div class="avatar">
+                        <img src="https://i.loli.net/2019/08/09/sqnjmxSZBdPfNtb.jpg" alt="">
+                    </div>
+                    <div class="chatContent">不是，我晕船，看见你想吐……
+                        <span class="bot"></span>
+                        <span class="top"></span>
+                    </div>
+                    ​
+                </li>
+            </ul>
+        </div>
+        <footer id="footer">
+            <div id="keyboard">
+                <i class="material-icons">⌨︎</i>
+            </div>
+            <div id="sayBtn">
+                <span id="sendBtn" class="sendBtn">按下 说话</span>
+            </div>
+            <div id="icon"><i class="material-icons">😆</i></div>
+            <div id="add"><i class="material-icons">➕</i></div>
+        </footer>
+    </div>
+</body>
+​
+</html>

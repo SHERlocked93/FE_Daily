@@ -1,0 +1,243 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul li { list-style: none;}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #ebebeb;
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.material-icons {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 32px; /* Preferred icon size */
+  display: inline-block;
+  /* line-height: 0.01rem; */
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+#wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#header {
+  height: 46px;
+  line-height: 46px;
+  background: #363539;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  justify-content: space-between;
+}
+
+#header #left {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  width: 100px;
+}
+
+#header #right {
+  display: flex;
+  align-items: center;
+  width: 100px;
+  justify-content: flex-end;
+}
+
+#header #right i {
+  padding-right: 6px;
+}
+
+#header #mid {
+  text-align: center;
+  flex: 1;
+}
+
+#contentWrap {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.item_me, .item_audio {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 8px;
+}
+
+.item_you {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 8px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar img {width: 100%;}
+
+.item_me .chatContent {
+  padding: 10px;
+  background: #a0e75a;
+  border: 1px solid #6fb44d;
+  margin-right: 15px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.chatContent span {width: 0; height: 0; font-size: 0; overflow: hidden; position: absolute;}
+
+.item_me .chatContent span.bot {
+  border-width: 8px;
+  border-style: solid dashed dashed;
+  border-color: transparent transparent transparent #6fb44d;
+  right: -17px;
+  top: 10px;
+}
+
+.item_me .chatContent span.top {
+  border-width: 8px;
+  border-style: solid dashed dashed;
+  border-color: transparent transparent transparent #a0e75a;
+  right: -15px;
+  top: 10px;
+}
+
+.item_you .chatContent {
+  padding: 10px;
+  background: #a0e75a;
+  border: 1px solid #6fb44d;
+  margin-left: 15px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.item_you .chatContent span.bot {
+  border-width: 8px;
+  border-style: solid dashed dashed;
+  border-color: transparent #6fb44d transparent transparent;
+  left: -17px;
+  top: 10px;
+}
+
+.item_you .chatContent span.top {
+  border-width: 8px;
+  border-style: solid dashed dashed;
+  border-color: transparent #a0e75a transparent transparent;
+  left: -15px;
+  top: 10px;
+}
+
+#footer {
+  height: 46px;
+  padding: 0 4px;
+  background: #f4f5f6;
+  border-top: 1px solid #d7d7d8;
+  display: flex;
+  align-items: center;
+  color: #7f8389;
+  justify-content: space-around;
+}
+
+#sayBtn {
+  flex: 1;
+  display: flex;
+  margin: 0 5px;
+  color: #565656;
+  font-weight: bold;
+}
+
+.sendBtn {
+  display: block;
+  flex: 1;
+  padding: 8px;
+  background: #f4f5f6;
+  border: 1px solid #bec2c1;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.activeBtn {
+  display: block;
+  flex: 1;
+  padding: 8px;
+  background: #c6c7ca;
+  border: 1px solid #bec2c1;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.item_audio .chatContent {
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 5px;
+  margin-right: 15px;
+  position: relative;
+  width: 120px;
+  min-height: 20px;
+}
+
+.item_audio .chatContent span.bot {
+  border-width: 8px;
+  border-style: solid dashed dashed;
+  border-color: transparent transparent transparent #999;
+  right: -17px;
+  top: 10px;
+}
+
+.item_audio .chatContent span.top {
+  border-width: 8px;
+  border-style: solid dashed dashed;
+  border-color: transparent transparent transparent #fff;
+  right: -15px;
+  top: 10px;
+}
+
+.material-icons_wifi {
+  transform: rotate(90deg);
+  color: #a5a5a5;
+  font-size: 22px;
+}
+
+.redDot {
+  background: #f45454;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+}

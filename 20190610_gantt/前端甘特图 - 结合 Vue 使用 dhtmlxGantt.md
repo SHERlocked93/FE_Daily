@@ -4,7 +4,7 @@
 
 ## 1. 搭建环境
 
-使用 vue-cli2 搭建项目框架，模版使用 webpack-simple
+使用 `vue-cli2` 搭建项目框架，模版使用 `webpack-simple`，如果你使用 `vue-cli3`，也是一样使用。
 
 ```bash
 # 搭建
@@ -19,15 +19,19 @@ npm run dev
 
 如果 `npm run dev` 的时候报 `node-sass` 版本不对应，则需要先运行 `npm rebuild node-sass` 
 
-这里引入了一个 `raw-loader`，用来动态引入 css 文件，将在下文用到
+这里引入了一个 `raw-loader`，用来动态引入 css 文件，将在下文用到。
 
-## 2. 开始
+## 2. 基本用法
 
-### 2.1 获取事件
+### 2.1 先跑起来
 
 
 
-### 2.2 动态时间尺度
+### 2.2 获取事件
+
+
+
+### 2.3 动态时间尺度
 
 
 
@@ -62,7 +66,7 @@ npm run dev
 
 
 
-### 2.3 动态皮肤
+### 2.4 动态皮肤
 
 ```javascript
 <script>
@@ -108,7 +112,13 @@ npm run dev
 
 
 
-### 2.4 周末自动跳过
+### 2.5 周末自动跳过
+
+
+
+### 2.6 Tooltip
+
+
 
 ---
 

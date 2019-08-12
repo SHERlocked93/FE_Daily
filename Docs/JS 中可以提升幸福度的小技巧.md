@@ -121,12 +121,6 @@ const num=3;
 
 
 
-
-
-
-
-
-
 ## 2. 函数
 ### 2.1 函数默认值
 ```js
@@ -279,6 +273,16 @@ round(1.345, 1) 				// 1.3
 
 
 
+### 4.3 数字补0操作
+感谢网友 @JserWang @vczhan 提供 这个小技巧
+有时候比如显示时间的时候有时候会需要把一位数字显示成两位，这时候就需要补0操作，可以使用`slice`和string的`padStart`方法
+```js
+const addZero1 = (num, len = 2) => (`0${num}`).slice(-len)
+const addZero2 = (num, len = 2) => (`${num}`).padStart( len   , '0')
+addZero1(3) // 03
+ 
+addZero2(32,4)  // 0032
+```
 
 
 
@@ -412,7 +416,54 @@ modelAndVIN(car); // => model: bmw 2018  vin: 12345
 
 
 
+## 7. 代码复用
 
+### 7.1 Object [key]
+
+虽然将 `foo.bar` 写成 `foo ['bar']` 是一种常见的做法，但是这种做法构成了编写可重用代码的基础。许多框架使用了这种方法，比如element的[表单验证](http://element-cn.eleme.io/#/zh-CN/component/form#biao-dan-yan-zheng)。
+
+请考虑下面这个验证函数的简化示例：
+
+```js
+function validate(values) {
+  if(!values.first)
+    return false;
+  if(!values.last)
+    return false;
+  return true;
+}
+console.log(validate({first:'Bruce',last:'Wayne'})); // true
+```
+
+上面的函数完美的完成验证工作。但是当有很多表单，则需要应用验证，此时会有不同的字段和规则。如果可以构建一个在运行时配置的通用验证函数，会是一个好选择。
+
+```js
+// object validation rules
+const schema = {
+  first: {
+    required:true
+  },
+  last: {
+    required:true
+  }
+}
+ 
+// universal validation function
+const validate = (schema, values) => {
+  for(field in schema) {
+    if(schema[field].required) {
+      if(!values[field]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+console.log(validate(schema, {first:'Bruce'})); // false
+console.log(validate(schema, {first:'Bruce',last:'Wayne'})); // true
+```
+
+现在有了这个验证函数，我们就可以在所有窗体中重用，而无需为每个窗体编写自定义验证函数。
 
 
 
