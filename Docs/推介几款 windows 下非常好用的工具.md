@@ -4,9 +4,17 @@
 
 [TOC]
 
+![](https://i.loli.net/2019/12/25/tk54zCWj1oFiPTu.jpg)
+
 在下工具控一枚，平时会留意收集各种各样给我们生活生产带来便捷的工具，毕竟人生苦短；下面主要介绍一些我在 Windows 系统上发现的一些好用的工具，并且会一笔带过主要优点特点，具体详细用法可以搜一下，相关帖子挺多的，每个都详细介绍的话篇章那就太长啦。
 
-## Listary
+本文是 <那些好用的工具> 系列文章之一：
+
+1.  [推介几款 windows 下非常好用的工具](https://juejin.im/post/5c2eca54f265da61171cdc48)
+2.  [干货满满！推介几款 Mac 下非常好用的软件（第一弹）](https://juejin.im/post/5de664e5f265da33b82bcfce)
+3.  [干货满满！推介几款 Mac 下非常好用的软件（第二弹）](https://juejin.im/post/5e037fe2518825123f0c70cb)
+
+## 1. Listary
 
 啥都憋说了，[Listary](https://www.listary.com/) 必须排在第一个，用过 Everything，觉得还是 Listary 更胜一筹；它不仅可以在本地非常快速的搜索，还可以打开网站、在搜索引擎中搜索、随时随地打开快捷菜单、文件快速定位、快速打开cmd窗口等等优秀的功能；
 
@@ -16,7 +24,7 @@
 
 ![](https://i.loli.net/2019/01/03/5c2e27585eb71.png)
 
-## Ditto
+## 2. Ditto
 
 [Ditto](https://ditto-cp.sourceforge.io/) 是一款免费开源的windows剪切板管理工具，作为`Ctrl C V`工程师，复制粘贴少不了，更厉害的是，可以用它来批量的复制，`Ctrl+C`一堆别人的代码，一次性全粘上，岂不美哉；
 
@@ -26,7 +34,7 @@
 
 ![](https://i.loli.net/2019/01/03/5c2e140547472.png)
 
-## Winsnap
+## 3. Winsnap
 
 看到上面的截图没，旁边都有很骚包的阴影，怎么做到的？不需要各种高大上的图片处理软件，只需 [Winsnap](https://www.ntwind.com/) ，它可以在截图的时候自动帮你加上背景阴影，然后帮你自动复制到剪切板；
 
@@ -34,7 +42,7 @@
 
 ![](https://i.loli.net/2019/01/03/5c2e1bff50446.png)
 
-## Cmder
+## 4. Cmder
 
 [Cmder](http://cmder.net/) 是一个美观又实用的命令行工具，它支持大部分Linux命令，支持ssh连Linux，还可以在它的窗口中新建cmd和powershell，更多玩法等你来战~
 
@@ -56,7 +64,7 @@ gs=git status $*
 
 ![](https://i.loli.net/2019/01/03/5c2e1cee1ba1d.png)
 
-## Typora
+## 5. Typora
 
 使用过很多 Markdown 编辑器，最后选择了 [Typora](https://www.typora.io/)，与主流编辑器一边编辑一边预览的形式，Typora 是将编辑和预览合并到一起，简洁大方，目光也不需要在复杂的编辑区和预览区中来回切换了，只有当焦点移入的时候才显示 Markdown 语法；
 
@@ -64,7 +72,7 @@ gs=git status $*
 
 ![](https://i.loli.net/2019/01/03/5c2e27367a215.png)
 
-## Quick Look
+## 6. Quick Look
 
 [QuickLook](https://www.microsoft.com/zh-cn/p/quicklook/9nv4bs3l1h4s) 是在 Microsoft Store 里面下载的一个速览工具，有时候打开一个PDF、TXT、图片之类的需要等关联程序启动半天，有了它之后只要选中目标文件，按空格，就可以快速预览了，速度非常快，支持图片、视频、音频、压缩包、PDF、文本文件、Markdown、HTML等格式；
 
@@ -72,7 +80,7 @@ gs=git status $*
 
 ![](https://i.loli.net/2019/01/04/5c2eb5f3a8429.png)
 
-## Myper Splash
+## 7. Myper Splash
 
 [Myper Splash](https://www.microsoft.com/zh-cn/p/myersplash-wallpaper/9nblggh4vcsn) 也是可以在 Microsoft Store 里面下载的一款高质量壁纸库，所有壁纸来源 Unsplash 网站，均无版权可以免费使用，再加上简洁美观的UI/UX设计，让你体验一见钟情的感觉。
 
@@ -80,7 +88,7 @@ gs=git status $*
 
 ![](https://i.loli.net/2019/01/04/5c2eb8b503cea.png)
 
-## GifCam / ScreenToGif
+## 8. GifCam / ScreenToGif
 
 相信大家都有过需要截一个 Gif 的时候，这里有两个免费 Gif 屏幕录制工具都很不错，小而美的 [GifCam](https://gifcam.en.softonic.com/) 和开源强大的 [ScreenToGif](https://github.com/NickeManarin/ScreenToGif) ；
 
@@ -92,13 +100,13 @@ SceenToGif 的编辑功能更为强大，可以单独操作录制的帧，删除
 
 ![](https://i.loli.net/2019/01/04/5c2ebe43f24a7.gif)
 
-## Free Download Manage
+## 9. Free Download Manage
 
 [Free Download Manage](https://www.freedownloadmanager.org/) (FDM) 是一款免费的下载工具，如果你已经受够了国内一些软件的广告和限速，那么 FDM 是一个不错的选择，另外多线程、断点续传、计划任务等功能让 FDM 值得推介。
 
 ![](https://i.loli.net/2019/01/04/5c2ebf112069d.png)
 
-## Sourcetree
+## 10. Sourcetree
 
 [Sourcetree](https://www.sourcetreeapp.com/) 是跨平台免费的 Git 客户端管理工具，如果受够了手打各种 Git 操作命令，那么 Sourcetree 是一个不错的选择；
 

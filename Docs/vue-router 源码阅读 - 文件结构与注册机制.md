@@ -281,7 +281,7 @@ export default class VueRouter {
   }
 }
 ```
-`init` 初始化方法是在 install 时的 `Vue.mixin` 所注册的 `beforeCreate` 钩子中调用的，可以翻上去看看；调用方式是 `this._router.init(this)`，因为是在 `Vue.mixin` 里调用，所以这个 this 是当前的 Vue 实例。另外初始化方法需要负责从任一个路径跳转到项目中时的路由初始化，以 Hash 模式为例，此时还没有对相关事件进行绑定，因此在第一次执行的时候就要进行事件绑定与 `popstate`、`hashchange` 事件触发，然后手动触发一次路由跳转。实现如下：
+`init` 初始化方法是在 install 时的 `Vue.mixin` 所注册的 `beforeCreate` 钩子中调用的，可以翻上去看看，调用方式是 `this._router.init(this)`。另外初始化方法需要负责从任一个路径跳转到项目中时的路由初始化，以 Hash 模式为例，此时还没有对相关事件进行绑定，因此在第一次执行的时候就要进行事件绑定与 `popstate`、`hashchange` 事件触发，然后手动触发一次路由跳转。实现如下：
 ```javascript
 // vue-router/src/index.js
 export default class VueRouter {  
