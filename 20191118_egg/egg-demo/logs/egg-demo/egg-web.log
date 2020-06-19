@@ -1,0 +1,7 @@
+2019-11-19 09:16:31,519 INFO 49464 [egg-logrotator] app logger reload: got log-reload message
+2019-11-19 10:12:15,573 WARN 49464 [TCPBase] socket is closed by other side while there were still unhandled data in the socket buffer
+2019-11-19 10:12:15,577 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 10:46:55,214 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 11:46:48,953 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 12:28:47,301 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 13:10:41,588 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again

@@ -1,0 +1,115 @@
+2019-11-18 14:13:54,905 ERROR 49428 [-/127.0.0.1/-/8ms GET /] nodejs.Error: Please set config.keys first
+    at Application.get keys [as keys] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_egg@2.25.0@egg/lib/application.js:266:15)
+    at Object.get cookies [as cookies] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_egg@2.25.0@egg/app/extend/context.js:22:66)
+    at Object.get [egg-security#CSRF_SECRET] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_egg-security@2.7.1@egg-security/app/extend/context.js:86:33)
+    at Object.ensureCsrfSecret (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_egg-security@2.7.1@egg-security/app/extend/context.js:97:13)
+    at csrf (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_egg-security@2.7.1@egg-security/lib/middlewares/csrf.js:15:11)
+    at dispatch (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_koa-compose@4.1.0@koa-compose/index.js:42:32)
+    at /Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_koa-compose@4.1.0@koa-compose/index.js:34:12
+    at dispatch (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_koa-compose@4.1.0@koa-compose/index.js:42:32)
+    at session (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_koa-session@5.12.3@koa-session/index.js:41:13)
+    at dispatch (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_koa-compose@4.1.0@koa-compose/index.js:42:32)
+
+pid: 49428
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-18 17:04:41,881 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 900418ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-18 17:25:32,820 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 1250919ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 01:20:27,231 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 3819523ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 03:08:30,346 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 6483095ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 06:08:15,533 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 10785151ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 07:56:19,780 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 6484233ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 08:37:44,865 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 2485082ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 08:53:48,770 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 923893ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 08:59:26,307 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 337535ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 09:01:16,577 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 90259ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+

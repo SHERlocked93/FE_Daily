@@ -1,0 +1,121 @@
+2019-11-18 14:13:52,011 INFO 49427 [egg:logger] init all loggers with options: {"dir":"/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-demo-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"agent"}
+2019-11-18 14:13:52,024 INFO 49427 [egg:core] dump config after load, 5ms
+2019-11-18 14:13:52,073 INFO 49427 [egg-watcher] Start watching: ["/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/config","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/mocks","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/mocks_proxy","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app.js"]
+2019-11-18 14:13:52,073 INFO 49427 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app"
+2019-11-18 14:13:52,074 INFO 49427 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/config"
+2019-11-18 14:13:52,074 INFO 49427 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/mocks"
+2019-11-18 14:13:52,074 INFO 49427 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/mocks_proxy"
+2019-11-18 14:13:52,074 INFO 49427 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app.js"
+2019-11-18 14:13:52,074 INFO 49427 [egg-watcher:agent] watcher start success
+2019-11-18 14:13:52,083 INFO 49427 [egg:core] dump config after ready, 4ms
+2019-11-18 14:13:52,869 INFO 49427 [egg-watcher] Recieved a change event from eventSource: {"event":"rename","path":"/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app/public","stat":{"dev":16777220,"mode":16877,"nlink":2,"uid":501,"gid":20,"rdev":0,"blksize":4096,"ino":59483289,"size":64,"blocks":0,"atimeMs":1574057632857.6458,"mtimeMs":1574057632857.6458,"ctimeMs":1574057632857.6458,"birthtimeMs":1574057632857.6458,"atime":"2019-11-18T06:13:52.858Z","mtime":"2019-11-18T06:13:52.858Z","ctime":"2019-11-18T06:13:52.858Z","birthtime":"2019-11-18T06:13:52.858Z"},"remove":false,"isDirectory":true,"isFile":false}
+2019-11-18 14:14:18,901 INFO 49463 [egg:logger] init all loggers with options: {"dir":"/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-demo-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"agent"}
+2019-11-18 14:14:18,916 INFO 49463 [egg:core] dump config after load, 6ms
+2019-11-18 14:14:18,961 INFO 49463 [egg-watcher] Start watching: ["/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/config","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/mocks","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/mocks_proxy","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app.js"]
+2019-11-18 14:14:18,962 INFO 49463 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app"
+2019-11-18 14:14:18,962 INFO 49463 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/config"
+2019-11-18 14:14:18,962 INFO 49463 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/mocks"
+2019-11-18 14:14:18,962 INFO 49463 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/mocks_proxy"
+2019-11-18 14:14:18,962 INFO 49463 [egg-watcher] Start watching: "/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app.js"
+2019-11-18 14:14:18,963 INFO 49463 [egg-watcher:agent] watcher start success
+2019-11-18 14:14:18,974 INFO 49463 [egg:core] dump config after ready, 4ms
+2019-11-18 17:04:41,891 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 900418ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-18 17:25:32,820 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 1250919ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 01:20:27,237 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 3819523ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 03:08:30,347 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 6483095ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 06:08:15,537 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 10785151ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 07:56:19,781 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 6484233ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 08:37:44,865 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 2485082ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 08:53:48,770 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 923893ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 08:59:26,307 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 337535ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+
+2019-11-19 09:01:16,578 ERROR 49463 nodejs.ClusterClientNoResponseError: client no response in 90259ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/node_modules/_cluster-client@3.0.1@cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 49463
+hostname: qianyudeMacBook-Pro.local
+

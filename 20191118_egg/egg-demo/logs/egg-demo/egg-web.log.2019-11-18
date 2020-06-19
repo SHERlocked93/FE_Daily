@@ -1,0 +1,45 @@
+2019-11-18 14:13:52,759 INFO 49428 [egg:logger] init all loggers with options: {"dir":"/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-demo-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-11-18 14:13:52,794 INFO 49428 [egg-multipart] stream mode enable
+2019-11-18 14:13:52,857 INFO 49428 [egg-static] starting static serve /public/ -> /Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app/public
+2019-11-18 14:13:52,860 INFO 49428 [egg-security] use csrf middleware
+2019-11-18 14:13:52,861 INFO 49428 [egg-security] use methodnoallow middleware
+2019-11-18 14:13:52,862 INFO 49428 [egg-security] use noopen middleware
+2019-11-18 14:13:52,863 INFO 49428 [egg-security] use nosniff middleware
+2019-11-18 14:13:52,864 INFO 49428 [egg-security] use xssProtection middleware
+2019-11-18 14:13:52,864 INFO 49428 [egg-security] use xframe middleware
+2019-11-18 14:13:52,865 INFO 49428 [egg-security] use dta middleware
+2019-11-18 14:13:52,865 INFO 49428 [egg-security] compose 7 middlewares into one security middleware
+2019-11-18 14:13:52,876 INFO 49428 [egg:core] dump config after load, 6ms
+2019-11-18 14:13:52,894 INFO 49428 [egg-watcher:application] watcher start success
+2019-11-18 14:13:52,901 INFO 49428 [egg:core] dump config after ready, 5ms
+2019-11-18 14:14:19,666 INFO 49464 [egg:logger] init all loggers with options: {"dir":"/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-demo-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-11-18 14:14:19,706 INFO 49464 [egg-multipart] stream mode enable
+2019-11-18 14:14:19,773 INFO 49464 [egg-static] starting static serve /public/ -> /Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/app/public
+2019-11-18 14:14:19,777 INFO 49464 [egg-security] use csrf middleware
+2019-11-18 14:14:19,778 INFO 49464 [egg-security] use methodnoallow middleware
+2019-11-18 14:14:19,778 INFO 49464 [egg-security] use noopen middleware
+2019-11-18 14:14:19,779 INFO 49464 [egg-security] use nosniff middleware
+2019-11-18 14:14:19,780 INFO 49464 [egg-security] use xssProtection middleware
+2019-11-18 14:14:19,780 INFO 49464 [egg-security] use xframe middleware
+2019-11-18 14:14:19,781 INFO 49464 [egg-security] use dta middleware
+2019-11-18 14:14:19,781 INFO 49464 [egg-security] compose 7 middlewares into one security middleware
+2019-11-18 14:14:19,792 INFO 49464 [egg:core] dump config after load, 7ms
+2019-11-18 14:14:19,812 INFO 49464 [egg-watcher:application] watcher start success
+2019-11-18 14:14:19,820 INFO 49464 [egg:core] dump config after ready, 5ms
+2019-11-18 17:04:41,873 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-18 17:25:32,820 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 01:20:27,233 WARN 49464 [TCPBase] socket is closed by other side while there were still unhandled data in the socket buffer
+2019-11-19 01:20:27,238 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 03:08:30,346 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 06:08:15,539 WARN 49464 [TCPBase] socket is closed by other side while there were still unhandled data in the socket buffer
+2019-11-19 06:08:15,540 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 07:56:19,780 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 08:37:44,865 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 08:53:48,770 WARN 49464 [TCPBase] socket is closed by other side while there were still unhandled data in the socket buffer
+2019-11-19 08:53:48,770 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 08:59:26,307 WARN 49464 [TCPBase] socket is closed by other side while there were still unhandled data in the socket buffer
+2019-11-19 08:59:26,307 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 09:01:16,577 WARN 49464 [ClusterClient:Watcher] follower closed, and try to init it again
+2019-11-19 09:16:30,659 INFO 49464 [egg-logrotator] clean all log before 31 days
+2019-11-19 09:16:31,511 INFO 49464 [egg-logrotator] broadcast log-reload
+2019-11-19 09:16:31,511 INFO 49464 [egg-logrotator] rotate files success by DayRotator, files ["/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/common-error.log -> /Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/common-error.log.2019-11-18","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/egg-demo-web.log -> /Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/egg-demo-web.log.2019-11-18","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/egg-web.log -> /Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/egg-web.log.2019-11-18","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/egg-schedule.log -> /Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/egg-schedule.log.2019-11-18","/Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/egg-agent.log -> /Users/sherlocked93/Personal/PersonalProjects/FE_Daily/20191118_egg/egg-demo/logs/egg-demo/egg-agent.log.2019-11-18"]
