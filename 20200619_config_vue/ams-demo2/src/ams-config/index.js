@@ -3,9 +3,18 @@ import ams from '@ams-team/ams'
 // 第一步，注册资源
 ams.resource('demo-form1', {
     fields: {
-        title: { type: 'text', label: '标题' },
+        title: { type: 'text', label: '标题', props: { placeholder: '请填写标题' } },
         constent: { type: 'textarea', label: '内容' },
-        rate: { type: 'rate', label: '评分' }
+        rate: { type: 'rate', label: '评分' },
+        id: {
+            type: 'text',
+            label: 'ID',
+            ctx: 'edit', // 字段的展示edit, view
+            default: '我是ID默认值',
+            info: '左边的描述',
+            desc: '下面的提示',
+            rules: { required: true, message: 'ID必填' }
+        }
     }
 })
 
