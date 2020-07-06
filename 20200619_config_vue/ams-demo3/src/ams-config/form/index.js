@@ -6,9 +6,7 @@ ams.block('index', {
             type: 'form',
             resource: 'resource',
             ctx: 'edit',
-            style: {
-                width: '50%'
-            },
+            style: { width: '50%' },
             data: {
                 testRadio: 'c'
                 // testText: ''

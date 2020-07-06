@@ -15,17 +15,13 @@ ams.block('router', {
                 name: '首页',
                 path: '',
                 block: 'index',
-                meta: {
-                    icon: 'menu'
-                }
+                meta: { icon: 'menu' }
             },
             {
                 name: '列表',
                 path: 'list',
                 block: 'list',
-                meta: {
-                    icon: 'document'
-                }
+                meta: { icon: 'document' }
             },
             {
                 name: '404',
