@@ -273,8 +273,8 @@ order by 排序列表;
 
 select last_name, department_name
 from departments d
-         inner join employees e
-                    on e.department_id = d.department_id;
+         join employees e
+              on e.department_id = d.department_id;
 
 
 
@@ -286,6 +286,11 @@ from departments d
               on d.location_id = l.location_id
 where d.department_id > 100;
 
+select department_id, department_name, city
+from departments d
+         inner join locations l
+                    on d.location_id = l.location_id
+where department_id > 100;
 
 #③添加分组+筛选
 #案例1：查询每个城市的部门个数
@@ -296,7 +301,11 @@ from departments d
               on d.location_id = l.location_id
 group by l.city;
 
-
+select count(1) 部门个数, city
+from departments d
+         join locations l
+              on d.location_id = l.location_id
+group by city;
 
 #④添加分组+筛选+排序
 #案例1：查询部门中员工个数>10的部门名，并按员工个数降序
@@ -309,6 +318,11 @@ group by d.department_id
 having 员工个数 > 10
 order by 员工个数 desc;
 
+select last_name, department_name, job_title
+from employees e
+         join jobs j on e.job_id = j.job_id
+         join departments d on d.department_id = e.department_id
+order by department_name desc;
 
 
 #二）非等值连接
@@ -325,6 +339,22 @@ from employees e
 where e.department_id between 10 and 90
 group by g.grade;
 
+select last_name, salary, grade
+from employees e,
+     sal_grade g
+where salary between g.min_salary and g.max_salary;
+
+select last_name, salary, grade
+from employees e
+         join sal_grade g
+              on salary between g.min_salary and g.max_salary;
+
+select count(*) 员工个数, grade
+from employees e
+         join sal_grade g
+              on salary between g.min_salary and g.max_salary
+group by grade
+order by grade desc;
 
 
 #三）自连接
@@ -336,7 +366,9 @@ from employees e
          join employees m
               on e.manager_id = m.employee_id;
 
-
+select e.last_name, m.last_name
+from employees e
+         join employees m on e.manager_id = m.manager_id;
 
 #二、外连接
 
@@ -364,6 +396,18 @@ where 筛选条件;
 */
 use girls;
 #案例1：查询所有女神记录，以及对应的男神名，如果没有对应的男神，则显示为null
+
+select *
+from beauty;
+
+select *
+from boys;
+
+select name, boyname
+from beauty b
+         left join boys y
+                   on b.boyfriend_id = y.id
+where y.id is not null;
 
 #左连接
 select b.*, bo.*
@@ -399,8 +443,10 @@ from departments d
          left join employees e on d.department_id = e.department_id
 where e.employee_id is null;
 
-
-
+select d.department_name, d.department_id, e.employee_id
+from departments d
+         left join employees e on d.department_id = e.department_id
+where e.employee_id is null;
 
 
 
