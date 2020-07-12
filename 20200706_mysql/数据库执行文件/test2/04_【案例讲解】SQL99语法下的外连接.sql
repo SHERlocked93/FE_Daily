@@ -28,10 +28,26 @@ where d.department_name = 'SAL'
    or d.department_name = 'IT';
 
 
+select b.*, bo.*
+from beauty b
+         cross join boys bo;
 
+select b.*, bo.*
+from beauty b,
+     boys bo;
 
+select *
+from beauty g
+         left join boys y on g.boyfriend_id = y.id
+where g.boyfriend_id > 3
+  and y.id is not null;
 
+select *
+from locations l
+         left join departments d on l.location_id = d.location_id
+where department_name is null;
 
-
-
-
+select e.*, d.department_name
+from employees e
+         left join departments d on e.department_id = d.department_id
+where d.department_name in ('sal', 'it');
