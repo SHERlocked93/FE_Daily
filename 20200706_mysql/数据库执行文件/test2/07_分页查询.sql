@@ -55,22 +55,21 @@ page	size=10
 */
 
 
-
-
-
 #案例1：查询员工信息表的前5条
-SELECT * FROM employees LIMIT 0,5;
+select *
+from employees
+limit 0,5;
 #完全等价于
-SELECT * FROM employees LIMIT 5;
+select *
+from employees
+limit 5;
 
 #案例2：查询有奖金的，且工资较高的第11名到第20名
-SELECT 
-    * 
-FROM
-    employees 
-WHERE commission_pct IS NOT NULL 
-ORDER BY salary DESC
-LIMIT 10,10 ;
+select *
+from employees
+where commission_pct is not null
+order by salary desc
+limit 10,10;
 
 
 

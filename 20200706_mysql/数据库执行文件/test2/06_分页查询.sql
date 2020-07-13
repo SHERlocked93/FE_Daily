@@ -55,30 +55,35 @@ page	size=10
 */
 
 
-
+select *
+from employees
+limit 0,5;
 
 
 #案例1：查询员工信息表的前5条
-SELECT * FROM employees LIMIT 0,5;
+select *
+from employees
+limit 0,5;
 #完全等价于
-SELECT * FROM employees LIMIT 5;
+select *
+from employees
+limit 5;
 
 #案例2：查询有奖金的，且工资较高的第11名到第20名
-SELECT 
-    * 
-FROM
-    employees 
-WHERE commission_pct IS NOT NULL 
-ORDER BY salary DESC
-LIMIT 10,10 ;
+
+select *
+from employees
+where commission_pct is not null
+order by salary desc
+limit 10,10;
 
 
 #练习：查询年薪最高的前10名
 
-SELECT last_name,salary,salary*12*(1+IFNULL(commission_pct,0)) 年薪
-FROM employees
-ORDER BY 年薪 DESC
-LIMIT 0,10;
+select last_name, salary, salary * 12 * (1 + IFNULL(commission_pct, 0)) 年薪
+from employees
+order by 年薪 desc
+limit 0,10;
 
 
 
