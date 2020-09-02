@@ -10,6 +10,13 @@ create table dept1
 (
     id   int(7),
     name varchar(25)
+);
+
+
+create table dept1
+(
+    id   int(7),
+    name varchar(25)
 
 
 );

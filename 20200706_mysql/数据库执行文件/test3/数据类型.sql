@@ -10,7 +10,7 @@
 	较长的文本：text、blob（较长的二进制数据）
 
 日期型：
-	
+
 
 
 */
@@ -22,7 +22,7 @@ tinyint、smallint、mediumint、int/integer、bigint
 1	 2		3	4		8
 
 特点：
-① 如果不设置无符号还是有符号，默认是有符号，如果想设置无符号，需要添加unsigned关键字
+① 如果不设置无符号还是有符号，默认是有符号，如果想设置无符号，需要添加 unsigned 关键字
 ② 如果插入的数值超出了整型的范围,会报out of range异常，并且插入临界值
 ③ 如果不设置长度，会有默认的长度
 长度代表了显示的最大宽度，如果不够会用0在左边填充，但必须搭配zerofill使用！
@@ -34,7 +34,7 @@ tinyint、smallint、mediumint、int/integer、bigint
 DROP TABLE IF EXISTS tab_int;
 CREATE TABLE tab_int(
 	t1 INT(7) ZEROFILL,
-	t2 INT(7) ZEROFILL 
+	t2 INT(7) ZEROFILL
 
 );
 

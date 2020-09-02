@@ -25,7 +25,7 @@ create database  [if not exists]库名;
 
 
 #案例：创建库Books
-
+create database books;
 create database if not exists books;
 
 
@@ -66,14 +66,14 @@ create table 表名(
 
 create table book
 (
-    id          int,#编号
-    bname       varchar(20),#图书名
-    price       double,#价格
-    authorid    int,#作者编号
-    publishdate datetime#出版日期
-
-
+    id          int,         # 编号
+    bname       varchar(20), # 图书名
+    price       double,      # 价格
+    authorid    int,         # 作者编号
+    publishdate datetime     # 出版日期
 );
+
+desc books.book;
 
 
 desc book;
@@ -85,7 +85,7 @@ create table if not exists author
     au_name varchar(20),
     nation  varchar(10)
 
-)
+);
 desc author;
 
 
@@ -100,7 +100,10 @@ alter table 表名 add|drop|modify|change column 列名 【列类型 约束】;
 #①修改列名
 
 alter table book
-    change column publishdate pubdate datetime;
+    change column publishdate pubdate varchar(20);
+alter table book
+    change pubdate publishdate datetime;
+desc book;
 
 
 #②修改列的类型或约束
@@ -108,25 +111,35 @@ alter table book
     modify column pubdate timestamp;
 
 #③添加新列
+alter table book
+    add column bdesc varchar(20);
 alter table author
     add column annual double;
 
 #④删除列
-
+alter table book
+    drop column color;
+desc book;
 alter table book_author
     drop column annual;
 #⑤修改表名
+create table book_author
+(
+    id      int,
+    auther  varchar(20),
+    country varchar(20)
+);
+alter table book_author rename to author;
 
-alter table author rename to book_author;
-
-desc book;
+desc author;
 
 
 #3.表的删除
 
-drop table if exists book_author;
+drop table if exists author;
 
 show tables;
+desc book_author;
 
 
 #通用的写法：
@@ -140,6 +153,7 @@ create table 表名
 (
 );
 
+alter table book_author rename to author;
 
 #4.表的复制
 
@@ -148,35 +162,29 @@ values (1, '村上春树', '日本'),
        (2, '莫言', '中国'),
        (3, '冯唐', '中国'),
        (4, '金庸', '中国');
-
+select * from author;
 select *
 from author;
 select *
 from copy2;
 #1.仅仅复制表的结构
-
 create table copy like author;
-
+show tables;
+desc  copy;
+desc author;
 #2.复制表的结构+数据
 create table copy2
 select *
 from author;
 
 #只复制部分数据
-create table copy3
-select id, au_name
-from author
-where nation = '中国';
+create table copy3 select id, au_name from author where nation = '中国';
 
 
 #仅仅复制某些字段
 
-create table copy4
-select id, au_name
-from author
-where 0;
-
-
+create table copy4 select id, country from author where 0;
+create table copy3 select id, country from author;
 
 
 
