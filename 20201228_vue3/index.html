@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>狗屁不通生成器</title>
+    <style rel="stylesheet">
+        body {
+            background: black;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            color: rgba(255, 255, 255, 8);
+            font-size: 45px;
+            height: 100vh;
+            overflow: hidden;
+            padding: 48px;
+        }
+
+        .btn {
+            border-radius: 5px;
+            padding: 35px 55px;
+            font-size: 40px;
+            text-decoration: none;
+            margin: 20px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .btn:active {
+            transform: translate(0px, 5px);
+            -webkit-transform: translate(0px, 5px);
+            box-shadow: 0 1px 0 0 rgb(149, 190, 167);
+        }
+
+        .green {
+            background-color: #2ecc71;
+            box-shadow: 0 5px 0 0 #15B358;
+        }
+
+        .green:hover {
+            background-color: #48E68B;
+        }
+    </style>
+</head>
+<body>
+<h3 id="result"></h3>
+<a href="#" class="btn green" id="btn">点击生成废话</a>
+
+<script type="text/javascript">
+"use strict";
+
+var _this = void 0;
+
+function _newArrowCheck(innerThis, boundThis) {
+    if (innerThis !== boundThis) {
+        throw new TypeError("Cannot instantiate an arrow function");
+    }
+}
+
+var DictMap = {
+    // 二字动词
+    v: ['皮实', '复盘', '赋能', '加持', '沉淀', '倒逼', '落地', '串联', '协同', '反哺', '兼容', '包装', '重组', '履约', '响应', '量化', '发力', '布局', '联动', '细分', '梳理', '输出', '加速', '共建', '共创', '支撑', '融合', '解耦', '聚合', '集成', '对标', '对齐', '聚焦', '抓手', '拆解', '拉通', '抽象', '摸索', '提炼', '打通', '吃透', '迁移', '分发', '分层', '封装', '辐射', '围绕', '复用', '渗透', '扩展', '开拓', '给到', '死磕', '破圈'],
+    // 二字名词
+    n2: ['漏斗', '中台', '闭环', '打法', '纽带', '矩阵', '刺激', '规模', '场景', '维度', '格局', '形态', '生态', '话术', '体系', '认知', '玩法', '体感', '感知', '调性', '心智', '战役', '合力', '赛道', '基因', '因子', '模型', '载体', '横向', '通道', '补位', '链路', '试点'],
+    // 三字名词
+    n3: ['新生态', '感知度', '颗粒度', '方法论', '组合拳', '引爆点', '点线面', '精细化', '差异化', '平台化', '结构化', '影响力', '耦合性', '易用性', '便捷性', '一致性', '端到端', '短平快', '护城河'],
+    // 四字名词
+    n4: ['底层逻辑', '顶层设计', '交付价值', '生命周期', '价值转化', '强化认知', '资源倾斜', '完善逻辑', '抽离透传', '复用打法', '商业模式', '快速响应', '定性定量', '关键路径', '去中心化', '结果导向', '垂直领域', '归因分析', '体验度量', '信息屏障']
+}; // 张一鸣模板
+
+var sentence = '{n4}是{v}{n4}，{v}行业{n3}。{n4}是{v}{n2}{n4}，通过{n3}和{n3}达到{n3}。{n4}是在{n4}采用{n2}打法达成{n4}。{n4}{n4}作为{n2}为产品赋能，{n4}作为{n2}的评判标准。亮点是{n2}，优势是{n2}。{v}整个{n4}，{v}{n2}{v}{n4}。{n3}是{n3}达到{n3}标准。'; // 先使用简单的洗牌算法
+
+Object.values(DictMap).forEach(function (dictItemList) {
+    var _this2 = this;
+
+    _newArrowCheck(this, _this);
+
+    return dictItemList.sort(function () {
+        _newArrowCheck(this, _this2);
+
+        return Math.random() - 0.5;
+    }.bind(this));
+}.bind(void 0)); // 然后使用正则遭到占位符，并做填充
+
+var dom = document.getElementById('result');
+dom.innerText = '「 ' + sentence.replace(/{(\w+)}/g, function (str, type) {
+    _newArrowCheck(this, _this);
+
+    return DictMap[type].shift();
+}.bind(void 0)) + ' 」';
+var btn = document.getElementById('btn');
+
+btn.onclick = function () {
+    _newArrowCheck(this, _this);
+
+    location.reload();
+}.bind(void 0);
+</script>
+</body>
+</html>
