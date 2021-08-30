@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p id='app'>test</p>
+    <button onclick='changeUserName()'>change name</button>
+    <button onclick='changeWifeName()'>change wife</button>
+    <script type='text/javascript'>
+    // 代理目标对象
+    const user = {
+        name: '佐助',
+        age: 20, wife: { name: '小樱', age: 18 }
+    }
+
+    const proxyUser = new Proxy(user, {
+        get(target, p) {
+            console.log('进入get:', target, p)
+            return Reflect.get(target, p)
+        },
+        set(target, p, value) {
+            console.log('set调用了', target, p, value)
+            return Reflect.set(target, p, value)
+        },
+        deleteProperty(target, p) {
+            console.log('删除属性了 ', target, p)
+            return Reflect.deleteProperty(target, p)
+        }
+    })
+
+
+    // 通过代理对象
+    const changeUserName = () => {
+        proxyUser.name = '鸣人'
+        refresh()
+    }
+
+    const changeWifeName = () => {
+        proxyUser.wife.name = '锄田s'
+        refresh()
+    }
+
+    const refresh = () => {
+        document.getElementById('app').innerText = proxyUser.name + ':  ' + proxyUser.wife.name
+    }
+    refresh()
+    </script>
+</body>
+</html>

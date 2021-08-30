@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type='text/javascript'>
+    const reactiveHandler = {
+        get(target, key) {
+            // if (key === '_is_reactive') return true
+            console.log('get操作:', target, key)
+            return Reflect.get(target, key)
+        },
+
+        set(target, key, value) {
+            const result = Reflect.set(target, key, value)
+            console.log('set操作：', target, key, value)
+            return result
+        },
+
+        deleteProperty(target, key) {
+            const result = Reflect.deleteProperty(target, key)
+            console.log('删除属性操作：', target, key)
+            return result
+        }
+    }
+
+    // 自定义shallowReactive
+    function shallowReactive(obj) {
+        return new Proxy(obj, reactiveHandler)
+    }
+
+    // 自定义reactive
+    function reactive(target) {
+        if (target && typeof target === 'object') {
+            if (target instanceof Array) { // 数组
+                target.forEach((item, index) => {
+                    target[index] = reactive(item)
+                })
+            } else { // 对象
+                Object.keys(target).forEach(key => {
+                    target[key] = reactive(target[key])
+                })
+            }
+
+            const proxy = new Proxy(target, reactiveHandler)
+            return proxy
+        }
+
+        return target
+    }
+
+
+    /* 测试自定义shallowReactive */
+    const proxy1 = shallowReactive({ a: { b: 3 }, c: 'm' })
+    // proxy1.c += '-'     // 先get再set
+    // proxy1.a = { b: 4 } // 只有set
+    // proxy1.a.b = 5      // 只有get ，没有set，而且只get到了a属性的获取，没有get到b属性的获取
+    // delete proxy1.a.b   // 只能获取到get操作，无法进入deleteProperty操作
+    // delete proxy1.a     // 只进入了deleteProperty
+
+
+    /* 测试自定义reactive */
+    // const obj = {
+    //     a: 'abc',
+    //     b: [{ x: 1 }],
+    //     c: { x: [11] }
+    // }
+    //
+    // const proxy2 = reactive(obj)
+    // proxy2.b[0].x += 1   // 三个属性三次get，一次set
+    // proxy2.c.x[0] += 1   // 三个属性三次get，一次set
+    // delete proxy2.a        // 只进入了deleteProperty
+    // delete proxy2.c.x        // 一次get到c属性，然后进入了deleteProperty
+    </script>
+</body>
+</html>
