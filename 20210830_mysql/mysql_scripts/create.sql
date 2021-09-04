@@ -8,91 +8,95 @@
 ########################
 # Create customers table
 ########################
-CREATE TABLE customers
+create table customers
 (
-  cust_id      int       NOT NULL AUTO_INCREMENT,
-  cust_name    char(50)  NOT NULL ,
-  cust_address char(50)  NULL ,
-  cust_city    char(50)  NULL ,
-  cust_state   char(5)   NULL ,
-  cust_zip     char(10)  NULL ,
-  cust_country char(50)  NULL ,
-  cust_contact char(50)  NULL ,
-  cust_email   char(255) NULL ,
-  PRIMARY KEY (cust_id)
-) ENGINE=InnoDB;
+    cust_id      int       not null auto_increment,
+    cust_name    char(50)  not null,
+    cust_address char(50)  null,
+    cust_city    char(50)  null,
+    cust_state   char(5)   null,
+    cust_zip     char(10)  null,
+    cust_country char(50)  null default 'ZH',
+    cust_contact char(50)  null,
+    cust_email   char(255) null,
+    primary key (cust_id)
+) engine = InnoDB;
 
 #########################
 # Create orderitems table
 #########################
-CREATE TABLE orderitems
+create table orderitems
 (
-  order_num  int          NOT NULL ,
-  order_item int          NOT NULL ,
-  prod_id    char(10)     NOT NULL ,
-  quantity   int          NOT NULL ,
-  item_price decimal(8,2) NOT NULL ,
-  PRIMARY KEY (order_num, order_item)
-) ENGINE=InnoDB;
+    order_num  int           not null,
+    order_item int           not null,
+    prod_id    char(10)      not null,
+    quantity   int           not null,
+    item_price decimal(8, 2) not null,
+    primary key (order_num, order_item)
+) engine = InnoDB;
 
 
 #####################
 # Create orders table
 #####################
-CREATE TABLE orders
+create table orders
 (
-  order_num  int      NOT NULL AUTO_INCREMENT,
-  order_date datetime NOT NULL ,
-  cust_id    int      NOT NULL ,
-  PRIMARY KEY (order_num)
-) ENGINE=InnoDB;
+    order_num  int      not null auto_increment,
+    order_date datetime not null,
+    cust_id    int      not null,
+    primary key (order_num)
+) engine = InnoDB;
 
 #######################
 # Create products table
 #######################
-CREATE TABLE products
+create table products
 (
-  prod_id    char(10)      NOT NULL,
-  vend_id    int           NOT NULL ,
-  prod_name  char(255)     NOT NULL ,
-  prod_price decimal(8,2)  NOT NULL ,
-  prod_desc  text          NULL ,
-  PRIMARY KEY(prod_id)
-) ENGINE=InnoDB;
+    prod_id    char(10)      not null,
+    vend_id    int           not null,
+    prod_name  char(255)     not null,
+    prod_price decimal(8, 2) not null,
+    prod_desc  text          null,
+    primary key (prod_id)
+) engine = InnoDB;
 
 ######################
 # Create vendors table
 ######################
-CREATE TABLE vendors
+create table vendors
 (
-  vend_id      int      NOT NULL AUTO_INCREMENT,
-  vend_name    char(50) NOT NULL ,
-  vend_address char(50) NULL ,
-  vend_city    char(50) NULL ,
-  vend_state   char(5)  NULL ,
-  vend_zip     char(10) NULL ,
-  vend_country char(50) NULL ,
-  PRIMARY KEY (vend_id)
-) ENGINE=InnoDB;
+    vend_id      int      not null auto_increment,
+    vend_name    char(50) not null,
+    vend_address char(50) null,
+    vend_city    char(50) null,
+    vend_state   char(5)  null,
+    vend_zip     char(10) null,
+    vend_country char(50) null,
+    primary key (vend_id)
+) engine = InnoDB;
 
 ###########################
 # Create productnotes table
 ###########################
-CREATE TABLE productnotes
+create table productnotes
 (
-  note_id    int           NOT NULL AUTO_INCREMENT,
-  prod_id    char(10)      NOT NULL,
-  note_date datetime       NOT NULL,
-  note_text  text          NULL ,
-  PRIMARY KEY(note_id),
-  FULLTEXT(note_text)
-) ENGINE=MyISAM;
+    note_id   int      not null auto_increment,
+    prod_id   char(10) not null,
+    note_date datetime not null,
+    note_text text     null,
+    primary key (note_id),
+    fulltext (note_text)
+) engine = MyISAM;
 
 
 #####################
 # Define foreign keys
 #####################
-ALTER TABLE orderitems ADD CONSTRAINT fk_orderitems_orders FOREIGN KEY (order_num) REFERENCES orders (order_num);
-ALTER TABLE orderitems ADD CONSTRAINT fk_orderitems_products FOREIGN KEY (prod_id) REFERENCES products (prod_id);
-ALTER TABLE orders ADD CONSTRAINT fk_orders_customers FOREIGN KEY (cust_id) REFERENCES customers (cust_id);
-ALTER TABLE products ADD CONSTRAINT fk_products_vendors FOREIGN KEY (vend_id) REFERENCES vendors (vend_id);
+alter table orderitems
+    add constraint fk_orderitems_orders foreign key (order_num) references orders (order_num);
+alter table orderitems
+    add constraint fk_orderitems_products foreign key (prod_id) references products (prod_id);
+alter table orders
+    add constraint fk_orders_customers foreign key (cust_id) references customers (cust_id);
+alter table products
+    add constraint fk_products_vendors foreign key (vend_id) references vendors (vend_id);
