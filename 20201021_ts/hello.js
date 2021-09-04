@@ -96,12 +96,24 @@
 // console.log(
 //   add<number>(2, 3)
 // )
-var Hello;
-(function (Hello) {
-    Hello[Hello["sua"] = 0] = "sua";
-    Hello[Hello["sum"] = 1] = "sum";
-    Hello[Hello["ss"] = 5] = "ss";
-    Hello[Hello["zs"] = 6] = "zs";
-})(Hello || (Hello = {}));
-var a = Hello.zs;
-console.log(a);
+// enum Hello {
+//   sua,
+//   sum,
+//   ss = 5,
+//   zs,
+// }
+// const a = Hello.zs
+// console.log(a)
+class funf {
+    say() {
+        console.log('say');
+    }
+}
+class man extends funf {
+    load() {
+        console.log('load in man');
+    }
+}
+const m = new man();
+m.say();
+m.load();
