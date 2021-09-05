@@ -4,10 +4,13 @@
 # Example table creation scripts
 ########################################
 
+create database mysql_demo1;
+use mysql_demo1;
 
 ########################
 # Create customers table
 ########################
+drop table if exists customers;
 create table customers
 (
     cust_id      int       not null auto_increment,
@@ -25,6 +28,7 @@ create table customers
 #########################
 # Create orderitems table
 #########################
+drop table if exists orderitems;
 create table orderitems
 (
     order_num  int           not null,
@@ -39,6 +43,7 @@ create table orderitems
 #####################
 # Create orders table
 #####################
+drop table if exists orders;
 create table orders
 (
     order_num  int      not null auto_increment,
@@ -50,6 +55,7 @@ create table orders
 #######################
 # Create products table
 #######################
+drop table if exists products;
 create table products
 (
     prod_id    char(10)      not null,
@@ -63,6 +69,7 @@ create table products
 ######################
 # Create vendors table
 ######################
+drop table if exists vendors;
 create table vendors
 (
     vend_id      int      not null auto_increment,
@@ -78,6 +85,7 @@ create table vendors
 ###########################
 # Create productnotes table
 ###########################
+drop table if exists productnotes;
 create table productnotes
 (
     note_id   int      not null auto_increment,
