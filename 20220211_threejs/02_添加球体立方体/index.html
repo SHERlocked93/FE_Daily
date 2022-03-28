@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加立方体球体</title>
+    <style rel='stylesheet'>
+    body {
+      margin: 0;
+    }
+    </style>
+</head>
+<body>
+    <script src='../three.r137.js'></script>
+    <script type='text/javascript'>
+    function init() {
+        const scene = new THREE.Scene()  // 场景
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)  // 相机
+
+        const renderer = new THREE.WebGLRenderer()
+        renderer.setClearColor(new THREE.Color(0xeeeeee))  // 设置初始颜色
+        renderer.setSize(window.innerWidth, window.innerHeight)  // 设置canvas画面大小
+        renderer.shadowMapEnabled = true  // 设置渲染物体阴影
+
+        const axes = new THREE.AxesHelper(20)   // 显示三维坐标系
+        scene.add(axes)
+
+        const groundGeometry = new THREE.PlaneGeometry(160, 70)  // 地面物体
+        const groundMaterial = new THREE.MeshLambertMaterial({ color: 0xcccccc })  // 给地面上色
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial)   // 创建地面
+        ground.rotation.x = -0.5 * Math.PI   // 物体移动位置
+        ground.position.x = 15
+        ground.position.y = 0
+        ground.position.z = 0
+        // ground.castShadow = true
+        ground.receiveShadow = true   // 接受阴影
+        scene.add(ground)   // 添加到场景中
+
+        const cubeGeometry = new THREE.BoxGeometry(4, 4, 4)   // 立方体
+        const cubeMaterial = new THREE.MeshLambertMaterial({ color: 0xff0000 })
+        const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
+        cube.position.x = 20
+        cube.position.y = 10
+        cube.position.z = 20
+
+        cube.castShadow = true    // 对象渲染到阴影贴图中
+        scene.add(cube)   // 添加到场景中
+
+        const spherGeometry = new THREE.SphereGeometry(4, 20, 20)   // 球体
+        const spherMaterial = new THREE.MeshLambertMaterial({ color: 0xff0000 })
+        const spher = new THREE.Mesh(spherGeometry, spherMaterial)
+        spher.castShadow = true
+        spher.position.x = 10
+        spher.position.y = 10
+        spher.position.z = 10
+        scene.add(spher)
+
+        const spotLight = new THREE.SpotLight(0xffffff)  // 添加聚光灯
+        spotLight.position.set(30, 50, 30)
+        spotLight.castShadow = true
+        scene.add(spotLight)
+
+        camera.position.x = -30  // 定位相机并指向场景中心
+        camera.position.y = 40
+        camera.position.z = 30
+        camera.lookAt(scene.position)
+
+        document.body.appendChild(renderer.domElement)
+
+        function animate() {
+            requestAnimationFrame(animate)
+            cube.rotation.x += 0.01
+            cube.rotation.y += 0.01
+            renderer.render(scene, camera)
+        }
+
+        animate()
+    }
+
+    window.onload = init
+    </script>
+</body>
+</html>
