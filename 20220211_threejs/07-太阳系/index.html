@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>太阳系</title>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    </style>
+</head>
+<body>
+    <script type='module'>
+    import * as THREE from '../libs/build/three.module.js'
+    import { OrbitControls } from '../libs/jsm/controls/OrbitControls.js'
+    
+    const Planets = [
+      { size: 300, position: 0, name: 'sun', revolutionSpeed: 0, selfRotationSpeed: .0004, planetRef: null, groupRef: null },
+      { size: 15, position: 600, name: 'mercury', revolutionSpeed: .007, selfRotationSpeed: .002, planetRef: null, groupRef: null },
+      { size: 40, position: 700, name: 'venus', revolutionSpeed: 0.003, selfRotationSpeed: .005, planetRef: null, groupRef: null },
+      { size: 70, position: 1000, name: 'earth', revolutionSpeed: 0.008, selfRotationSpeed: .001, planetRef: null, groupRef: null },
+      { size: 65, position: 1300, name: 'mars', revolutionSpeed: 0.002, selfRotationSpeed: .001, planetRef: null, groupRef: null },
+      { size: 90, position: 1600, name: 'jupiter', revolutionSpeed: 0.001, selfRotationSpeed: .08, planetRef: null, groupRef: null },
+      { size: 80, position: 1900, name: 'saturn', revolutionSpeed: 0.01, selfRotationSpeed: .5, planetRef: null, groupRef: null },
+    ]
+    
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000)  // 相机
+    const textureLoader = new THREE.TextureLoader()
+    
+    camera.position.set(1500, 1300, 1200)
+    camera.lookAt(scene.position)
+    
+    const renderer = new THREE.WebGLRenderer()
+    renderer.setClearColor(new THREE.Color(0x000000))
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    
+    const axes = new THREE.AxesHelper(1000)
+    scene.add(axes)
+    
+    // 环境光 后面要换成点光源
+    const light = new THREE.AmbientLight(0xffffff)
+    scene.add(light)
+    
+    // 设置星球大小与位置
+    const addPlanet = planet => {
+      const { size, position, name } = planet
+      const planeGroup = new THREE.Group()
+      planet.groupRef = planeGroup
+      scene.add(planeGroup)
+      textureLoader.load(`./${ name }.jpg`, texture => {
+        const sphereGeometry = new THREE.SphereGeometry(size, 32, 32)
+        const sphereMaterial = new THREE.MeshPhongMaterial({ map: texture })
+        const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
+        planet.planetRef = mesh
+        mesh.position.set(position, 0, 0)   // 行星散步在x轴上
+        planeGroup.add(mesh)
+      })
+    }
+    
+    Planets.forEach(addPlanet)
+    
+    const animate = () => {
+      Planets.forEach(({ groupRef, planetRef, revolutionSpeed, selfRotationSpeed }) => {
+        if (!planetRef) return
+        groupRef.rotation.y += revolutionSpeed  // 公转
+        planetRef.rotation.y += selfRotationSpeed  // 自转
+      })
+      renderer.render(scene, camera)
+      requestAnimationFrame(animate)
+    }
+    
+    const controls = new OrbitControls(camera, renderer.domElement)
+    controls.addEventListener('change', () => {
+      renderer.render(scene, camera)
+    })
+    
+    document.body.appendChild(renderer.domElement)
+    renderer.render(scene, camera)
+    animate()
+    </script>
+</body>
+</html>
