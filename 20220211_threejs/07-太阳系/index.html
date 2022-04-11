@@ -12,8 +12,8 @@
 </head>
 <body>
     <script type='module'>
-    // todo 加上月球
-    // todo 镜头拉近
+    // todo 星球第一人称视角
+    // todo 星球介绍面板
     import * as THREE from '../libs/build/three.module.js'
     import { OrbitControls } from '../libs/jsm/controls/OrbitControls.js'
     
@@ -22,8 +22,8 @@
       { size: 15, position: 600, name: 'mercury', revolutionSpeed: .02, selfRotationSpeed: .004, planetRef: null, groupRef: null },
       { size: 40, position: 700, name: 'venus', revolutionSpeed: 0.003, selfRotationSpeed: .007, planetRef: null, groupRef: null },
       {
-        size: 70, position: 1000, name: 'earth', revolutionSpeed: 0.009, selfRotationSpeed: .006, planetRef: null, groupRef: null, children: [
-          { size: 70, position: 1000, name: 'moon', revolutionSpeed: 0.008, selfRotationSpeed: .003, planetRef: null, groupRef: null },
+        size: 70, position: 1000, name: 'earth', revolutionSpeed: 0.004, selfRotationSpeed: .006, planetRef: null, groupRef: null, children: [
+          { size: 10, position: 100, name: 'moon', revolutionSpeed: 0.008, selfRotationSpeed: .003, planetRef: null, groupRef: null },
         ],
       },
       { size: 65, position: 1300, name: 'mars', revolutionSpeed: 0.002, selfRotationSpeed: .005, planetRef: null, groupRef: null },
@@ -35,7 +35,7 @@
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000)  // 相机
     const textureLoader = new THREE.TextureLoader()
-    textureLoader.load('./bg.jpg', texture => {
+    textureLoader.load('./assets/bg.jpg', texture => {
       const bg = new THREE.WebGLCubeRenderTarget(texture.image.height)
       bg.fromEquirectangularTexture(renderer, texture)
       scene.background = bg.texture
@@ -45,46 +45,60 @@
     camera.lookAt(scene.position)
     
     const renderer = new THREE.WebGLRenderer({ antialias: true })
-    renderer.setClearColor(new THREE.Color(0x000000))
+    renderer.setClearColor(new THREE.Color(0xeeeeee))
     renderer.setSize(window.innerWidth, window.innerHeight)
     
+    // 坐标系
     const axes = new THREE.AxesHelper(1080)
     scene.add(axes)
     
-    // 环境光 后面要换成点光源
-    const light = new THREE.AmbientLight(0xffffff)
-    scene.add(light)
+    // 环境光
+    scene.add(new THREE.AmbientLight(0xffffff))
+    
+    // 太阳系
+    const solarSystem = new THREE.Object3D()
+    scene.add(solarSystem)
     
     // 设置星球大小与位置
-    const addPlanet = planet => {
-      const { size, position, name } = planet
-      const planeGroup = new THREE.Group()
-      planet.groupRef = planeGroup
-      scene.add(planeGroup)
-      textureLoader.load(`./${ name }.jpg`, texture => {
-        const sphereGeometry = new THREE.SphereGeometry(size, 256, 256)
-        const sphereMaterial = new THREE.MeshPhongMaterial({ map: texture })
-        const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
-        planet.planetRef = mesh
-        mesh.position.set(position, 0, 0)   // 行星散步在x轴上
-        planeGroup.add(mesh)
+    const addPlanet = (planetOptions, parentSystem) => {
+      const planetSystem = new THREE.Object3D()
+      const planet = new THREE.Object3D()
+      planetOptions.groupRef = planetSystem
+      parentSystem.add(planetSystem)
+      textureLoader.load(`./assets/${ planetOptions.name }.jpg`, texture => {
+        const mesh = new THREE.Mesh(
+          new THREE.SphereGeometry(planetOptions.size, 256, 256),
+          new THREE.MeshPhongMaterial({ map: texture }))
+        planet.add(mesh)
+        planet.position.x = planetOptions.position   // 行星散步在x轴上
+        planetOptions.planetRef = planet
+        planetSystem.add(planet)
         
-        const circleCurve = new THREE.ArcCurve(0, 0, position, 0, 2 * Math.PI)
+        const circleCurve = new THREE.ArcCurve(0, 0, planetOptions.position, 0, 2 * Math.PI)
         const points = circleCurve.getPoints(256)
-        const orbitGeometry = new THREE.BufferGeometry().setFromPoints(points)
-        const orbitMaterial = new THREE.LineBasicMaterial({ color: 0xeeeeee })
-        const orbitLine = new THREE.Line(orbitGeometry, orbitMaterial)
+        const orbitLine = new THREE.Line(
+          new THREE.BufferGeometry().setFromPoints(points),
+          new THREE.LineBasicMaterial({ color: 0xffffff }))
         orbitLine.rotateX(Math.PI / 2)
-        scene.add(orbitLine)
+        parentSystem.add(orbitLine)
+        
+        if (planetOptions.children?.length) {
+          planetOptions.children.forEach(childOptions => addPlanet(childOptions, planet))
+        }
       })
     }
     
-    const handleRotation = ({ groupRef, planetRef, revolutionSpeed, selfRotationSpeed }) => {
+    // 处理公转与自转
+    const handleRotation = ({ groupRef, planetRef, revolutionSpeed, selfRotationSpeed, children }) => {
       if (!planetRef) return
       groupRef.rotation.y += revolutionSpeed  // 公转
       planetRef.rotation.y += selfRotationSpeed  // 自转
+      if (children?.length) {
+        children.forEach(handleRotation)
+      }
     }
     
+    // 动画
     const animate = () => {
       Planets.forEach(handleRotation)
       renderer.render(scene, camera)
@@ -102,9 +116,8 @@
     })
     
     document.body.appendChild(renderer.domElement)
-    Planets.forEach(addPlanet)
+    Planets.forEach(planet => addPlanet(planet, solarSystem))
     animate()
-    renderer.render(scene, camera)
     </script>
 </body>
 </html>
