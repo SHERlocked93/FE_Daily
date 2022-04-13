@@ -9,13 +9,16 @@
       padding: 0;
     }
     </style>
+    <script src='../libs/stats.js'></script>
 </head>
 <body>
+    <div id='myStats'></div>
     <script type='module'>
     // todo 星球第一人称视角
     // todo 星球介绍面板
     import * as THREE from '../libs/build/three.module.js'
     import { OrbitControls } from '../libs/jsm/controls/OrbitControls.js'
+    import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui@0.16/+esm'
     
     const Planets = [
       { size: 300, position: 0, name: 'sun', revolutionSpeed: 0, selfRotationSpeed: .0004, planetRef: null, groupRef: null },
@@ -99,7 +102,9 @@
     }
     
     // 动画
+    let stats = addStats()
     const animate = () => {
+      stats.update()
       Planets.forEach(handleRotation)
       renderer.render(scene, camera)
       requestAnimationFrame(animate)
@@ -118,6 +123,21 @@
     document.body.appendChild(renderer.domElement)
     Planets.forEach(planet => addPlanet(planet, solarSystem))
     animate()
+    
+    // 操作面板
+    const gui = new GUI()
+    
+    // 显示帧率
+    function addStats() {
+      const stats = new Stats()
+      stats.domElement.style.position = 'absolute'
+      stats.domElement.style.left = 'Opx'
+      stats.domElement.style.top = 'Opx'
+      stats.setMode(0)
+      document.getElementById('myStats').appendChild(stats.domElement)
+      return stats
+    }
+    
     </script>
 </body>
 </html>
