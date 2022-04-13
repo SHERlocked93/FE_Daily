@@ -9,7 +9,6 @@
       padding: 0;
     }
     </style>
-    <script src='../libs/stats.js'></script>
 </head>
 <body>
     <div id='myStats'></div>
@@ -18,7 +17,15 @@
     // todo 星球介绍面板
     import * as THREE from '../libs/build/three.module.js'
     import { OrbitControls } from '../libs/jsm/controls/OrbitControls.js'
-    import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui@0.16/+esm'
+    import Stats from '../libs/jsm/libs/stats.module.js'
+    import dat from '../libs/jsm/libs/dat.gui.module.js'
+    
+    // 操作面板
+    const controlObj = {
+      earthRevolutionSpeed: 0.004,
+    }
+    const gui = new dat.GUI()
+    gui.add(controlObj, 'earthRevolutionSpeed', 0.004, 1).name('地球公转')
     
     const Planets = [
       { size: 300, position: 0, name: 'sun', revolutionSpeed: 0, selfRotationSpeed: .0004, planetRef: null, groupRef: null },
@@ -103,11 +110,12 @@
     
     // 动画
     let stats = addStats()
-    const animate = () => {
+    const loop = () => {
       stats.update()
       Planets.forEach(handleRotation)
+      Planets[3].revolutionSpeed = controlObj.earthRevolutionSpeed
       renderer.render(scene, camera)
-      requestAnimationFrame(animate)
+      requestAnimationFrame(loop)
     }
     
     const controls = new OrbitControls(camera, renderer.domElement)
@@ -122,10 +130,7 @@
     
     document.body.appendChild(renderer.domElement)
     Planets.forEach(planet => addPlanet(planet, solarSystem))
-    animate()
-    
-    // 操作面板
-    const gui = new GUI()
+    loop()
     
     // 显示帧率
     function addStats() {
