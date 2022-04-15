@@ -23,8 +23,10 @@
     // 操作面板
     const controlObj = {
       earthRevolutionSpeed: 0.004,
+      sunSize: 1,
     }
     const gui = new dat.GUI()
+    gui.add(controlObj, 'sunSize', .3, 9).name('太阳大小')
     gui.add(controlObj, 'earthRevolutionSpeed', 0.004, 1).name('地球公转')
     const displayFolder = gui.addFolder('displayFolder')
     displayFolder.name = '展示&隐藏'
@@ -130,9 +132,12 @@
     let stats = addStats()
     const loop = () => {
       stats.update()
-      const sun = scene.getObjectByName('sun')
-      Planets[3].revolutionSpeed = controlObj.earthRevolutionSpeed
       Planets.forEach(handleRotation)
+      const sun = scene.getObjectByName('sun')
+      if (sun) {
+        sun.scale.set(controlObj.sunSize, controlObj.sunSize, controlObj.sunSize)
+      }
+      Planets[3].revolutionSpeed = controlObj.earthRevolutionSpeed
       renderer.render(scene, camera)
       requestAnimationFrame(loop)
     }
