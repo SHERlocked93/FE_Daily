@@ -26,11 +26,13 @@
     }
     const gui = new dat.GUI()
     gui.add(controlObj, 'earthRevolutionSpeed', 0.004, 1).name('地球公转')
+    const displayFolder = gui.addFolder('displayFolder')
+    displayFolder.name = '展示&隐藏'
     
     const Planets = [
       { size: 300, position: 0, name: 'sun', revolutionSpeed: 0, selfRotationSpeed: .0004, planetRef: null, groupRef: null },
-      { size: 15, position: 600, name: 'mercury', revolutionSpeed: .02, selfRotationSpeed: .004, planetRef: null, groupRef: null },
-      { size: 40, position: 700, name: 'venus', revolutionSpeed: 0.003, selfRotationSpeed: .007, planetRef: null, groupRef: null },
+      { size: 35, position: 600, name: 'mercury', revolutionSpeed: .02, selfRotationSpeed: .004, planetRef: null, groupRef: null },
+      { size: 60, position: 700, name: 'venus', revolutionSpeed: 0.003, selfRotationSpeed: .007, planetRef: null, groupRef: null },
       {
         size: 70, position: 1000, name: 'earth', revolutionSpeed: 0.004, selfRotationSpeed: .006, planetRef: null, groupRef: null, children: [
           { size: 10, position: 100, name: 'moon', revolutionSpeed: 0.008, selfRotationSpeed: .003, planetRef: null, groupRef: null },
@@ -79,11 +81,13 @@
         const mesh = new THREE.Mesh(
           new THREE.SphereGeometry(planetOptions.size, 256, 256),
           new THREE.MeshPhongMaterial({ map: texture }))
+        mesh.name = planetOptions.name
         planet.add(mesh)
         planet.position.x = planetOptions.position   // 行星散步在x轴上
         planetOptions.planetRef = planet
         planetSystem.add(planet)
         
+        // 轨道线
         const circleCurve = new THREE.ArcCurve(0, 0, planetOptions.position, 0, 2 * Math.PI)
         const points = circleCurve.getPoints(256)
         const orbitLine = new THREE.Line(
@@ -91,6 +95,20 @@
           new THREE.LineBasicMaterial({ color: 0xffffff }))
         orbitLine.rotateX(Math.PI / 2)
         parentSystem.add(orbitLine)
+        
+        // 控制
+        let show = true
+        controlObj[planetOptions.name] = () => {
+          if (show) {
+            planetSystem.remove(planet)
+            parentSystem.remove(orbitLine)
+          } else {
+            planetSystem.add(planet)
+            parentSystem.add(orbitLine)
+          }
+          show = !show
+        }
+        displayFolder.add(controlObj, planetOptions.name).name('切换' + planetOptions.name)
         
         if (planetOptions.children?.length) {
           planetOptions.children.forEach(childOptions => addPlanet(childOptions, planet))
@@ -112,8 +130,9 @@
     let stats = addStats()
     const loop = () => {
       stats.update()
-      Planets.forEach(handleRotation)
+      const sun = scene.getObjectByName('sun')
       Planets[3].revolutionSpeed = controlObj.earthRevolutionSpeed
+      Planets.forEach(handleRotation)
       renderer.render(scene, camera)
       requestAnimationFrame(loop)
     }
