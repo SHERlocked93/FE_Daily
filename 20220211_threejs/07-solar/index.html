@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>太阳系</title>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    </style>
+    <script type="importmap">{ "imports": { "three": "./libs/build/three.module.js" }}</script>
+</head>
+<body>
+    <div id='myStats'></div>
+    <script type='module'>
+    // todo 星球第一人称视角
+    // todo 星球介绍面板
+    import * as THREE from './libs/build/three.module.js'
+    import { TextGeometry } from './libs/examples/jsm/geometries/TextGeometry.js'
+    import { FontLoader } from './libs/examples/jsm/loaders/FontLoader.js'
+    import { OrbitControls } from './libs/examples/jsm/controls/OrbitControls.js'
+    import Stats from './libs/examples/jsm/libs/stats.module.js'
+    import GUI from './libs/examples/jsm/libs/lil-gui.module.min.js'
+    
+    // 操作面板
+    const controlObj = {
+      earthRevolutionSpeed: 0.004,
+      sunSize: 1,
+    }
+    const gui = new GUI()
+    gui.add(controlObj, 'sunSize', .3, 9).name('太阳大小')
+    gui.add(controlObj, 'earthRevolutionSpeed', 0.004, 1).name('地球公转')
+    const displayFolder = gui.addFolder('displayFolder')
+    displayFolder.name = '展示&隐藏'
+    
+    const Planets = [
+      { size: 300, position: 0, name: 'sun', revolutionSpeed: 0, selfRotationSpeed: .0004, planetRef: null, groupRef: null },
+      { size: 35, position: 600, name: 'mercury', revolutionSpeed: .02, selfRotationSpeed: .004, planetRef: null, groupRef: null },
+      { size: 60, position: 700, name: 'venus', revolutionSpeed: 0.003, selfRotationSpeed: .007, planetRef: null, groupRef: null },
+      {
+        size: 70, position: 1000, name: 'earth', revolutionSpeed: 0.004, selfRotationSpeed: .006, planetRef: null, groupRef: null, children: [
+          { size: 10, position: 100, name: 'moon', revolutionSpeed: 0.008, selfRotationSpeed: .003, planetRef: null, groupRef: null },
+        ],
+      },
+      { size: 65, position: 1300, name: 'mars', revolutionSpeed: 0.002, selfRotationSpeed: .005, planetRef: null, groupRef: null },
+      { size: 90, position: 1500, name: 'jupiter', revolutionSpeed: 0.001, selfRotationSpeed: .08, planetRef: null, groupRef: null },
+      { size: 80, position: 1900, name: 'saturn', revolutionSpeed: 0.01, selfRotationSpeed: .5, planetRef: null, groupRef: null },
+      { size: 70, position: 2200, name: 'neptune', revolutionSpeed: 0.016, selfRotationSpeed: .5, planetRef: null, groupRef: null },
+    ]
+    
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000)  // 相机
+    const fontLoader = new FontLoader()
+    const textureLoader = new THREE.TextureLoader()
+    textureLoader.load('./assets/bg.jpg', texture => {
+      const bg = new THREE.WebGLCubeRenderTarget(texture.image.height)
+      bg.fromEquirectangularTexture(renderer, texture)
+      scene.background = bg.texture
+    })
+    
+    camera.position.set(1700, 1500, 1400)
+    camera.lookAt(scene.position)
+    
+    const renderer = new THREE.WebGLRenderer({ antialias: true })
+    renderer.setClearColor(new THREE.Color(0xeeeeee))
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    
+    // 坐标系
+    const axes = new THREE.AxesHelper(1080)
+    scene.add(axes)
+    
+    // 环境光
+    scene.add(new THREE.AmbientLight(0xffffff))
+    
+    // 太阳系
+    const solarSystem = new THREE.Object3D()
+    scene.add(solarSystem)
+    
+    // 设置星球大小与位置
+    const addPlanet = (planetOptions, parentSystem) => {
+      const planetSystem = new THREE.Object3D()
+      const planet = new THREE.Object3D()
+      planet.name = planetOptions.name
+      planetOptions.groupRef = planetSystem
+      parentSystem.add(planetSystem)
+      textureLoader.load(`./assets/${ planetOptions.name }.jpg`, texture => {
+        const mesh = new THREE.Mesh(
+          new THREE.SphereGeometry(planetOptions.size, 256, 256),
+          new THREE.MeshPhongMaterial({ map: texture }))
+        mesh.name = planetOptions.name + '-mesh'
+        planet.add(mesh)
+        planet.position.x = planetOptions.position   // 行星散步在x轴上
+        planetOptions.planetRef = planet
+        planetSystem.add(planet)
+        fontLoader.load('./libs/examples/fonts/helvetiker_bold.typeface.json', (font) => {
+          const fontMesh = new THREE.Mesh(
+            new TextGeometry(planetOptions.name, { font: font, size: planetOptions.size / 2, height: 5 }),
+            [new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true }), new THREE.MeshPhongMaterial({ color: 0xffffff })],
+          )
+          fontMesh.name = planetOptions.name + '-font'
+          fontMesh.position.set(planetOptions.position, planetOptions.size + 100, 0)
+          fontMesh.translateX(-planetOptions.size / 2)
+          planetSystem.add(fontMesh)
+        })
+        
+        // 轨道线
+        const circleCurve = new THREE.ArcCurve(0, 0, planetOptions.position, 0, 2 * Math.PI)
+        const points = circleCurve.getPoints(256)
+        const orbitLine = new THREE.Line(
+          new THREE.BufferGeometry().setFromPoints(points),
+          new THREE.LineBasicMaterial({ color: 0xffffff }))
+        orbitLine.rotateX(Math.PI / 2)
+        parentSystem.add(orbitLine)
+        
+        // 控制
+        let show = true
+        controlObj[planetOptions.name] = () => {
+          if (show) {
+            planetSystem.remove(planet)
+            parentSystem.remove(orbitLine)
+          } else {
+            planetSystem.add(planet)
+            parentSystem.add(orbitLine)
+          }
+          show = !show
+        }
+        displayFolder.add(controlObj, planetOptions.name).name('切换' + planetOptions.name)
+        
+        if (planetOptions.children?.length) {
+          planetOptions.children.forEach(childOptions => addPlanet(childOptions, planet))
+        }
+      })
+    }
+    
+    // 处理公转与自转
+    const handleRotation = ({ groupRef, planetRef, revolutionSpeed, selfRotationSpeed, children }) => {
+      if (!planetRef) return
+      groupRef.rotation.y += revolutionSpeed  // 公转
+      planetRef.rotation.y += selfRotationSpeed  // 自转
+      if (children?.length) {
+        children.forEach(handleRotation)
+      }
+    }
+    
+    // 动画
+    let stats = addStats()
+    const loop = () => {
+      stats.update()
+      Planets.forEach(handleRotation)
+      const sun = scene.getObjectByName('sun')
+      if (sun) {
+        sun.scale.set(controlObj.sunSize, controlObj.sunSize, controlObj.sunSize)
+      }
+      Planets[3].revolutionSpeed = controlObj.earthRevolutionSpeed
+      renderer.render(scene, camera)
+      requestAnimationFrame(loop)
+    }
+    
+    const controls = new OrbitControls(camera, renderer.domElement)
+    controls.addEventListener('change', () => {
+      renderer.render(scene, camera)
+    })
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(window.innerWidth, window.innerHeight)
+    })
+    
+    document.body.appendChild(renderer.domElement)
+    Planets.forEach(planet => addPlanet(planet, solarSystem))
+    loop()
+    
+    // 显示帧率
+    function addStats() {
+      const stats = new Stats()
+      stats.domElement.style.position = 'absolute'
+      stats.domElement.style.left = 'Opx'
+      stats.domElement.style.top = 'Opx'
+      stats.setMode(0)
+      document.getElementById('myStats').appendChild(stats.domElement)
+      return stats
+    }
+    
+    </script>
+</body>
+</html>
