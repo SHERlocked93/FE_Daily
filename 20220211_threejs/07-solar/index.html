@@ -9,19 +9,19 @@
       padding: 0;
     }
     </style>
-    <script type="importmap">{ "imports": { "three": "./libs/build/three.module.js" }}</script>
+    <script type="importmap">{ "imports": { "three": "../libs/build/three.module.js" }}</script>
 </head>
 <body>
     <div id='myStats'></div>
     <script type='module'>
     // todo 星球第一人称视角
     // todo 星球介绍面板
-    import * as THREE from './libs/build/three.module.js'
-    import { TextGeometry } from './libs/examples/jsm/geometries/TextGeometry.js'
-    import { FontLoader } from './libs/examples/jsm/loaders/FontLoader.js'
-    import { OrbitControls } from './libs/examples/jsm/controls/OrbitControls.js'
-    import Stats from './libs/examples/jsm/libs/stats.module.js'
-    import GUI from './libs/examples/jsm/libs/lil-gui.module.min.js'
+    import * as THREE from '../libs/build/three.module.js'
+    import { TextGeometry } from '../libs/examples/jsm/geometries/TextGeometry.js'
+    import { FontLoader } from '../libs/examples/jsm/loaders/FontLoader.js'
+    import { OrbitControls } from '../libs/examples/jsm/controls/OrbitControls.js'
+    import Stats from '../libs/examples/jsm/libs/stats.module.js'
+    import GUI from '../libs/examples/jsm/libs/lil-gui.module.min.js'
     
     // 操作面板
     const controlObj = {
@@ -93,7 +93,7 @@
         planet.position.x = planetOptions.position   // 行星散步在x轴上
         planetOptions.planetRef = planet
         planetSystem.add(planet)
-        fontLoader.load('./libs/examples/fonts/helvetiker_bold.typeface.json', (font) => {
+        fontLoader.load('../libs/examples/fonts/helvetiker_bold.typeface.json', (font) => {
           const fontMesh = new THREE.Mesh(
             new TextGeometry(planetOptions.name, { font: font, size: planetOptions.size / 2, height: 5 }),
             [new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true }), new THREE.MeshPhongMaterial({ color: 0xffffff })],
