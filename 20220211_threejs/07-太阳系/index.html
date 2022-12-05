@@ -8,6 +8,12 @@
       margin: 0;
       padding: 0;
     }
+    
+    .label {
+      color: #fff;
+      font-family: sans-serif;
+      padding: 2px;
+    }
     </style>
     <script type="importmap">{ "imports": { "three": "../libs/build/three.module.js" }}</script>
 </head>
@@ -20,6 +26,7 @@
     import { TextGeometry } from '../libs/examples/jsm/geometries/TextGeometry.js'
     import { FontLoader } from '../libs/examples/jsm/loaders/FontLoader.js'
     import { OrbitControls } from '../libs/examples/jsm/controls/OrbitControls.js'
+    import { CSS2DRenderer, CSS2DObject } from '../libs/examples/jsm/renderers/CSS2DRenderer.js'
     import Stats from '../libs/examples/jsm/libs/stats.module.js'
     import GUI from '../libs/examples/jsm/libs/lil-gui.module.min.js'
     
@@ -27,8 +34,10 @@
     const controlObj = {
       earthRevolutionSpeed: 0.004,
       sunSize: 1,
+      layer0: true,
     }
     const gui = new GUI()
+    gui.add(controlObj, 'layer0').name('标签开关')
     gui.add(controlObj, 'sunSize', .3, 9).name('太阳大小')
     gui.add(controlObj, 'earthRevolutionSpeed', 0.004, 1).name('地球公转')
     const displayFolder = gui.addFolder('displayFolder')
@@ -62,9 +71,16 @@
     camera.position.set(1700, 1500, 1400)
     camera.lookAt(scene.position)
     
-    const renderer = new THREE.WebGLRenderer({ antialias: true })
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, logarithmicDepthBuffer: true })
     renderer.setClearColor(new THREE.Color(0xeeeeee))
     renderer.setSize(window.innerWidth, window.innerHeight)
+    
+    const labelRenderer = new CSS2DRenderer()
+    labelRenderer.setSize(window.innerWidth, window.innerHeight)
+    labelRenderer.domElement.style.position = 'absolute'
+    labelRenderer.domElement.style.top = '0px'
+    document.body.appendChild(labelRenderer.domElement)
+    
     
     // 坐标系
     const axes = new THREE.AxesHelper(1080)
@@ -93,16 +109,17 @@
         planet.position.x = planetOptions.position   // 行星散步在x轴上
         planetOptions.planetRef = planet
         planetSystem.add(planet)
-        fontLoader.load('../libs/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-          const fontMesh = new THREE.Mesh(
-            new TextGeometry(planetOptions.name, { font: font, size: planetOptions.size / 2, height: 5 }),
-            [new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true }), new THREE.MeshPhongMaterial({ color: 0xffffff })],
-          )
-          fontMesh.name = planetOptions.name + '-font'
-          fontMesh.position.set(planetOptions.position, planetOptions.size + 100, 0)
-          fontMesh.translateX(-planetOptions.size / 2)
-          planetSystem.add(fontMesh)
-        })
+        
+        // 标签
+        const planetDiv = document.createElement('div')
+        planetDiv.className = 'label'
+        planetDiv.textContent = planetOptions.name
+        planetDiv.style.marginTop = '-1em'
+        planetDiv.style.fontSize = planetOptions.size / 2 + 'px'
+        const planetLabel = new CSS2DObject(planetDiv)
+        planetLabel.position.set(0, planetOptions.size, 0)
+        planetLabel.layers.set(1)
+        planet.add(planetLabel)
         
         // 轨道线
         const circleCurve = new THREE.ArcCurve(0, 0, planetOptions.position, 0, 2 * Math.PI)
@@ -153,18 +170,23 @@
         sun.scale.set(controlObj.sunSize, controlObj.sunSize, controlObj.sunSize)
       }
       Planets[3].revolutionSpeed = controlObj.earthRevolutionSpeed
+      controlObj.layer0 ? camera.layers.enable(1) : camera.layers.disable(1)
       renderer.render(scene, camera)
+      labelRenderer.render(scene, camera)
+      
       requestAnimationFrame(loop)
     }
     
-    const controls = new OrbitControls(camera, renderer.domElement)
+    const controls = new OrbitControls(camera, labelRenderer.domElement)
     controls.addEventListener('change', () => {
       renderer.render(scene, camera)
+      labelRenderer.render(scene, camera)
     })
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
       renderer.setSize(window.innerWidth, window.innerHeight)
+      labelRenderer.setSize(window.innerWidth, window.innerHeight)
     })
     
     document.body.appendChild(renderer.domElement)
