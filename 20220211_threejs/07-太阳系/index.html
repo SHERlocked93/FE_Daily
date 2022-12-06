@@ -15,13 +15,13 @@
       padding: 2px;
     }
     </style>
-    <script type="importmap">{ "imports": { "three": "../libs/build/three.module.js" }}</script>
+    <script type="importmap"> { "imports": { "three": "../libs/build/three.module.js", "gsap": "../libs/gsap/index.js" } }</script>
 </head>
 <body>
     <div id='myStats'></div>
     <script type='module'>
-    // todo 星球第一人称视角
     // todo 星球介绍面板
+    import gsap from '../libs/gsap/index.js'
     import * as THREE from '../libs/build/three.module.js'
     import { TextGeometry } from '../libs/examples/jsm/geometries/TextGeometry.js'
     import { FontLoader } from '../libs/examples/jsm/loaders/FontLoader.js'
@@ -30,31 +30,47 @@
     import Stats from '../libs/examples/jsm/libs/stats.module.js'
     import GUI from '../libs/examples/jsm/libs/lil-gui.module.min.js'
     
+    const PLANET_MESH = '-mesh'
+    const PLANET_LINE = '-line'
+    
     // 操作面板
     const controlObj = {
       earthRevolutionSpeed: 0.004,
       sunSize: 1,
       layer0: true,
+      resetCamera: () => {
+        if (loopFunc) {loopFunc = null}
+        gsap.to(camera.position, {
+          duration: .5, x: 1700, y: 1500, z: 1400, onComplete: () => {
+            camera.lookAt(scene.position)
+            controls.target.set(0, 0, 0)
+          },
+        })
+      },
     }
+    
+    let loopFunc = null  // 循环渲染
     const gui = new GUI()
+    
     gui.add(controlObj, 'layer0').name('标签开关')
     gui.add(controlObj, 'sunSize', .3, 9).name('太阳大小')
     gui.add(controlObj, 'earthRevolutionSpeed', 0.004, 1).name('地球公转')
+    gui.add(controlObj, 'resetCamera').name('重制相机')
     const displayFolder = gui.addFolder('displayFolder')
     displayFolder.name = '展示&隐藏'
     
     const Planets = [
       { size: 300, position: 0, name: 'sun', revolutionSpeed: 0, selfRotationSpeed: .0004, planetRef: null, groupRef: null },
-      { size: 35, position: 600, name: 'mercury', revolutionSpeed: .02, selfRotationSpeed: .004, planetRef: null, groupRef: null },
-      { size: 60, position: 700, name: 'venus', revolutionSpeed: 0.003, selfRotationSpeed: .007, planetRef: null, groupRef: null },
+      { size: 35, position: 600, name: 'mercury', revolutionSpeed: .02, selfRotationSpeed: .0004, planetRef: null, groupRef: null },
+      { size: 60, position: 700, name: 'venus', revolutionSpeed: 0.003, selfRotationSpeed: .0007, planetRef: null, groupRef: null },
       {
-        size: 70, position: 1000, name: 'earth', revolutionSpeed: 0.004, selfRotationSpeed: .006, planetRef: null, groupRef: null, children: [
+        size: 70, position: 1000, name: 'earth', revolutionSpeed: 0.004, selfRotationSpeed: .0006, planetRef: null, groupRef: null, children: [
           { size: 10, position: 100, name: 'moon', revolutionSpeed: 0.008, selfRotationSpeed: .003, planetRef: null, groupRef: null },
         ],
       },
       { size: 65, position: 1300, name: 'mars', revolutionSpeed: 0.002, selfRotationSpeed: .005, planetRef: null, groupRef: null },
-      { size: 90, position: 1500, name: 'jupiter', revolutionSpeed: 0.001, selfRotationSpeed: .08, planetRef: null, groupRef: null },
-      { size: 80, position: 1900, name: 'saturn', revolutionSpeed: 0.01, selfRotationSpeed: .5, planetRef: null, groupRef: null },
+      { size: 90, position: 1500, name: 'jupiter', revolutionSpeed: 0.001, selfRotationSpeed: .008, planetRef: null, groupRef: null },
+      { size: 80, position: 1900, name: 'saturn', revolutionSpeed: 0.01, selfRotationSpeed: .1, planetRef: null, groupRef: null },
       { size: 70, position: 2200, name: 'neptune', revolutionSpeed: 0.016, selfRotationSpeed: .5, planetRef: null, groupRef: null },
     ]
     
@@ -104,7 +120,7 @@
         const mesh = new THREE.Mesh(
           new THREE.SphereGeometry(planetOptions.size, 256, 256),
           new THREE.MeshPhongMaterial({ map: texture }))
-        mesh.name = planetOptions.name + '-mesh'
+        mesh.name = planetOptions.name + PLANET_MESH
         planet.add(mesh)
         planet.position.x = planetOptions.position   // 行星散步在x轴上
         planetOptions.planetRef = planet
@@ -128,6 +144,7 @@
           new THREE.BufferGeometry().setFromPoints(points),
           new THREE.LineBasicMaterial({ color: 0xffffff }))
         orbitLine.rotateX(Math.PI / 2)
+        orbitLine.name = planetOptions.name + PLANET_LINE
         parentSystem.add(orbitLine)
         
         // 控制
@@ -165,6 +182,8 @@
     const loop = () => {
       stats.update()
       Planets.forEach(handleRotation)
+      loopFunc?.()
+      
       const sun = scene.getObjectByName('sun')
       if (sun) {
         sun.scale.set(controlObj.sunSize, controlObj.sunSize, controlObj.sunSize)
@@ -176,6 +195,45 @@
       
       requestAnimationFrame(loop)
     }
+    
+    // 射线获取鼠标点击的位置
+    const raycaster = new THREE.Raycaster()
+    const mouse = new THREE.Vector2()
+    const mouseDown = (e) => {
+      e.preventDefault()
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+      raycaster.setFromCamera(mouse, camera)
+      const intersects = raycaster.intersectObjects(scene.children).filter(({ object }) => object?.name)
+      if (!intersects.length) return
+      const targetIntersect = intersects[0].object
+      
+      if (targetIntersect?.name.endsWith(PLANET_MESH)) {
+        let planetName = targetIntersect.name.split('-')[0]
+        const targetConfig = findPlanetOption(planetName, Planets)
+        if (targetConfig) {
+          const { size, revolutionSpeed, position: radius } = targetConfig
+          camera.lookAt(targetIntersect.position)
+          
+          loopFunc = () => {
+            const worldPosition = new THREE.Vector3()
+            targetIntersect.getWorldPosition(worldPosition)
+            controls.target.set(worldPosition.x, worldPosition.y, worldPosition.z)
+            camera.position.x = worldPosition.x + size * 3
+            camera.position.y = worldPosition.y + size * 3
+            camera.position.z = worldPosition.z + size * 3
+            // gsap.to(camera.position, {
+            //   duration: .8,
+            //   ease: 'power2.out',
+            //   x: worldPosition.x + size * 3,
+            //   y: worldPosition.y + size * 3,
+            //   z: worldPosition.z + size * 3,
+            // })
+          }
+        }
+      }
+    }
+    document.body.addEventListener('mousedown', mouseDown)
     
     const controls = new OrbitControls(camera, labelRenderer.domElement)
     controls.addEventListener('change', () => {
@@ -204,6 +262,18 @@
       return stats
     }
     
+    function findPlanetOption(planetName, planetOptions) {
+      let result
+      planetOptions.forEach(planet => {
+        if (planet.name === planetName) {
+          result = planet
+        } else {
+          planet.children?.length &&
+          (result = findPlanetOption(planetName, planet.children))
+        }
+      })
+      return result
+    }
     </script>
 </body>
 </html>
