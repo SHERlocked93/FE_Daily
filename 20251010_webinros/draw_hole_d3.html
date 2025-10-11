@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hole Draw Visualization - 2D D3.js</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
+      #container {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .node {
+        fill: #ff0000;
+        stroke: #fff;
+        stroke-width: 2px;
+      }
+
+      .link {
+        stroke: #333333;
+        stroke-width: 2px;
+        fill: none;
+      }
+
+      .arrow {
+        fill: #333333;
+        stroke: none;
+      }
+
+      .node-active {
+        fill: #0a82f3;
+        stroke: #000000;
+        stroke-width: 3px;
+        r: 8;
+        animation: pulse 1s infinite;
+      }
+
+      .node-completed {
+        fill: #009f00;
+        stroke: #000000;
+        stroke-width: 2px;
+        r: 6;
+      }
+
+      .node-failed {
+        fill: #ff0000;
+        stroke: #000000;
+        stroke-width: 2px;
+        r: 6;
+      }
+
+      .node-pending {
+        fill: #cccccc;
+        stroke: #666666;
+        stroke-width: 2px;
+        r: 5;
+        opacity: 0.5;
+      }
+
+      @keyframes pulse {
+        0% {
+          r: 6;
+        }
+        50% {
+          r: 10;
+        }
+        100% {
+          r: 6;
+        }
+      }
+
+      .label {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        fill: blue;
+        font-weight: bold;
+      }
+
+      .axis {
+        font-family: Arial, sans-serif;
+        font-size: 10px;
+      }
+
+      .north-arrow {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        width: 50px;
+        height: 50px;
+        pointer-events: none;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <img src="northarrow.svg" class="north-arrow" alt="North Arrow" />
+    <script>
+      // Module: XML Parser
+      async function parseXML(url) {
+        const response = await fetch(url)
+        const text = await response.text()
+        const parser = new DOMParser()
+        const xml = parser.parseFromString(text, 'application/xml')
+
+        const holes = []
+        const geofences = []
+        const blastAreas = []
+
+        // Parse holes
+        xml.querySelectorAll('Hole').forEach((hole) => {
+          const id = parseInt(hole.querySelector('HoleId').textContent)
+          const start = hole.querySelector('StartPoint')
+          const x = parseFloat(
+            start.querySelector('IR\\:PointX, PointX').textContent
+          ) // Handle namespace
+          const y = parseFloat(
+            start.querySelector('IR\\:PointY, PointY').textContent
+          )
+          const z = parseFloat(
+            start.querySelector('IR\\:PointZ, PointZ').textContent
+          )
+          holes.push({ id, x, y, z })
+        })
+
+        // Parse geofences
+        xml.querySelectorAll('Geofence').forEach((geofence) => {
+          const x = parseFloat(geofence.querySelector('X').textContent)
+          const y = parseFloat(geofence.querySelector('Y').textContent)
+          const z = parseFloat(geofence.querySelector('Z').textContent)
+          geofences.push({ x, y, z })
+        })
+
+        // Parse blast areas
+        xml.querySelectorAll('BlastArea').forEach((blastArea) => {
+          const directionStart = blastArea.querySelector('DirectionStart')
+          const directionEnd = blastArea.querySelector('DirectionEnd')
+
+          const startX = parseFloat(
+            directionStart.querySelector('IR\\:PointX, PointX').textContent
+          )
+          const startY = parseFloat(
+            directionStart.querySelector('IR\\:PointY, PointY').textContent
+          )
+          const startZ = parseFloat(
+            directionStart.querySelector('IR\\:PointZ, PointZ').textContent
+          )
+
+          const endX = parseFloat(
+            directionEnd.querySelector('IR\\:PointX, PointX').textContent
+          )
+          const endY = parseFloat(
+            directionEnd.querySelector('IR\\:PointY, PointY').textContent
+          )
+          const endZ = parseFloat(
+            directionEnd.querySelector('IR\\:PointZ, PointZ').textContent
+          )
+
+          blastAreas.push({
+            start: { x: startX, y: startY, z: startZ },
+            end: { x: endX, y: endY, z: endZ },
+          })
+        })
+
+        // Sort for path (1 to 20)
+        holes.sort((a, b) => a.id - b.id)
+        return { holes, geofences, blastAreas }
+      }
+
+      // Module: D3.js Scene Setup
+      function createScene(container) {
+        const svg = d3
+          .select(container)
+          .append('svg')
+          .attr('width', '100%')
+          .attr('height', '100%')
+
+        // Add zoom behavior
+        const zoom = d3
+          .zoom()
+          .scaleExtent([0.1, 10])
+          .on('zoom', (event) => {
+            g.attr('transform', event.transform)
+          })
+
+        svg.call(zoom)
+
+        // Create main group for all elements
+        const g = svg.append('g')
+
+        return { svg, g, zoom }
+      }
+
+      // Global variables for state management
+      let currentHoles = []
+      let currentG = null
+      let currentScale = 1
+
+      // Module: Add Points, Lines, Labels
+      function addElements(g, data) {
+        const { holes, geofences, blastAreas } = data
+        if (!holes || holes.length === 0) {
+          console.warn('No holes data to draw.')
+          return
+        }
+
+        // Store references for later use
+        currentHoles = holes
+        currentG = g
+
+        // Calculate adaptive coordinate origin and scale
+        const xs = holes.map((h) => h.x),
+          ys = holes.map((h) => h.y)
+        const minX = Math.min(...xs),
+          maxX = Math.max(...xs)
+        const minY = Math.min(...ys),
+          maxY = Math.max(...ys)
+
+        // Calculate adaptive scale to fit viewport
+        const width = window.innerWidth * 0.8
+        const height = window.innerHeight * 0.8
+        const scaleX = width / (maxX - minX || 1)
+        const scaleY = height / (maxY - minY || 1)
+        currentScale = Math.min(scaleX, scaleY) * 0.8 // Add some padding
+
+        // Normalize coordinates with adaptive origin
+        holes.forEach((h) => {
+          h.normX = (h.x - minX) * currentScale + 50 // Add margin
+          h.normY = (h.y - minY) * currentScale + 50
+        })
+
+        // Add geofences
+        if (geofences && geofences.length > 0) {
+          const geofenceLine = d3
+            .line()
+            .x((d) => (d.x - minX) * currentScale + 50)
+            .y((d) => (d.y - minY) * currentScale + 50)
+
+          // Close the geofence area
+          const closedGeofence = [...geofences, geofences[0]]
+
+          g.append('path')
+            .attr('class', 'geofence')
+            .attr('d', geofenceLine(closedGeofence))
+            .attr('fill', 'rgba(0, 100, 0, 0.2)')
+            .attr('stroke', 'green')
+            .attr('stroke-width', 2)
+        }
+
+        // Add blast areas
+        if (blastAreas && blastAreas.length > 0) {
+          // Add arrowhead marker definition
+          g.append('defs')
+            .append('marker')
+            .attr('id', 'arrowhead')
+            .attr('viewBox', '0 -5 10 10')
+            .attr('refX', 10)
+            .attr('refY', 0)
+            .attr('markerWidth', 6)
+            .attr('markerHeight', 6)
+            .attr('orient', 'auto')
+            .append('path')
+            .attr('d', 'M0,-5L10,0L0,5')
+            .attr('fill', 'red')
+
+          blastAreas.forEach((blastArea, index) => {
+            // Add blast direction line
+            const startX = (blastArea.start.x - minX) * currentScale + 50
+            const startY = (blastArea.start.y - minY) * currentScale + 50
+            const endX = (blastArea.end.x - minX) * currentScale + 50
+            const endY = (blastArea.end.y - minY) * currentScale + 50
+
+            g.append('line')
+              .attr('class', 'blast-direction')
+              .attr('x1', startX)
+              .attr('y1', startY)
+              .attr('x2', endX)
+              .attr('y2', endY)
+              .attr('stroke', 'red')
+              .attr('stroke-width', 3)
+              .attr('marker-end', 'url(#arrowhead)')
+          })
+        }
+
+        // Create links between consecutive holes
+        const links = []
+        for (let i = 0; i < holes.length - 1; i++) {
+          links.push({
+            source: holes[i],
+            target: holes[i + 1],
+          })
+        }
+
+        // Draw links (lines)
+        g.selectAll('.link')
+          .data(links)
+          .enter()
+          .append('path')
+          .attr('class', 'link')
+          .attr(
+            'd',
+            (d) =>
+              `M ${d.source.normX} ${d.source.normY} L ${d.target.normX} ${d.target.normY}`
+          )
+
+        // Draw nodes (points)
+        g.selectAll('.node')
+          .data(holes)
+          .enter()
+          .append('circle')
+          .attr('class', 'node node-pending')
+          .attr('cx', (d) => d.normX)
+          .attr('cy', (d) => d.normY)
+          .attr('r', 5)
+          .on('mouseover', function (event, d) {
+            // 显示坐标信息
+            const tooltip = d3
+              .select('body')
+              .append('div')
+              .attr('class', 'tooltip')
+              .style('position', 'absolute')
+              .style('background', 'rgba(0,0,0,0.8)')
+              .style('color', 'white')
+              .style('padding', '8px')
+              .style('border-radius', '4px')
+              .style('font-size', '12px')
+              .style('pointer-events', 'none')
+              .style('z-index', '1000')
+              .html(
+                `Hole ID: ${d.id}<br>X: ${d.x.toFixed(2)}<br>Y: ${d.y.toFixed(
+                  2
+                )}<br>Z: ${d.z.toFixed(2)}`
+              )
+
+            tooltip
+              .style('left', event.pageX + 10 + 'px')
+              .style('top', event.pageY - 10 + 'px')
+          })
+          .on('mouseout', function () {
+            d3.selectAll('.tooltip').remove()
+          })
+          .on('mousemove', function (event) {
+            d3.select('.tooltip')
+              .style('left', event.pageX + 10 + 'px')
+              .style('top', event.pageY - 10 + 'px')
+          })
+
+        // Add direction arrows for each point
+        addDirectionArrows(g, holes)
+
+        // Draw labels
+        g.selectAll('.label')
+          .data(holes)
+          .enter()
+          .append('text')
+          .attr('class', 'label')
+          .attr('x', (d) => d.normX + 8)
+          .attr('y', (d) => d.normY - 8)
+          .text((d) => d.id)
+
+        // Add coordinate axes
+        addAxes(g, minX, maxX, minY, maxY, currentScale)
+      }
+
+      // Module: Add coordinate axes
+      function addAxes(g, minX, maxX, minY, maxY, scale) {
+        const margin = 50
+        const width = window.innerWidth - margin * 2
+        const height = window.innerHeight - margin * 2
+
+        // X-axis
+        g.append('line')
+          .attr('class', 'axis')
+          .attr('x1', margin)
+          .attr('y1', height + margin)
+          .attr('x2', width + margin)
+          .attr('y2', height + margin)
+          .attr('stroke', 'black')
+          .attr('stroke-width', 1)
+
+        // Y-axis
+        g.append('line')
+          .attr('class', 'axis')
+          .attr('x1', margin)
+          .attr('y1', margin)
+          .attr('x2', margin)
+          .attr('y2', height + margin)
+          .attr('stroke', 'black')
+          .attr('stroke-width', 1)
+
+        // X-axis labels
+        const xTicks = 5
+        for (let i = 0; i <= xTicks; i++) {
+          const xValue = minX + (maxX - minX) * (i / xTicks)
+          const xPos = margin + (width * i) / xTicks
+
+          g.append('text')
+            .attr('class', 'axis')
+            .attr('x', xPos)
+            .attr('y', height + margin + 15)
+            .attr('text-anchor', 'middle')
+            .text(xValue.toFixed(0))
+        }
+
+        // Y-axis labels
+        const yTicks = 5
+        for (let i = 0; i <= yTicks; i++) {
+          const yValue = minY + (maxY - minY) * (i / yTicks)
+          const yPos = height + margin - (height * i) / yTicks
+
+          g.append('text')
+            .attr('class', 'axis')
+            .attr('x', margin - 10)
+            .attr('y', yPos + 3)
+            .attr('text-anchor', 'end')
+            .text(yValue.toFixed(0))
+        }
+      }
+
+      // Module: Add direction arrows
+      function addDirectionArrows(g, holes) {
+        // For each connection, add an arrow pointing from source to target
+        for (let i = 0; i < holes.length - 1; i++) {
+          const source = holes[i]
+          const target = holes[i + 1]
+
+          // Calculate direction vector
+          const dx = target.normX - source.normX
+          const dy = target.normY - source.normY
+          const length = Math.sqrt(dx * dx + dy * dy)
+
+          if (length > 0) {
+            const unitX = dx / length
+            const unitY = dy / length
+
+            // Arrow position (at the middle of the line)
+            const arrowLength = 15
+            const arrowX = source.normX + dx * 0.5 - unitX * arrowLength
+            const arrowY = source.normY + dy * 0.5 - unitY * arrowLength
+
+            // Create arrow marker
+            g.append('path')
+              .attr('class', 'arrow')
+              .attr(
+                'd',
+                `M ${arrowX - unitY * 3} ${
+                  arrowY + unitX * 3
+                } L ${arrowX} ${arrowY} L ${arrowX + unitY * 3} ${
+                  arrowY - unitX * 3
+                }`
+              )
+              .attr('stroke-width', 2)
+          }
+        }
+      }
+
+      // Module: Set active index for highlighting
+      function setActiveIndex(index, successStatus = true) {
+        if (!currentHoles || !currentG) {
+          console.warn('No holes data available')
+          return
+        }
+
+        if (index < 0 || index >= currentHoles.length) {
+          console.warn('Index out of range')
+          return
+        }
+
+        // Update all nodes
+        const nodes = currentG.selectAll('.node')
+        nodes.each(function (d, i) {
+          const node = d3.select(this)
+          if (i === index) {
+            // Current active node
+            node.attr('class', 'node node-active')
+          } else if (i < index) {
+            // Completed nodes
+            node.attr(
+              'class',
+              successStatus ? 'node node-completed' : 'node node-failed'
+            )
+          } else {
+            // Pending nodes
+            node.attr('class', 'node node-pending')
+          }
+        })
+      }
+
+      // Module: Animation (optional path reveal)
+      function animatePath(g, holes) {
+        const links = g.selectAll('.link')
+        const nodes = g.selectAll('.node')
+
+        // Animate links appearing
+        links
+          .style('stroke-dasharray', function () {
+            const length = this.getTotalLength()
+            return length + ' ' + length
+          })
+          .style('stroke-dashoffset', function () {
+            return this.getTotalLength()
+          })
+          .transition()
+          .duration(2000)
+          .style('stroke-dashoffset', 0)
+
+        // Animate nodes appearing
+        nodes
+          .style('opacity', 0)
+          .transition()
+          .duration(1000)
+          .style('opacity', 1)
+      }
+
+      // Main Execution
+      async function main() {
+        const container = document.getElementById('container')
+        const { g } = createScene(container)
+        const holes = await parseXML('./hole_draw.xml')
+
+        addElements(g, holes)
+        animatePath(g, holes)
+      }
+
+      main().catch(console.error)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Network Graph from XML</title>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <style type="text/css">
+      #mynetwork {
+        width: 800px;
+        height: 600px;
+        border: 1px solid #ddd;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mynetwork"></div>
+
+    <script type="text/javascript">
+      // 从实际XML文件读取数据
+      async function loadXMLData() {
+        try {
+          const response = await fetch('./hole_draw.xml')
+          const xmlString = await response.text()
+          return xmlString
+        } catch (error) {
+          console.error('Error loading XML file:', error)
+          throw error
+        }
+      }
+
+      // 解析XML数据并转换为网络图格式
+      function parseHoleData(xmlString) {
+        const parser = new DOMParser()
+        const xmlDoc = parser.parseFromString(xmlString, 'text/xml')
+
+        // 提取钻孔数据
+        const holes = []
+        const holeElements = xmlDoc.getElementsByTagName('Hole')
+        for (let i = 0; i < holeElements.length; i++) {
+          const hole = holeElements[i]
+          const id = parseInt(hole.querySelector('HoleId').textContent)
+          const startPoint = hole.querySelector('StartPoint')
+          const x = parseFloat(
+            startPoint.querySelector('IR\\:PointX, PointX').textContent
+          )
+          const y = parseFloat(
+            startPoint.querySelector('IR\\:PointY, PointY').textContent
+          )
+          holes.push({ id, x, y })
+        }
+
+        // 计算自适应坐标原点
+        const xs = holes.map((h) => h.x)
+        const ys = holes.map((h) => h.y)
+        const minX = Math.min(...xs)
+        const minY = Math.min(...ys)
+        const maxX = Math.max(...xs)
+        const maxY = Math.max(...ys)
+
+        // 归一化坐标到画布大小
+        const canvasWidth = 800
+        const canvasHeight = 600
+        const padding = 50
+        const scaleX = (canvasWidth - 2 * padding) / (maxX - minX || 1)
+        const scaleY = (canvasHeight - 2 * padding) / (maxY - minY || 1)
+        const scale = Math.min(scaleX, scaleY)
+
+        // 转换为网络图节点
+        const nodes = holes.map((hole) => ({
+          id: hole.id,
+          x: padding + (hole.x - minX) * scale,
+          y: canvasHeight - padding - (hole.y - minY) * scale,
+        }))
+
+        // 创建连线（按钻孔ID顺序连接）
+        const edges = []
+        const sortedHoles = [...holes].sort((a, b) => a.id - b.id)
+
+        // 创建网格连线模式
+        for (let i = 1; i < sortedHoles.length; i++) {
+          // 纵向连线
+          if (sortedHoles[i].id === sortedHoles[i - 1].id + 1) {
+            edges.push({
+              from: sortedHoles[i - 1].id,
+              to: sortedHoles[i].id,
+            })
+          }
+
+          // 横向连线（每5个钻孔为一组）
+          if (
+            sortedHoles[i].id <= sortedHoles[i - 1].id + 5 &&
+            sortedHoles[i].id > sortedHoles[i - 1].id
+          ) {
+            edges.push({
+              from: sortedHoles[i - 1].id,
+              to: sortedHoles[i].id,
+            })
+          }
+        }
+
+        return { nodes, edges }
+      }
+
+      // 主执行函数
+      async function main() {
+        try {
+          const xmlString = await loadXMLData()
+          const { nodes, edges } = parseHoleData(xmlString)
+
+          // 构建Vis.js数据集
+          const data = {
+            nodes: new vis.DataSet(nodes),
+            edges: new vis.DataSet(edges),
+          }
+
+          // 5. 配置节点和边样式（匹配huizhi.png效果）
+          const options = {
+            nodes: {
+              shape: 'circle', // 节点形状（圆形）
+              size: 20, // 节点大小
+              font: {
+                size: 14, // 字体大小
+                color: '#333333', // 字体颜色
+              },
+              borderWidth: 2, // 边框宽度
+              color: {
+                background: '#ffffff', // 节点背景色（白色）
+                border: '#ff0000', // 节点边框色（红色）
+              },
+            },
+            edges: {
+              arrows: {
+                to: true, // 显示目标箭头
+                from: false, // 不显示源箭头
+              },
+              color: {
+                color: '#ccc', // 边的颜色（红色）
+                highlight: '#ff0000', // 高亮时的颜色
+              },
+              smooth: {
+                type: 'discrete', // 直线连线（无曲率）
+              },
+            },
+            physics: {
+              enabled: false, // 关闭物理引擎（保持固定位置）
+            },
+            interaction: {
+              hover: true, // 启用hover交互
+            },
+          }
+
+          // 初始化网络图
+          const container = document.getElementById('mynetwork')
+          const network = new vis.Network(container, data, options)
+
+          // 添加节点hover事件显示坐标
+          network.on('hoverNode', function (params) {
+            const nodeId = params.node
+            const node = data.nodes.get(nodeId)
+            const originalHole = nodes.find((n) => n.id === nodeId)
+
+            // 创建或更新坐标显示
+            let coordDisplay = document.getElementById('coord-display')
+            if (!coordDisplay) {
+              coordDisplay = document.createElement('div')
+              coordDisplay.id = 'coord-display'
+              coordDisplay.style.cssText =
+                'position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.9); padding: 10px; border: 1px solid #ccc; border-radius: 5px; z-index: 1000; font-family: Arial, sans-serif; font-size: 12px;'
+              container.appendChild(coordDisplay)
+            }
+
+            coordDisplay.innerHTML = `
+              <strong>Hole ID: ${nodeId}</strong><br>
+              axis: (${Math.round(node.x)}, ${Math.round(node.y)})<br>
+              raw axis: (${originalHole.x.toFixed(2)}, ${originalHole.y.toFixed(
+              2
+            )})
+            `
+          })
+
+          // 鼠标移出节点时隐藏坐标显示
+          network.on('blurNode', function (params) {
+            const coordDisplay = document.getElementById('coord-display')
+            if (coordDisplay) {
+              coordDisplay.style.display = 'none'
+            }
+          })
+
+          // 添加爆破方向功能
+          addBlastDirection(network, data)
+
+          // 添加地理围栏功能
+          addGeoFence(network, data)
+        } catch (e) {}
+      }
+
+      // 添加爆破方向功能
+      function addBlastDirection(network, data) {
+        // 模拟爆破方向数据（实际应从XML获取）
+        const blastDirections = {
+          1: { angle: 45, strength: 0.8 },
+          2: { angle: 90, strength: 0.6 },
+          3: { angle: 135, strength: 0.9 },
+          4: { angle: 180, strength: 0.7 },
+          5: { angle: 225, strength: 0.8 },
+        }
+
+        // 更新节点样式以显示爆破方向
+        data.nodes.forEach((node) => {
+          const blastData = blastDirections[node.id]
+          if (blastData) {
+            data.nodes.update({
+              id: node.id,
+              color: {
+                background: '#ffeb3b',
+                border: '#ff9800',
+              },
+              title: `爆破方向: ${blastData.angle}°<br>强度: ${blastData.strength}`,
+            })
+          }
+        })
+
+        // 添加爆破方向显示控制
+        const blastToggle = document.createElement('button')
+        blastToggle.textContent = '显示/隐藏爆破方向'
+        blastToggle.style.cssText =
+          'position: absolute; top: 50px; right: 10px; padding: 5px 10px; background: #4CAF50; color: white; border: none; border-radius: 3px; cursor: pointer;'
+        blastToggle.onclick = function () {
+          const nodes = data.nodes.get()
+          nodes.forEach((node) => {
+            const blastData = blastDirections[node.id]
+            if (blastData) {
+              const currentColor = node.color.background
+              const newColor =
+                currentColor === '#ffeb3b' ? '#ffffff' : '#ffeb3b'
+              data.nodes.update({
+                id: node.id,
+                color: {
+                  background: newColor,
+                  border: newColor === '#ffeb3b' ? '#ff9800' : '#ff0000',
+                },
+              })
+            }
+          })
+        }
+        document.getElementById('mynetwork').appendChild(blastToggle)
+      }
+
+      // 添加地理围栏功能
+      function addGeoFence(network, data) {
+        // 创建地理围栏区域
+        const geoFence = {
+          x1: 300,
+          y1: 200,
+          x2: 500,
+          y2: 400,
+        }
+
+        // 检查节点是否在围栏内
+        function isInGeoFence(node) {
+          return (
+            node.x >= geoFence.x1 &&
+            node.x <= geoFence.x2 &&
+            node.y >= geoFence.y1 &&
+            node.y <= geoFence.y2
+          )
+        }
+
+        // 标记围栏内的节点
+        data.nodes.forEach((node) => {
+          if (isInGeoFence(node)) {
+            data.nodes.update({
+              id: node.id,
+              color: {
+                background: '#e91e63',
+                border: '#ad1457',
+              },
+              title: '在安全围栏区域内',
+            })
+          }
+        })
+
+        // 添加围栏显示控制
+        const fenceToggle = document.createElement('button')
+        fenceToggle.textContent = '显示/隐藏地理围栏'
+        fenceToggle.style.cssText =
+          'position: absolute; top: 90px; right: 10px; padding: 5px 10px; background: #2196F3; color: white; border: none; border-radius: 3px; cursor: pointer;'
+        fenceToggle.onclick = function () {
+          const nodes = data.nodes.get()
+          nodes.forEach((node) => {
+            if (isInGeoFence(node)) {
+              const currentColor = node.color.background
+              const newColor =
+                currentColor === '#e91e63' ? '#ffffff' : '#e91e63'
+              data.nodes.update({
+                id: node.id,
+                color: {
+                  background: newColor,
+                  border: newColor === '#e91e63' ? '#ad1457' : '#ff0000',
+                },
+              })
+            }
+          })
+        }
+        document.getElementById('mynetwork').appendChild(fenceToggle)
+      }
+
+      // 启动应用
+      main().catch((error) => {
+        console.error('Application error:', error)
+        alert('加载数据失败，请检查XML文件路径和格式')
+      })
+    </script>
+  </body>
+</html>
